@@ -1,0 +1,50 @@
+/* 
+**************************************** header.EJS file  ***************************************** */
+
+.header {
+  padding: 50px;
+  background-color: #292929;
+}
+
+.logo_img_div {
+  padding: 30px 0px 10px 70px;
+}
+
+/* 
+**************************************** footer.EJS file  ***************************************** */
+
+.footer {
+  margin: 170px 0px 0px 0px;
+  padding: 88px;
+  background-color: #292929;
+}
+
+/* 
+**************************************** login.EJS file  ***************************************** */
+
+.login_form_div {
+  margin: 50px 0px 0px 120px;
+  padding: 10px 0px 0px 0px;
+}
+
+.login_form_div input {
+  width: 75%;
+}
+
+.login_form_div label:after {
+  content: " *";
+  color: red;
+}
+
+.Login_Button {
+  padding: 50px 0px 10px 10px;
+}
+
+.Login_Button button {
+  width: 100px;
+  background-color: #292929;
+}
+
+.Login_Button button:hover {
+  background-color: #4d2727;
+}

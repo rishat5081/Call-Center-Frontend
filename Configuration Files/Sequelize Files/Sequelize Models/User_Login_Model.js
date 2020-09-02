@@ -1,0 +1,126 @@
+const { Sequelize, DataTypes, Model } = require('sequelize'),
+    sequelize = require('../Sequelize Config')
+
+class User_Login extends Model { }
+
+User_Login.init({
+    user_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        validate: {
+            max: 11
+        }
+    },
+    user_full_name: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        autoIncrement: false,
+        ////defaultValue: 'saad sohail'
+    },
+    user_username: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        ////defaultValue: 'saad1234'
+    },
+    user_email: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        ////defaultValue: 'rishat.5081@gmail.com'
+    },
+    user_contact_Number: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        ////defaultValue: 'saad1234'
+    },
+    user_password: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        ////defaultValue: 'saad1234'
+    },
+    //this will take you the table of the database table in which the type of the user is defined....
+    user_Type_user_type_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        ////defaultValue: 'saad1234',
+        references: "user_type",
+        referencesKey: "user_type_id"
+    },
+    //foreign key of the admin who add this user data
+    user_added_Admin_user_added_Admin_id: {
+        type: DataTypes.INTEGER,
+        references: 'user_added_admin',
+        referencesKey: "user_added_Admin_id",
+        allowNull: false,
+        ////defaultValue: 'saad1234'
+    }
+},
+    {
+        freezeTableName: true,
+        sequelize,
+        modelName: 'User_Login',
+        tableName: 'user_information',
+        createdAt: false,
+        updatedAt: false
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+//adding the user data into the database table.... so noice and cleannnnn
+// const aa = User_Login.create({
+//     user_full_name: "Saad", user_username: "usernamee",
+//     user_email: 'rishat.5081@gmail.com', user_contact_Number: '03221', user_password: 'saad1234',
+//     user_Type_user_type_id: 1, user_added_Admin_user_added_Admin_id: 1
+// }).then((res)=>console.log(res)).catch((err)=>console.log(err))
+
+
+
+
+// the defined model is the class itself
+//console.log(User_Login === sequelize.models.User_Login) // true
+
+// let createTable_function = async () => {
+//     await User_Login.sync({ force: true })
+// }
+// createTable_function().then((response) => {
+//     console.log('Response', response)
+// }).catch((error) => {
+//     console.log('Error', error)
+// })
+
+
+// how to insert into Database
+// const abc = User_Login.create({ username: 'SAAAAAAAAAAAAAAAAAAAAAAAAAAAD' })
+// console.log(JSON.stringify(abc, null, 4))
+// console.log(abc.username)
+
+
+//const abc = User_Login.build({ username: 'SAAA.000000000000AD' })
+//console.log(abc instanceof User_Login);
+
+
+
+
+module.exports = User_Login
