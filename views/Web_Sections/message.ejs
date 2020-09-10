@@ -1,7 +1,26 @@
+<script src="/Javascript/jquery-3.5.1.js"></script>
 <%if(messages){ %>
 <% for(const type in messages){%>
-<ul class="alert alert-<%= type %>">
+<% if(messages.error){ %>
+<div class="alert alert-danger" role="alert" id="success-alert">
+    <!-- <button type="button" class="close" data-dismiss="alert">x</button> -->
     <li><%= messages[type] %></li>
+    <script>
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(500);
+        });
+    </script>
+</div>
+<% }else{%>
+<ul class="alert alert-<%= type %>" id="alert-message">
+    <!-- <button type="button" class="close" data-dismiss="alert">x</button> -->
+    <li><%= messages[type] %></li>
+    <script>
+        $("#alert-message").fadeTo(2000, 500).slideUp(500, function () {
+            $("#alert-message").slideUp(500);
+        });
+    </script>
+    <%} %>
     <%} %>
 </ul>
 <%}else { %>
@@ -9,5 +28,3 @@
     This is a dark alert—check it out!
 </div>
 <%}%>
-
-    

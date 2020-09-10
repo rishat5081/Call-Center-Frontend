@@ -1,23 +1,27 @@
 <% include Web_Sections/header.ejs %>
+<title>Login</title>
 <div class="container col-lg-6 col-xl-6 col-md-6 col-sm-6">
+    <h3>Login</h3>
     <div class="align-content-center align-items-center">
         <div class="login_form_div">
-            <% include Web_Sections/message.ejs %>
-            <form action="/login" method="POST">
+
+            <!-- calling the flash messa here  -->
+            <div class="col-lg-9 req.flash_messages_div">
+                <%- messages('Web_Sections/message.ejs',locals)  %>
+            </div>
+            <form action="/login_HomePage" method="GET">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" name="user_loginemail" aria-describedby="emailHelp"
+                    <label for="user_login_email">Email address</label>
+                    <input type="email" class="form-control" name="user_login_email" aria-describedby="emailHelp"
                         placeholder="Enter email" required>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
+                    <label for="user_login_password">Password</label>
                     <input type="password" class="form-control" name="user_login_password" placeholder="Password"
-                        required>
+                        id="user_login_password" required>
+                    <span onclick="show_password()"><img src="/images/show_password.png" width="20px" height="20px"
+                            id="show_password_image"></span>
                 </div>
-                <!-- <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div> -->
                 <div class="Login_Button">
                     <button type="submit" class="btn btn-dark">Login</button>
                 </div>
@@ -26,3 +30,16 @@
     </div>
 </div>
 <% include Web_Sections/footer.ejs %>
+<script>
+    function show_password() {
+        document.getElementById
+        var x = document.getElementById("user_login_password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+
+<!-- efe6582c-0250-45ad-bae0-d66f486b6209 -->

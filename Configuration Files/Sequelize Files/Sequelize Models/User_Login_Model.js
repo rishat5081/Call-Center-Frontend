@@ -43,17 +43,30 @@ User_Login.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         ////defaultValue: 'saad1234',
-        references: "user_type",
-        referencesKey: "user_type_id"
+        references: {
+            model: 'user_type',
+            key: 'user_type_id'
+        }
+        // references: "user_type",
+        // referencesKey: "user_type_id"
     },
     //foreign key of the admin who add this user data
     user_added_Admin_user_added_Admin_id: {
         type: DataTypes.INTEGER,
-        references: 'user_added_admin',
-        referencesKey: "user_added_Admin_id",
+        references: {
+            model: 'user_added_admin',
+            key: 'user_added_Admin_id'
+        },
+        // references: 'user_added_admin',
+        // referencesKey: "user_added_Admin_id",
         allowNull: false,
         ////defaultValue: 'saad1234'
-    }
+    },
+    user_first_time_login: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        ////defaultValue: 'saad1234'
+    },
 },
     {
         freezeTableName: true,
@@ -65,6 +78,23 @@ User_Login.init({
     })
 
 
+// User_Login.findAll({ where: { user_email: "binfarooq@gmail.com" } })
+//     .then((response) => {
+//         console.log(response)
+//     })
+//     .catch((error) => {
+//         console.log(error)
+//     })
+
+
+
+
+// User_Login.findOne({ attributes: ['user_id','user_full_name'], where: { user_id: 0 } })
+// .then((res)=>console.log(res))
+
+// select * from User_Login where user_id = 0 
+// User_Login.findAll({ where: { user_id: 0 } })
+//     .then((res) => console.log(res[0].dataValues))
 
 
 
@@ -82,12 +112,6 @@ User_Login.init({
 
 
 
-
-
-
-
-
-    
 //adding the user data into the database table.... so noice and cleannnnn
 // const aa = User_Login.create({
 //     user_full_name: "Saad", user_username: "usernamee",

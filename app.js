@@ -5,7 +5,7 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
   bodyparser = require('body-parser'),
-  indexRouter = require('./routes/index'),
+  webPages_Routes = require('./routes/webPages_Routes'),
   usersRouter = require('./routes/users'),
   { env } = require('process'),
   passport = require('passport'),
@@ -16,6 +16,10 @@ require('dotenv').config()
 // view engine setup
 app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views/Web_Pages'), path.join(__dirname, 'views/Web_Sections')]);
 app.set('view engine', 'ejs');
+
+//express for the css and bootstrap files
+app.use(express.static(__dirname + '/public'));
+
 
 //setting the morgon for loggs
 app.use(logger('dev'))
@@ -29,21 +33,20 @@ app.use(cookieParser())
 app.use(bodyparser.json())
 app.use(session({
   saveUninitialized: true,
-  secret: 'VOIP',
-  cookie: { secure: false },
+  secret: 'VOIP Call Center',
+  // cookie: { secure: false },
   resave: true
 }))
 
+// app.use(express.session({ cookie: { maxAge: 60000 } }));
 
-app.use(flash())
+
+
 app.use(passport.initialize())
 app.use(passport.session())
 
 
-//express for the css and bootstrap files
-app.use(express.static(__dirname + '/public'));
-
-app.use(require('connect-flash')());
+app.use(flash())
 app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
   next();
@@ -52,17 +55,20 @@ app.use(function (req, res, next) {
 //require('./Configuration Files/Sequelize Files/Sequelize Config')
 // require('./Configuration Files/My Sql/mysql')
 
-app.use(indexRouter)
+app.use(webPages_Routes)
 
 require('./Configuration Files/Sequelize Files/Sequelize Models/User_Login_Model')
 
+//getting user profile controller
+const user_controller = require('./User_Controllers/controller')
+user_controller(app)
 
-app.post('/login', passportJs_File.authenticate('local-login',
+//passport login function
+app.get('/login_HomePage', passportJs_File.authenticate('local-login',
   {
-    successRedirect: '/hello',
-    failureRedirect: '/',
-    failureFlash: true
-
+    successRedirect: '/chnage_Password',
+    failureRedirect: '/login',
+    failureFlash: true,
   })
 )
 
@@ -70,7 +76,21 @@ app.post('/login', passportJs_File.authenticate('local-login',
 
 
 
+// var sequlize  = require('sequelize')
 
+// var connection = new sequlize('voip','root','')
+
+
+// var Article = connection.define('article',{
+//   title:sequlize.STRING,
+//   body:sequlize.STRING
+// })
+
+// connection.sync().then(()=>{
+//   Article.create({
+
+//   })
+// })
 
 
 

@@ -1,8 +1,8 @@
 const { Sequelize } = require('sequelize')
+require('dotenv').config()
 const sequelize = new Sequelize(process.env.database, process.env.user, '', {
     host: process.env.host,
-    dialect: 'mysql',
-    insecureAuth : true
+    dialect: 'mysql'
 });
 try {
     sequelize.authenticate().then((res) => {

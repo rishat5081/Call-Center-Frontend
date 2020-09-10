@@ -7,15 +7,21 @@
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/Javascript/jquery-3.5.1.js"></script>
-    <title>Call Center</title>
 </head>
 
 <body>
     <header class="header col-lg-12 col-xl-12 col-md-12 col-sm-12">
-        
+        <% if(user != 'null' ){ %>
+        <a href="/logOut" type="button" class="btn" id="logOut_btn">Log Out</a>
+        <% } %>
+        <% if(user == 'null' || user){ %>
+        <a href="/login" type="button" class="btn" id="logOut_btn">Log In</a>
+        <a href="/signUp" type="button" class="btn" id="SignUP_btn">Sign Up</a>
+        <% } %>
+
     </header>
     <div class="Logo_Div">
         <div class="logo_img_div">
-            <img src="/images/logo.png" alt="" width="100" height="100">
+            <a href="/"> <img src="/images/logo.png" alt="" width="100" height="100"></a>
         </div>
     </div>
