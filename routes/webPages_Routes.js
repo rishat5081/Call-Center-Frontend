@@ -2,6 +2,7 @@
 const express = require('express'),
   router = express.Router(),
   User_Login = require('../Configuration Files/Sequelize Files/Sequelize Models/User_Login_Model')
+
 //permissions if the user is log in or not.
 var user_logged_In = (req, res, next) => {
   //checking if the connected user IP address
@@ -23,7 +24,7 @@ var not_logged_in = (req, res, next) => {
     next()
   }
   else {
-    res.locals.user = 'null'
+    res.locals.user = 'not logged In'
     next()
   }
 }
@@ -34,6 +35,29 @@ router.get('/', not_logged_in, function (req, res, next) {
   // req.flash('success', 'Flash is back!')
   res.render('homePage')
 })
+/**
+ * Get About us Page Route
+ */
+router.get('/aboutUS', not_logged_in, function (req, res, next) {
+  // req.flash('success', 'Flash is back!')
+  res.render('aboutus')
+})
+/**
+ * Get Contact Us Page Route
+ */
+router.get('/contactUS', not_logged_in, function (req, res, next) {
+  // req.flash('success', 'Flash is back!')
+  res.render('contactus')
+})
+/**
+ * Get Privacy Page Route
+ */
+router.get('/privacy', not_logged_in, function (req, res, next) {
+  // req.flash('success', 'Flash is back!')
+  res.render('privacy')
+})
+
+
 
 
 /* GET Login page. */
@@ -63,4 +87,5 @@ router.get('/chnage_Password', user_logged_In, function (req, res, next) {
 
 
 
-module.exports = router;
+
+module.exports = { router, not_logged_in }

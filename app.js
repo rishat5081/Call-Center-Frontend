@@ -6,7 +6,7 @@ var express = require('express'),
   logger = require('morgan'),
   bodyparser = require('body-parser'),
   webPages_Routes = require('./routes/webPages_Routes'),
-  usersRouter = require('./routes/users'),
+  usersRouter = require('./routes/users_routes'),
   { env } = require('process'),
   passport = require('passport'),
   flash = require('connect-flash'),
@@ -14,11 +14,15 @@ var express = require('express'),
 require('dotenv').config()
 
 // view engine setup
-app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views/Web_Pages'), path.join(__dirname, 'views/Web_Sections')]);
-app.set('view engine', 'ejs');
+app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views/Web_Pages'), 
+                  path.join(__dirname, 'views/Web_Sections'),
+                  path.join(__dirname, 'views/User_Profile')])
+
+//setting ejs as the view engine...
+app.set('view engine', 'ejs')
 
 //express for the css and bootstrap files
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'))
 
 
 //setting the morgon for loggs
@@ -55,7 +59,11 @@ app.use(function (req, res, next) {
 //require('./Configuration Files/Sequelize Files/Sequelize Config')
 // require('./Configuration Files/My Sql/mysql')
 
-app.use(webPages_Routes)
+// web pages routes and rendering the pages of the web pages like home, about , contact
+app.use(webPages_Routes.router)
+
+// user profiles routes like profile,
+app.use(usersRouter)
 
 require('./Configuration Files/Sequelize Files/Sequelize Models/User_Login_Model')
 

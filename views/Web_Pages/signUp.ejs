@@ -5,6 +5,10 @@
     <h3>Sign Up</h3>
     <div class="align-content-center align-items-center">
     </div>
+    <!-- calling the flash messa here  -->
+    <div class="col-lg-9 req.flash_messages_div">
+        <%- messages('Web_Sections/message.ejs',locals)  %>
+    </div>
     <div class="homePage_Div">
         <div class="signUP_text">
             <h5>You can't Sign Up.</h5>

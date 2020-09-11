@@ -3,25 +3,60 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <script src="/Javascript/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="/css/Design.css">
 </head>
 
 <body>
-    <header class="header col-lg-12 col-xl-12 col-md-12 col-sm-12">
-        <% if(user != 'null' ){ %>
-        <a href="/logOut" type="button" class="btn" id="logOut_btn">Log Out</a>
-        <% } %>
-        <% if(user == 'null' || user){ %>
-        <a href="/login" type="button" class="btn" id="logOut_btn">Log In</a>
-        <a href="/signUp" type="button" class="btn" id="SignUP_btn">Sign Up</a>
-        <% } %>
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="p-4 pt-5">
+                <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(/images/logo.png);"></a>
+                <ul class="list-unstyled components mb-5">
+                    <li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle">Home</a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li>
+                                <a href="#">Home 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Home 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Home 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle">Pages</a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li>
+                                <a href="#">Page 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Page 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Page 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Portfolio</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-    </header>
-    <div class="Logo_Div">
-        <div class="logo_img_div">
-            <a href="/"> <img src="/images/logo.png" alt="" width="100" height="100"></a>
-        </div>
-    </div>
+        <!-- Main logo of the Call center -->
+        <img src="/images/logo.png" alt="Main Logo" id="mainLogo">

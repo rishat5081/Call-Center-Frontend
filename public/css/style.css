@@ -1,42 +1,10 @@
 /* 
 **************************************** header.EJS file  ***************************************** */
 
-.header {
-  padding: 50px;
-  background-color: #292929;
-}
-
-.logo_img_div {
-  padding: 30px 0px 10px 70px;
-}
-
-#logOut_btn {
-  width: 5%;
-  padding: 8px;
-  background-color: #2d9ad1;
-  color: #292929;
-  margin-top: -20px;
-  float: right;
-}
-
-#logOut_btn:hover {
-  color: #fff;
-  background: #292929;
-}
-
-#SignUP_btn {
-  width: 5%;
-  padding: 8px;
-  background-color: #2d9ad1;
-  color: #292929;
-  margin-top: -20px;
-  margin-right: 20px;
-  float: right;
-}
-
-#SignUP_btn:hover {
-  color: #fff;
-  background: #292929;
+#mainLogo {
+  margin: 45px 0px 0px 15px;
+  width: 70px;
+  height:70px;
 }
 
 /* 
@@ -99,8 +67,53 @@
   padding: 0px 0px 20px 0px;
 }
 
+.Homecontainer {
+  width: 100%;
+  margin: 50px 0px 0px 450px;
+  text-align: justify;
+  padding: 10px 0px 0px 0px;
+}
+
+.Homecontainer h3 {
+  text-align: center;
+  margin: 0px 0px 40px 0px;
+}
+
 /* 
 **************************************** Sign Up Page .EJS file  ***************************************** */
-.signUP_text{
+
+.signUP_text {
   margin: 50px 0px 10px 0px;
 }
+
+.navigationBar {
+  width: 20%;
+  float: right;
+}
+
+/* 
+**************************************** Sign Up Page .EJS file  ***************************************** */
+
+.user_Profile {
+  margin: 50px 0px 10px 0px;
+}
+
+/* ---------------------------------------------------- */
+
+/* ---------------------------------------------------- */
+
+/* ---------------------------------------------------- */
+
+/* ---------------------------------------------------- */
+
+/* ---------------------------------------------------- */
+
+/* ---------------------------------------------------- */
+
+/* ---------------------------------------------------- */
+
+/* ---------------------------------------------------- */
+
+/* ---------------------------------------------------- */
+
+/* ---------------------------------------------------- */
