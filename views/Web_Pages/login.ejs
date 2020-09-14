@@ -1,34 +1,80 @@
 <% include Web_Sections/header.ejs %>
 <title>Login</title>
-<div class="container col-lg-6 col-xl-6 col-md-6 col-sm-6">
-    <h3>Login</h3>
-    <div class="align-content-center align-items-center">
-        <div class="login_form_div">
+<!-- <div id="content" class="p-4 p-md-5 col-lg-7">
 
-            <!-- calling the flash messa here  -->
-            <div class="col-lg-9 req.flash_messages_div">
-                <%- messages('Web_Sections/message.ejs',locals)  %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                <img src="/images/right_arrow.png" alt="" srcset="" width="20px" height="20px">
+                <span class="sr-only">Toggle Menu</span>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <!-- Navigation bar for right side of the page --
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="aboutus">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    % if(user){ %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    % } %>
+                </ul>
             </div>
-            <form action="/login_HomePage" method="GET">
-                <div class="form-group">
-                    <label for="user_login_email">Email address</label>
-                    <input type="email" class="form-control" name="user_login_email" aria-describedby="emailHelp"
-                        placeholder="Enter email" required>
-                </div>
-                <div class="form-group">
-                    <label for="user_login_password">Password</label>
-                    <input type="password" class="form-control" name="user_login_password" placeholder="Password"
-                        id="user_login_password" required>
-                    <span onclick="show_password()"><img src="/images/show_password.png" width="20px" height="20px"
-                            id="show_password_image"></span>
-                </div>
-                <div class="Login_Button">
-                    <button type="submit" class="btn btn-dark">Login</button>
-                </div>
-            </form>
         </div>
-    </div>
+    </nav> -->
+
+
+<h2 class="mb-4">Login</h2>
+
+<div class="col-6">
+    <%- messages('Web_Sections/message.ejs',locals)  %>
+    <form action="/login_HomePage" method="GET">
+        <div class="form-group">
+            <label for="user_login_email">Email address</label>
+            <input type="email" class="form-control" name="user_login_email" aria-describedby="emailHelp"
+                placeholder="Enter email" required>
+        </div>
+        <div class="form-group">
+            <label for="user_login_password">Password</label>
+            <input type="password" class="form-control" name="user_login_password" placeholder="Password"
+                id="user_login_password" required>
+            <img src="/images/show_password.png" width="20px" height="20px" onclick="show_password()"
+                id="show_password_image">
+        </div>
+        <div class="Login_Button">
+            <button type="submit" class="btn btn-dark">Login</button>
+        </div>
+    </form>
 </div>
+</div>
+
+
+
+<!-- </div> -->
+
+<!-- </div>
+    </div>
+</div> -->
 <% include Web_Sections/footer.ejs %>
 <script>
     function show_password() {

@@ -2,7 +2,7 @@
 **************************************** header.EJS file  ***************************************** */
 
 #mainLogo {
-  margin: 45px 0px 0px 15px;
+  margin: 45px 0px 0px 45px;
   width: 70px;
   height:70px;
 }
@@ -44,7 +44,7 @@
 .Login_Button button {
   width: 100px;
   text-align-last: center;
-  margin: 0px 0px 0px 220px;
+  margin: 0px 0px 0px 170px;
   background-color: #292929;
 }
 
@@ -57,9 +57,9 @@
 }
 
 #show_password_image {
-  margin: -75px 0px -10px 550px;
+  position: relative;
+  margin: -75px 0px -10px 430px;
 }
-
 /* 
 **************************************** Home Page .EJS file  ***************************************** */
 

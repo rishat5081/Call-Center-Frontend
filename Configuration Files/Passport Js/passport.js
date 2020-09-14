@@ -54,19 +54,17 @@ function authenticate_login(req, email, password, done) {
      //start of validation of the user
      user_Data_Response
           .then((response) => {
-             //  console.log(response)
+               //  console.log(response)
                if (!validate_Password(password, response[0].dataValues.user_password))
                     return done(null, false, req.flash('danger', 'Invalid Password'))
 
-               if (response[0].dataValues.user_first_time_login)
-                    return done(null, response[0].dataValues, req.flash('success', 'Kindly Chnage Your Password'))
+               else if (response[0].dataValues.user_first_time_login) {
+                    User_login_model.update({ user_first_time_login: 0 }, { where: { user_id: response[0].dataValues.user_id } })
+                    return done(null, response[0].dataValues, req.flash('success', 'You have logged in for first time. Kindly Chnage Your Password'))
+               }
 
-               if (validate_Password(password, response[0].dataValues.user_password))
+               else if (validate_Password(password, response[0].dataValues.user_password))
                     return done(null, response[0].dataValues)
-
-
-               // console.log(response[0].dataValues.user_email)
-               // console.log(response[0].dataValues.user_password)
           })
           .catch((err) => {
                req.flash('danger', 'Sorry! Something Went Wrong')

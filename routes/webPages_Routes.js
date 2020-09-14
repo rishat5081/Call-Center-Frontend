@@ -80,7 +80,7 @@ router.get('/logOut', user_logged_In, function (req, res, next) {
 })
 
 //change password route
-router.get('/chnage_Password', user_logged_In, function (req, res, next) {
+router.get('/change_Password', user_logged_In, function (req, res, next) {
 
   res.render('change_Password', { user_id: req.session.passport.user.user_id })
 })

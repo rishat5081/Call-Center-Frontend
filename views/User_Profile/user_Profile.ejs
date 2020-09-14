@@ -1,128 +1,27 @@
- <% include Web_Sections/header.ejs %> 
-
-<!-- 
-<div class="container col-lg-6 col-xl-6 col-md-6 col-sm-6">
-    <h3> Dashboard </h3>
-    <div class="align-content-center align-items-center">
-        <div class="homePage_Div">
-            <div class="user_Profile">
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <label for=""></label>
-                        <input type="text" class="form-control" name aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos distinctio nobis sed
-                        consequatur
-                        recusandae qui aliquam quibusdam aspernatur hic, repellendus inventore repellat eum maiores cum
-                        quam
-                        provident ipsam voluptatum accusamus.</p>
-
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos distinctio nobis sed
-                        consequatur
-                        recusandae qui aliquam quibusdam aspernatur hic, repellendus inventore repellat eum maiores cum
-                        quam
-                        provident ipsam voluptatum accusamus.</p>
-
-                    <div id="mySidenav" class="sidenav">
-                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="#">About</a>
-                        <a href="#">Services</a>
-                        <a href="#">Clients</a>
-                        <a href="#">Contact</a>
-                    </div>
-                    <script>
-                        var toggleWidth = 0
-                        $('#menu-toggle').click((e) => {
-                            if ($('#mySidenav').width() === 250) {
-                                toggleWidth = 0
-                                $('#mySidenav').width(toggleWidth)
-                            }
-                            else {
-                                toggleWidth = 250
-                                $('#mySidenav').width(toggleWidth)
-                            }
-                        })
-                    </script>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos distinctio nobis sed
-                        consequatur
-                        recusandae qui aliquam quibusdam aspernatur hic, repellendus inventore repellat eum maiores cum
-                        quam
-                        provident ipsam voluptatum accusamus.</p>
-                </div>
-            </div>
-        </div>
-    </div>
- </div> -->
+<% include Web_Sections/header.ejs %>
 
 
 
 
- 
-      
-        <!-- Page Content  -->
-        <div id="content" class="p-4 p-md-5">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-                <div class="container-fluid">
-
-                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                        <img src="/images/right_arrow.png" alt="" srcset="" width="20px" height="20px">
-                        <span class="sr-only">Toggle Menu</span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="aboutus">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Portfolio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
-                            </li>
-                            <% if(user){ %>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Portfolio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
-                            </li>
-                            <% } %>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+<h2 class="mb-4">Sidebar #01</h2>
+<%- messages('Web_Sections/message.ejs',locals)  %>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+    dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+    commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+    id est
+    laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+    dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+    commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+    id est
+    laborum.</p>
+</div>
 
 
-
-            <h2 class="mb-4">Sidebar #01</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                id est
-                laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                id est
-                laborum.</p>
-        </div>
- 
-
-    <% include Web_Sections/footer.ejs %> -->
+<% include Web_Sections/footer.ejs %>

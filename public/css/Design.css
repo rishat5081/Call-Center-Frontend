@@ -10032,7 +10032,7 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 #sidebar {
   min-width: 300px;
   max-width: 300px;
-  background: #579cca;
+  background: #2a2b2c;
   color: #fff;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
@@ -10044,6 +10044,7 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 }
 
 #sidebar .logo {
+  border: 1px solid #279CD8;
   display: block;
   width: 120px;
   height: 120px;
@@ -10078,12 +10079,12 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 }
 
 #sidebar ul li a:hover {
-  color: #f8b739;
+  color: #279cd8;
 }
 
 #sidebar ul li.active>a {
   background: transparent;
-  color: #f8b739;
+  color: #279CD8;
 }
 
 @media (max-width: 991.98px) {

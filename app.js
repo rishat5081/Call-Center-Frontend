@@ -74,7 +74,7 @@ user_controller(app)
 //passport login function
 app.get('/login_HomePage', passportJs_File.authenticate('local-login',
   {
-    successRedirect: '/chnage_Password',
+    successRedirect: '/change_Password',
     failureRedirect: '/login',
     failureFlash: true,
   })
