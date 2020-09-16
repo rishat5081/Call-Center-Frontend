@@ -4,7 +4,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
+/* 
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -58,11 +58,11 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  /* color: #212529; */
+  /* color: #212529; *
   text-align: left;
-  /* background-color: #fff; */
-}
-
+  /* background-color: #fff; *
+} 
+/* 
 [tabindex="-1"]:focus {
   outline: 0 !important;
 }
@@ -357,8 +357,8 @@ h5, .h5 {
 
 h6, .h6 {
   font-size: 1rem;
-}
-
+} */
+/* 
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
@@ -893,8 +893,8 @@ pre code {
   .col-sm-11 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 91.66667%;
-    flex: 0 0 91.66667%;
-    max-width: 91.66667%;
+    flex: 0 0 91.66667%; */
+    /* max-width: 91.66667%;
   }
   .col-sm-12 {
     -webkit-box-flex: 0;
@@ -1013,9 +1013,9 @@ pre code {
   .offset-sm-11 {
     margin-left: 91.66667%;
   }
-}
+} */
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .col-md {
     -ms-flex-preferred-size: 0;
     flex-basis: 0;
@@ -1616,8 +1616,8 @@ pre code {
   .offset-xl-11 {
     margin-left: 91.66667%;
   }
-}
-
+} */
+/* 
 .table {
   width: 100%;
   margin-bottom: 1rem;
@@ -1899,8 +1899,8 @@ pre code {
 
 .table-responsive>.table-bordered {
   border: 0;
-}
-
+} */
+/* 
 .form-control {
   display: block;
   width: 100%;
@@ -2036,9 +2036,9 @@ select.form-control:focus::-ms-value {
 
 select.form-control[size], select.form-control[multiple] {
   height: auto;
-}
+} */
 
-textarea.form-control {
+/* textarea.form-control {
   height: auto;
 }
 
@@ -2225,9 +2225,9 @@ textarea.form-control {
   margin-top: 0.25rem;
   font-size: 80%;
   color: #dc3545;
-}
+} */
 
-.invalid-tooltip {
+/* .invalid-tooltip {
   position: absolute;
   top: 100%;
   z-index: 5;
@@ -2326,9 +2326,9 @@ textarea.form-control {
 
 .was-validated .custom-file-input:invalid~.invalid-feedback, .was-validated .custom-file-input:invalid~.invalid-tooltip, .custom-file-input.is-invalid~.invalid-feedback, .custom-file-input.is-invalid~.invalid-tooltip {
   display: block;
-}
+} */
 
-.was-validated .custom-file-input:invalid:focus~.custom-file-label, .custom-file-input.is-invalid:focus~.custom-file-label {
+/* .was-validated .custom-file-input:invalid:focus~.custom-file-label, .custom-file-input.is-invalid:focus~.custom-file-label {
   border-color: #dc3545;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
@@ -2349,9 +2349,9 @@ textarea.form-control {
 
 .form-inline .form-check {
   width: 100%;
-}
+} */
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .form-inline label {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -9929,7 +9929,7 @@ a.text-dark:hover, a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
-}
+} */
 
 body {
   font-family: "Poppins", Arial, sans-serif;
@@ -10135,6 +10135,11 @@ a[data-toggle="collapse"] {
 .btn.btn-primary:hover, .btn.btn-primary:focus {
   background: #292929 !important;
   border-color: #292929 !important;
+}
+
+.btn.btn-primary:focus::after {
+  background: #279cd8;
+  border-color: #279cd8;
 }
 
 .footer p {
