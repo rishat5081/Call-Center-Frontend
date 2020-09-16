@@ -58,9 +58,9 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #212529;
+  /* color: #212529; */
   text-align: left;
-  background-color: #fff;
+  /* background-color: #fff; */
 }
 
 [tabindex="-1"]:focus {
@@ -9936,7 +9936,7 @@ body {
   font-size: 14px;
   line-height: 1.8;
   font-weight: normal;
-  background: #fafafa;
+  /* background: #fafafa; */
   color: gray;
 }
 
@@ -10003,12 +10003,13 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 
 .navbar {
   padding: 15px 10px;
-  background: #fff;
+  background: #ffffff;
+  box-shadow: 3px 3px 10px gray;
   border: none;
   border-radius: 0;
   margin-bottom: 40px;
-  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  /* -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); */
 }
 
 .navbar-btn {

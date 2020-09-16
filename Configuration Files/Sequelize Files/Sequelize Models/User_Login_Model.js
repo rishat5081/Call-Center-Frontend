@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes, Model } = require('sequelize'),
     sequelize = require('../Sequelize Config')
+const User_call_Center_Info = require('./user_call_center_info')
 
 class User_Login extends Model { }
 
@@ -15,7 +16,7 @@ User_Login.init({
     user_full_name: {
         type: DataTypes.TEXT,
         allowNull: false,
-        autoIncrement: false,
+        // autoIncrement: false,
         ////defaultValue: 'saad sohail'
     },
     user_username: {
@@ -42,6 +43,10 @@ User_Login.init({
     user_Type_user_type_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+            max: 11,
+            isNumeric: true
+        },
         ////defaultValue: 'saad1234',
         references: {
             model: 'user_type',
@@ -51,7 +56,7 @@ User_Login.init({
         // referencesKey: "user_type_id"
     },
     //foreign key of the admin who add this user data
-    user_added_Admin_user_added_Admin_id: {
+    user_added_Admin_id: {
         type: DataTypes.INTEGER,
         references: {
             model: 'user_added_admin',
@@ -76,6 +81,30 @@ User_Login.init({
         createdAt: false,
         updatedAt: false
     })
+
+// one to many relationship 
+User_Login.hasMany(User_call_Center_Info, { foreignKey: 'user_id' })
+
+User_call_Center_Info.belongsTo(User_Login, { foreignKey: 'user_id', targetKey: "user_id" })
+
+
+// fetching the results of the data of one to many relationship tables
+
+// User_call_Center_Info.findAll({
+//     include: [{
+//         model: User_Login,
+//         required: true
+//     }], where: { "user_id": 1 }
+// }).then((res) => console.log(res[0].dataValues))
+
+
+
+
+
+
+
+
+
 
 
 // User_Login.findAll({ where: { user_email: "binfarooq@gmail.com" } })
@@ -116,7 +145,7 @@ User_Login.init({
 // const aa = User_Login.create({
 //     user_full_name: "Saad", user_username: "usernamee",
 //     user_email: 'rishat.5081@gmail.com', user_contact_Number: '03221', user_password: 'saad1234',
-//     user_Type_user_type_id: 1, user_added_Admin_user_added_Admin_id: 1
+//     user_Type_user_type_id: 1, user_added_Admin_id: 1
 // }).then((res)=>console.log(res)).catch((err)=>console.log(err))
 
 

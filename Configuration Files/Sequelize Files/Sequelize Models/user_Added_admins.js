@@ -18,13 +18,13 @@ user_added_Admins.init({
         type: DataTypes.TEXT,
         allowNull: false,
         autoIncrement: false,
-        defaultValue: 'Admin saad sohail'
+        // defaultValue: 'Admin saad sohail'
     },
     user_added_Admin_email: {
         type: DataTypes.TEXT,
         allowNull: false,
         autoIncrement: false,
-        defaultValue: 'saadsohail@gmial.com'
+        // defaultValue: 'saadsohail@gmial.com'
     }
 },
     {

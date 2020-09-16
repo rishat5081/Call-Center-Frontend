@@ -3,8 +3,55 @@
 
 
 
-<h2 class="mb-4">Sidebar #01</h2>
+<h2 class="mb-4">My Profile</h2>
 <%- messages('Web_Sections/message.ejs',locals)  %>
+<div class="card" id="call_Center_info_div">
+    <h5 class="card-header" id="call_center_name"><%=response.callCenterName %></h5>
+    <div class="card-body">
+        <div class="one">
+            <div class="second">
+                <h6 class="card-title">No of Seat : <%=response.no_Of_Seat %></h6>
+                <h6 class="card-title">Compaing : <%=response.nameofCompaing %> </h6>
+            </div>
+
+        </div>
+
+        <h6 class="card-title">Name of Country : <%=response.nameOfCountry %></h6>
+        <h6 class="card-title">Inbound / Outbound : <%=response.inbound_outbound_select %></h6>
+        <h6 class="card-title">No. of CallBack : <%=response.numberOf_Callback %></h6>
+        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+</div>
+
+
+
+
+
+<p><%=response.user_call_center_request_id %> </p>
+<p> </p>
+<p> </p>
+<p></p>
+<p> </p>
+<p><%=response.inbound_outbound_select %> </p>
+<p><%=response.inbound_outbound_select %> </p>
+<!-- %for (const iterator in response.User_Login.dataValues) { %> -->
+<!-- <p>%=iterator %> </p> -->
+<!-- %} %> -->
+
+
+<p><%=response.User_Login.dataValues.user_id %> </p>
+
+
+
+
+
+<!-- <script>
+    var promise = new Promise('%=response %>')
+    // console.log(promise)
+    promise.then((res) => console.log(res))
+
+</script> -->
+
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
     dolore
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
