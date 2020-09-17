@@ -28,6 +28,12 @@ router.get('/user_Profile', middleWares_Fucntions.not_logged_in, function (req, 
 
 })
 
+//change password route
+router.get('/change_Password',middleWares_Fucntions.user_logged_In, function (req, res, next) {
+
+  res.render('change_Password', { user_id: req.session.passport.user.user_id })
+})
+
 
 
 // User_call_Center_Info.findAll({

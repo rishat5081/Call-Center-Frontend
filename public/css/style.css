@@ -58,9 +58,11 @@
 
 #show_password_image {
   position: relative;
-  margin: -75px 0px -10px 430px;
+  margin: -75px 0px -10px 360px;
 }
-
+.loginHeading{
+  text-align: center;
+}
 /* 
 **************************************** Home Page .EJS file  ***************************************** */
 
@@ -100,7 +102,7 @@
 }
 
 #call_Center_info_div {
-  margin: 20px 0px 20px 0px;
+  margin: 20px 0px 40px 0px;
   text-align: justify;
 }
 
@@ -122,6 +124,52 @@
 
 .textArea_box_card {
   box-shadow: 3px 3px 10px gray;
+}
+
+.textArea_userProfile {
+  padding: 30px;
+  box-shadow: 3px 3px 10px gray;
+}
+
+#edit_field_icon {
+  float: right;
+}
+
+/* -------------------------Modal to edit the input fields--------------------------- */
+
+#change_fieldsModal {
+  align-items: center;
+  margin: 150px 0px 0px 0px;
+  width: 100%;
+}
+
+#change_input_user_profile_modalbody {
+  padding: 30px;
+}
+
+#modal_save_btn {
+  background-color: #279CD8 !important;
+  color: #292929 !important;
+  font-weight: 600;
+}
+
+#modal_save_btn:hover {
+  color: #279CD8 !important;
+  background-color: #292929 !important;
+  font-weight: 600;
+}
+
+#modal_close_btn:hover {
+  background-color: #279CD8 !important;
+  color: #292929 !important;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+#modal_close_btn{
+  /* background-color: #279CD8 !important; */
+  color: #279CD8 !important;
+  font-weight: 600;
+  border: 1px solid transparent;
 }
 
 /* .one {

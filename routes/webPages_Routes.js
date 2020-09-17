@@ -79,13 +79,8 @@ router.get('/logOut', user_logged_In, function (req, res, next) {
   res.redirect('/login')
 })
 
-//change password route
-router.get('/change_Password', user_logged_In, function (req, res, next) {
-
-  res.render('change_Password', { user_id: req.session.passport.user.user_id })
-})
 
 
 
 
-module.exports = { router, not_logged_in }
+module.exports = { router, not_logged_in, user_logged_In }

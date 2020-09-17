@@ -44,28 +44,31 @@
     </nav> -->
 
 
-<h2 class="mb-4">Login</h2>
+
 
 <div class="col-6">
     <%- messages('Web_Sections/message.ejs',locals)  %>
-    <form action="/login_HomePage" method="GET">
-        <div class="form-group">
-            <label for="user_login_email">Email address</label>
-            <input type="email" class="form-control" name="user_login_email" aria-describedby="emailHelp"
-                placeholder="Enter email" required>
+    <div class="card" id="call_Center_info_div">
+        <div class="textArea_userProfile">
+            <h2 class="mb-4 loginHeading">Login</h2>
+            <form action="/login_HomePage" method="GET">
+                <div class="form-group">
+                    <label for="user_login_email">Email address</label>
+                    <input type="email" class="form-control" name="user_login_email" aria-describedby="emailHelp"
+                        placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label for="user_login_password">Password</label>
+                    <input type="password" class="form-control" name="user_login_password" placeholder="Password"
+                        id="user_login_password" required> <img src="/images/show_password.png" width="20px"
+                        height="20px" onclick="show_password()" id="show_password_image">
+                </div>
+                <div class="Login_Button">
+                    <button type="submit" class="btn btn-dark">Login</button>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="user_login_password">Password</label>
-            <input type="password" class="form-control" name="user_login_password" placeholder="Password"
-                id="user_login_password" required>
-            <img src="/images/show_password.png" width="20px" height="20px" onclick="show_password()"
-                id="show_password_image">
-        </div>
-        <div class="Login_Button">
-            <button type="submit" class="btn btn-dark">Login</button>
-        </div>
-    </form>
-</div>
+    </div>
 </div>
 
 
