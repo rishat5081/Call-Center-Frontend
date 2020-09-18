@@ -29,9 +29,17 @@ router.get('/user_Profile', middleWares_Fucntions.not_logged_in, function (req, 
 })
 
 //change password route
-router.get('/change_Password',middleWares_Fucntions.user_logged_In, function (req, res, next) {
+router.get('/change_Password', middleWares_Fucntions.user_logged_In, function (req, res, next) {
 
   res.render('change_Password', { user_id: req.session.passport.user.user_id })
+})
+
+
+// Manage access of the DID numbers.....
+// Allow the employees about the did routes
+router.get('/call_center_manage_access', middleWares_Fucntions.user_logged_In, function (req, res, next) {
+
+  res.render('call_center_manage_access', { user_id: req.session.passport.user.user_id, number: 05})
 })
 
 

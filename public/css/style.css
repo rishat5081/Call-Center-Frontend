@@ -60,9 +60,11 @@
   position: relative;
   margin: -75px 0px -10px 360px;
 }
-.loginHeading{
+
+.loginHeading {
   text-align: center;
 }
+
 /* 
 **************************************** Home Page .EJS file  ***************************************** */
 
@@ -106,15 +108,15 @@
   text-align: justify;
 }
 
+.textArea_userProfile {
+  padding: 30px;
+  box-shadow: 3px 3px 10px gray;
+}
+
 .card-header {
   background-color: #ffffff !important;
   /* border: 1px solid #292929 !important; */
   /* box-shadow: 10px 10px #292929; */
-}
-
-.card {
-  /* border: 1px solid #292929 !important; */
-  box-shadow: 3px 3px 10px gray;
 }
 
 .card-body h6 {
@@ -126,13 +128,17 @@
   box-shadow: 3px 3px 10px gray;
 }
 
-.textArea_userProfile {
-  padding: 30px;
-  box-shadow: 3px 3px 10px gray;
+#call_center_name {
+  float: left;
 }
 
 #edit_field_icon {
+  padding: 10px;
   float: right;
+}
+
+.image_edit {
+  width: 50%;
 }
 
 /* -------------------------Modal to edit the input fields--------------------------- */
@@ -165,12 +171,15 @@
   font-weight: 600;
   border: 1px solid transparent;
 }
-#modal_close_btn{
+
+#modal_close_btn {
   /* background-color: #279CD8 !important; */
   color: #279CD8 !important;
   font-weight: 600;
   border: 1px solid transparent;
 }
+
+/* side by side div css */
 
 /* .one {
   display: table;
@@ -183,6 +192,39 @@
   display: table-cell;
 } */
 
-/* ---------------------------------------------------- */
+/* ----------------------Manage Access Tab ..... call_center_manage_access.EJS------------------------------ */
+
+#manageAccess_table {
+  margin: 20px 0px 40px 0px;
+  text-align: justify;
+  width: 100%;
+}
+
+.textArea_ManageAccess {
+  padding: 30px;
+  box-shadow: 3px 3px 10px gray;
+}
+
+.number_Of_Cells {
+  float: right;
+  width: 30%;
+  text-align: center;
+  padding: 20px;
+  margin: 0px 0px 20px 0px;
+  box-shadow: 3px 3px 10px gray;
+  display: inline;
+}
+
+.number_Of_Cells h5 {
+  float: left;
+}
+
+#add_row_icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30px;
+  height: 30px;
+}
 
 /* ---------------------------------------------------- */
