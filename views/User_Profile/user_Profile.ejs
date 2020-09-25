@@ -10,7 +10,7 @@
 </div>
 <div class="card textArea_userProfile" id="call_Center_info_div">
     <div class="call_CenterName">
-        <h5 class="card-header" id="call_center_name"><%=response.callCenterName %> </h5>
+        <h5 class="card-header" id="call_center_name"><%=response.call_cent_Name %> </h5>
 
         <img id="edit_field_icon" type="button" src="/images/User_Profile_icons/edit.png" data-toggle="modal"
             data-target="#change_fieldsModal">
@@ -19,12 +19,13 @@
         <div class="one">
             <div class="second">
                 <h6 class="card-title">No of Seat : <%=response.no_Of_Seat %></h6>
-                <h6 class="card-title">Compaing : <%=response.nameofCompaing %> </h6>
+                <h6 class="card-title">Compaign : <%= response.call_center_compaign_infos[0].dataValues.campaign_name %> </h6>
             </div>
         </div>
 
-        <h6 class="card-title">Name of Country : <%=response.nameOfCountry %></h6>
-        <h6 class="card-title">Inbound / Outbound : <%=response.inbound_outbound_select %></h6>
+        <h6 class="card-title">Name of Country : <%= response.call_center_compaign_infos[0].dataValues.campaign_country %>   </h6>
+        <h6 class="card-title">Compaign Started At : <%= response.call_center_compaign_infos[0].dataValues.campaign_start_Date %>   </h6>
+        <h6 class="card-title">Inbound / Outbound : <%=response.inbound_outbound %></h6>
         <h6 class="card-title">No. of CallBack : <%=response.numberOf_Callback %></h6>
         <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
     </div>
@@ -50,6 +51,8 @@
             laborum.</p>
     </div>
 </div>
+<!-- res[0].call_center_compaign_infos[0].dataValues.campaign_id -->
+<!-- %= response.call_center_compaign_infos[0].dataValues.campaign_id %> -->
 
 <!-- Vertically centered modal -->
 <!-- <div class="card" id="call_Center_info_div"> -->
@@ -78,6 +81,7 @@
         </div>
     </div>
 </div>
+
 
 
 <script>

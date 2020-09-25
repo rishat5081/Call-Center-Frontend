@@ -173,7 +173,7 @@
 }
 
 #modal_close_btn {
-  /* background-color: #279CD8 !important; */
+  background-color: #292929 !important;
   color: #279CD8 !important;
   font-weight: 600;
   border: 1px solid transparent;
@@ -192,7 +192,7 @@
   display: table-cell;
 } */
 
-/* ----------------------Manage Access Tab ..... call_center_manage_access.EJS------------------------------ */
+/* ----------------------Manage Access Tab ..... call_center_manage_DID_access.EJS------------------------------ */
 
 #manageAccess_table {
   margin: 20px 0px 40px 0px;
@@ -226,5 +226,22 @@
   width: 30px;
   height: 30px;
 }
+
+#manage_did_access_modal {
+  padding: 20px;
+}
+
+#manage_did_access_modal_body {
+  padding: 30px;
+  font-weight: 600;
+}
+
+#manage_did_access_modal_body small{
+  font-size: small;
+  font-style: italic;
+  font-weight: 600;
+}
+
+
 
 /* ---------------------------------------------------- */

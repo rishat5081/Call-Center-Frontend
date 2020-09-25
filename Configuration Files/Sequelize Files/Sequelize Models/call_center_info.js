@@ -1,10 +1,11 @@
-const { Sequelize, DataTypes, Model } = require('sequelize'),
+const { DataTypes, Model } = require('sequelize'),
     sequelize = require('../Sequelize Config')
 
-class User_call_Center_Info extends Model { }
 
-User_call_Center_Info.init({
-    user_call_center_request_id: {
+class call_Center_Info extends Model { }
+
+call_Center_Info.init({
+    call_cent_id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -13,7 +14,7 @@ User_call_Center_Info.init({
             isNumeric: true
         }
     },
-    callCenterName: {
+    call_cent_Name: {
         type: DataTypes.TEXT,
         allowNull: true
     },
@@ -25,19 +26,11 @@ User_call_Center_Info.init({
             isNumeric: true
         }
     },
-    nameofCompaing: {
+    inbound_outbound: {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    nameOfCountry: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    inbound_outbound_select: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    callback_Dialing_YES_checkBox: {
+    callback_dialing: {
         type: DataTypes.TINYINT,
         allowNull: false,
         autoIncrement: false,
@@ -57,7 +50,7 @@ User_call_Center_Info.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'user_information',
+            model: 'call_cent_user_info',
             key: 'user_id'
         },
         validate: {
@@ -68,11 +61,13 @@ User_call_Center_Info.init({
 }, {
     freezeTableName: true,
     sequelize,
-    modelName: 'User_call_Center_Info',
-    tableName: 'user_call_center_info',
+    modelName: 'call_Center_Info',
+    tableName: 'call_center_info',
     createdAt: false,
     updatedAt: false
 })
 
 
-module.exports = User_call_Center_Info
+
+
+module.exports = call_Center_Info

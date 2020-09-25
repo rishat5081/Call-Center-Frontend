@@ -1,10 +1,10 @@
-const { Sequelize, DataTypes, Model } = require('sequelize'),
+const { DataTypes, Model } = require('sequelize'),
     sequelize = require('../Sequelize Config')
-const User_call_Center_Info = require('./user_call_center_info')
+const User_call_Center_Info = require('./call_center_info')
 
-class User_Login extends Model { }
+class User_Info extends Model { }
 
-User_Login.init({
+User_Info.init({
     user_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -16,76 +16,53 @@ User_Login.init({
     user_full_name: {
         type: DataTypes.TEXT,
         allowNull: false,
-        // autoIncrement: false,
-        ////defaultValue: 'saad sohail'
     },
     user_username: {
         type: DataTypes.TEXT,
         allowNull: false,
-        ////defaultValue: 'saad1234'
     },
     user_email: {
         type: DataTypes.TEXT,
         allowNull: false,
-        ////defaultValue: 'rishat.5081@gmail.com'
     },
     user_contact_Number: {
         type: DataTypes.TEXT,
         allowNull: false,
-        ////defaultValue: 'saad1234'
     },
     user_password: {
         type: DataTypes.TEXT,
         allowNull: false,
-        ////defaultValue: 'saad1234'
-    },
-    //this will take you the table of the database table in which the type of the user is defined....
-    user_Type_user_type_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            max: 11,
-            isNumeric: true
-        },
-        ////defaultValue: 'saad1234',
-        references: {
-            model: 'user_type',
-            key: 'user_type_id'
-        }
-        // references: "user_type",
-        // referencesKey: "user_type_id"
     },
     //foreign key of the admin who add this user data
-    user_added_Admin_id: {
+    admin_id: {
         type: DataTypes.INTEGER,
         references: {
-            model: 'user_added_admin',
-            key: 'user_added_Admin_id'
+            model: 'admin_info',
+            key: 'admin_id'
         },
-        // references: 'user_added_admin',
-        // referencesKey: "user_added_Admin_id",
         allowNull: false,
-        ////defaultValue: 'saad1234'
     },
-    user_first_time_login: {
+    user_first_login: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        ////defaultValue: 'saad1234'
     },
 },
     {
         freezeTableName: true,
         sequelize,
-        modelName: 'User_Login',
-        tableName: 'user_information',
+        modelName: 'User_Info',
+        tableName: 'call_cent_user_info',
         createdAt: false,
         updatedAt: false
     })
 
-// one to many relationship 
-User_Login.hasMany(User_call_Center_Info, { foreignKey: 'user_id' })
 
-User_call_Center_Info.belongsTo(User_Login, { foreignKey: 'user_id', targetKey: "user_id" })
+
+
+// one to many relationship 
+User_Info.hasOne(User_call_Center_Info, { foreignKey: 'user_id' })
+
+User_call_Center_Info.belongsTo(User_Info, { foreignKey: 'user_id', targetKey: "user_id" })
 
 
 // fetching the results of the data of one to many relationship tables
@@ -176,4 +153,4 @@ User_call_Center_Info.belongsTo(User_Login, { foreignKey: 'user_id', targetKey: 
 
 
 
-module.exports = User_Login
+module.exports = User_Info

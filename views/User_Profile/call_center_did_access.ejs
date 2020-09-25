@@ -1,0 +1,233 @@
+<% include Web_Sections/header.ejs %>
+
+
+<!-- <div class="number_Of_Cells">
+    <h5>Total Call Back Number<h5 id="total_number_Of_Callback"> : %=number%></h5>
+    </h5>
+</div> -->
+
+<div class="card" id="manageAccess_table">
+    <div class="textArea_ManageAccess">
+        <table class="table" id="manage_Access_Table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Employee</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Timing</th>
+                    <th scope="col">Commission</th>
+                    <th scope="col">Target</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+
+                </tr>
+            </thead>
+            <tbody id="manageAccess_Body">
+                <tr>
+                    <th scope="row">Saad</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>Otto</td>
+                    <td>58</td>
+                    <td>3</td>
+                    <td>Otto</td>
+                    <td>Otto</td>
+                    <td>Otto</td>
+                    <td><img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
+                            data-target="#manage_did_access_modal"></td>
+
+                    <td> <button class="btn btn-danger"> Delete</button></td>
+                </tr>
+                <tr>
+                    <th scope="row">James</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>Thornton</td>
+                    <td>85</td>
+                    <td>2</td>
+                    <td>Thornton</td>
+                    <td>Thornton</td>
+                    <td>Thornton</td>
+                    <td><img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
+                            data-target="#manage_did_access_modal"></td>
+                    <td> <button class="btn btn-danger"> Delete</button></td>
+                </tr>
+                <tr>
+                    <th scope="row">Larry</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>the Bird</td>
+                    <td>53</td>
+                    <td>5</td>
+                    <td>the Bird</td>
+                    <td>the Bird</td>
+                    <td>the Bird</td>
+                    <td><img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
+                            data-target="#manage_did_access_modal"></td>
+                    <td> <button class="btn btn-danger"> Delete</button></td>
+                </tr>
+
+            </tbody>
+
+        </table>
+        <img src="/images/User_Profile_icons/add.png" id="add_row_icon" data-toggle="modal"
+            data-target="#manage_did_access_modal" onclick="emptyField()">
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="manage_did_access_modal" tabindex="-1" role="dialog"
+    aria-labelledby="manage_did_access_modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="manage_did_access_modal_body">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_fullname">Full Name</label>
+                                <input type="text" class="form-control" id="emp_fullname">
+                                <small>e.g John Smith</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="emp_username">Username</label>
+                                <input type="text" class="form-control" id="emp_username">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_email">Email address</label>
+                                <input type="email" class="form-control" id="emp_email" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="emp_password">Password</label>
+                                <input type="text" class="form-control" id="emp_password">
+                                <small>Password must contain 8 characters.</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_role">Role</label>
+                                <input type="text" class="form-control" id="emp_role" aria-describedby="emp_role">
+                                <small>e.g CRS, Lead Manager</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="emp_timing">Timing</label>
+                                <input type="text" class="form-control" id="emp_timing">
+                                <small>e.g Part , Full Time</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_salary">Salary</label>
+                                <input type="number" class="form-control" id="emp_salary" aria-describedby="emp_salary">
+                            </div>
+                            <div class="form-group">
+                                <label for="emp_commission">Commission</label>
+                                <input type="text" class="form-control" id="emp_commission">
+                                <small>e.g 1% , 5%</small>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_target">Target</label>
+                                <input type="text" class="form-control" id="emp_target" aria-describedby="emp_target">
+                                <small>e.g 10, 15</small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark " data-dismiss="modal" id="modal_close_btn">Close</button>
+
+                <button type="button" class="btn btn-primary" id="modal_edit_btn">Edit</button>
+                <button type="button" class="btn btn-primary" id="modal_save_btn" onclick="add_Employee()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 
+<script>
+    alert($('#manageAccess_Body tr').length)
+</script> -->
+
+
+<script>
+
+    var table = document.getElementById("manage_Access_Table")
+
+
+    for (var i = 1; i < table.rows.length; i++) {
+        table.rows[i].querySelector('img').onclick = function () {
+            $("#modal_edit_btn").show()
+            $("#modal_save_btn").hide()
+            document.getElementById('emp_fullname').value = this.closest('tr').cells[0].innerHTML
+            document.getElementById('emp_username').value = this.closest('tr').cells[1].innerHTML
+            document.getElementById('emp_email').value = this.closest('tr').cells[2].innerHTML
+            document.getElementById('emp_password').value = this.closest('tr').cells[3].innerHTML
+            document.getElementById('emp_role').value = this.closest('tr').cells[4].innerHTML
+            document.getElementById('emp_salary').value = this.closest('tr').cells[5].innerHTML
+            document.getElementById('emp_timing').value = this.closest('tr').cells[6].innerHTML
+            document.getElementById('emp_commission').value = this.closest('tr').cells[7].innerHTML
+            document.getElementById('emp_target').value = this.closest('tr').cells[8].innerHTML
+        };
+    }
+
+
+    for (var i = 1; i < table.rows.length; i++) {
+        table.rows[i].querySelector('button').onclick = function () {
+            console.log("asjkdbadiabsduiahsdauih")
+            console.log(this.closest('tr').cells[0].innerHTML)
+            console.log(this.closest('tr').cells[1].innerHTML)
+            console.log(this.closest('tr').cells[2].innerHTML)
+        };
+    }
+
+    function add_Employee() {
+
+
+    }
+
+    function emptyField() {
+        $("#modal_edit_btn").hide()
+        $("#modal_save_btn").show()
+        document.getElementById('emp_fullname').value = null
+        document.getElementById('emp_username').value = null
+        document.getElementById('emp_email').value = null
+        document.getElementById('emp_password').value = null
+        document.getElementById('emp_role').value = null
+        document.getElementById('emp_salary').value = null
+        document.getElementById('emp_timing').value = null
+        document.getElementById('emp_commission').value = null
+        document.getElementById('emp_target').value = null
+    }
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<% include Web_Sections/footer.ejs %>

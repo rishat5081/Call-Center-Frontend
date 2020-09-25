@@ -3,9 +3,11 @@ var express = require('express'),
   //requiring the middleware which is used to 
   //check that the session have the user data or not 
   middleWares_Fucntions = require('./webPages_Routes'),
+
   //requiring the user call center information model schema
-  User_call_Center_Info = require('../Configuration Files/Sequelize Files/Sequelize Models/user_call_center_info'),
-  User_Login_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/User_Login_Model')
+  User_call_Center_Info = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_info'),
+  User_Login_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/User_Login_Model'),
+  call_Center_Compaign_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_compaign_info')
 
 
 //user profile call center information fetched from the database of VOIP. 
@@ -15,12 +17,17 @@ router.get('/user_Profile', middleWares_Fucntions.not_logged_in, function (req, 
 
   const response = User_call_Center_Info.findAll({
     include: [{
-      model: User_Login_Model,
+      model: call_Center_Compaign_Model,
       required: true
     }], where: { "user_id": req.session.passport.user.user_id }
   })
     .then()
-    .then((res) => { return res[0]?.dataValues })
+    .then((res) => {
+      // console.log("Helo");
+      console.log(res[0]?.dataValues)
+      return res[0]?.dataValues
+      //console.log(res[0].call_center_compaign_info)
+    })
 
   response.then((response) => {
     res.render('user_Profile', { response: response })
@@ -37,9 +44,17 @@ router.get('/change_Password', middleWares_Fucntions.user_logged_In, function (r
 
 // Manage access of the DID numbers.....
 // Allow the employees about the did routes
-router.get('/call_center_manage_access', middleWares_Fucntions.user_logged_In, function (req, res, next) {
+router.get('/call_center_did_access', middleWares_Fucntions.user_logged_In, function (req, res, next) {
 
-  res.render('call_center_manage_access', { user_id: req.session.passport.user.user_id, number: 05})
+  res.render('call_center_did_access', { user_id: req.session.passport.user.user_id, number: 05 })
+})
+
+
+// Manage access of the DID numbers.....
+// Allow the employees about the did routes
+router.get('/call_center_manage_employee', middleWares_Fucntions.user_logged_In, function (req, res, next) {
+
+  res.render('call_center_manage_employee', { user_id: req.session.passport.user.user_id, number: 05 })
 })
 
 
@@ -51,6 +66,25 @@ router.get('/call_center_manage_access', middleWares_Fucntions.user_logged_In, f
 //   }], where: { "user_id": 2 }
 // })
 //   .then((res) => { console.log(res[0]?.dataValues) })
+
+
+
+// User_call_Center_Info.findAll({
+//   include: [{
+//     model:call_Center_Compaign_Model ,
+//     required: true
+//   }], where: { "user_id": 1 }
+// })
+//   .then()
+//   .then((res) => {
+//     // console.log("Helo");
+//     console.log(res[0].call_center_compaign_infos[0].dataValues.campaign_id)
+//     //console.log(res[0].call_center_compaign_info)
+//   })
+
+
+
+
 
 
 

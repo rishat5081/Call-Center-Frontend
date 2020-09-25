@@ -1,5 +1,5 @@
 const User_Login = require('../Configuration Files/Sequelize Files/Sequelize Models/User_Login_Model'),
-    User_call_Center_Info = require('../Configuration Files/Sequelize Files/Sequelize Models/user_call_center_info'),
+    User_call_Center_Info = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_info'),
     bcrypt = require('bcrypt'),
     salt_For_Change_Password = 10
 
@@ -48,7 +48,7 @@ module.exports = (app) => {
 
     app.post('/change_Call_Center_Name', (req, res) => {
         console.log(req.body.new_Call_CenterName)
-        const response = User_call_Center_Info.update({ callCenterName: req.body.new_Call_CenterName }
+        const response = User_call_Center_Info.update({ call_cent_Name: req.body.new_Call_CenterName }
             , {
                 where: {
                     user_id: req.session.passport.user.user_id
@@ -78,12 +78,13 @@ module.exports = (app) => {
 
 
 
-    // User_Login.update({ user_password: 1 }
-    //     , {
+    // User_Login.findAll(
+    //     {
     //         where: {
-    //             user_id: req.session.passport.user.user_id
+    //             user_id: 1
     //         }
     //     })
+    //     .then((ss)=>console.log(ss[0].dataValues))
 
 
 

@@ -1,5 +1,3 @@
-const { serializeUser } = require('passport');
-
 const passport = require('passport'),
      bcrypt = require('bcrypt'),
      LocalStrategy = require('passport-local').Strategy,
