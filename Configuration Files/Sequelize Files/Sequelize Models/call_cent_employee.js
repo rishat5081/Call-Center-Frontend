@@ -1,5 +1,7 @@
 const { DataTypes, Model } = require('sequelize'),
-    sequelize = require('../Sequelize Config')
+    sequelize = require('../Sequelize Config'),
+    call_center_info = require('./call_center_info'),
+    call_center_compaign = require('./call_center_compaign_info')
 
 class call_cent_employee extends Model { }
 
@@ -73,5 +75,24 @@ call_cent_employee.init({
     modelName: 'call_cent_employee',
     tableName: 'call_center_employees',
 })
+
+//creating one to many relationship of 
+// call center have many employees
+call_center_info.hasMany(call_cent_employee, { foreignKey: 'call_cent_id' })
+
+call_cent_employee.belongsTo(call_center_info, {
+    foreignKey: 'call_cent_id', targetKey: 'call_cent_id'
+})
+
+
+
+//creating relationship of call center compaigns 
+// one compaign have many employees
+
+call_center_compaign.hasMany(call_cent_employee, { foreignKey: 'compaign_id' })
+
+call_cent_employee.belongsTo(call_center_compaign, { foreignKey: 'compaign_id'})
+
+
 
 module.exports = call_cent_employee

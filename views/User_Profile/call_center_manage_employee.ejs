@@ -5,8 +5,27 @@
     <h5>Total Call Back Number<h5 id="total_number_Of_Callback"> : %=number%></h5>
     </h5>
 </div> -->
+<%- messages('Web_Sections/message.ejs',locals)  %>
+<div class="col-lg-12" id="compaign_select_dropdown">
+    <div class="form-group">
+        <label for="emp_compaign">Compaign</label>
+        <select type="text" class="form-control" id="emp_compaign" aria-describedby="emp_compaign"
+            onchange="CompaignName_onchange_function(this.value)" required>
+            <option value="0">Select Compaign</option>
+            <% for(const element of response.call_center_compaign_infos){ %>
+            <option value="<%= element.dataValues.compaign_id %>">
+                <%= element.dataValues.compaign_name %></option>
+            <% } %>
+        </select>
+    </div>
+</div>
 
-<div class="card" id="manageAccess_table">
+<div id="ajaxResult_alert">
+
+</div>
+
+
+<div id="manageAccess_table">
     <div class="textArea_ManageAccess">
         <table class="table" id="manage_Access_Table">
             <thead class="thead-dark">
@@ -14,67 +33,21 @@
                     <th scope="col">Employee</th>
                     <th scope="col">Email</th>
                     <th scope="col">Username</th>
-                    <th scope="col">Password</th>
                     <th scope="col">Role</th>
                     <th scope="col">Salary</th>
                     <th scope="col">Timing</th>
                     <th scope="col">Commission</th>
                     <th scope="col">Target</th>
+
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
 
                 </tr>
             </thead>
             <tbody id="manageAccess_Body">
-                <tr>
-                    <td>Saad</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>Otto</td>
-                    <td>58</td>
-                    <td>3</td>
-                    <td>Otto</td>
-                    <td>Otto</td>
-                    <td>Otto</td>
-                    <td><img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
-                            data-target="#manage_did_access_modal"></td>
 
-                    <td> <button class="btn btn-danger" data-toggle="modal" data-target="#confirmation_modal">
-                            Delete</button></td>
-                </tr>
-                <tr>
-                    <td>James</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>Thornton</td>
-                    <td>85</td>
-                    <td>2</td>
-                    <td>Thornton</td>
-                    <td>Thornton</td>
-                    <td>Thornton</td>
-                    <td><img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
-                            data-target="#manage_did_access_modal"></td>
-                    <td> <button class="btn btn-danger" data-toggle="modal" data-target="#confirmation_modal">
-                            Delete</button></td>
-                </tr>
-                <tr>
-                    <td>Larry</td>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>the Bird</td>
-                    <td>53</td>
-                    <td>5</td>
-                    <td>the Bird</td>
-                    <td>the Bird</td>
-                    <td>the Bird</td>
-                    <td><img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
-                            data-target="#manage_did_access_modal"></td>
-                    <td> <button class="btn btn-danger" data-toggle="modal" data-target="#confirmation_modal">
-                            Delete</button></td>
-                </tr>
 
             </tbody>
-
         </table>
         <img src="/images/User_Profile_icons/add.png" id="add_row_icon" data-toggle="modal"
             data-target="#manage_did_access_modal" onclick="emptyField()">
@@ -93,50 +66,61 @@
                 </button>
             </div>
             <div class="modal-body" id="manage_did_access_modal_body">
+                <div id="modal_alert">
+
+                </div>
                 <form>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="emp_fullname">Full Name</label>
-                                <input type="text" class="form-control" id="emp_fullname">
+                                <input type="text" class="form-control" id="emp_fullname"
+                                    onchange="onchange_function(this.value, this.id)" required>
                                 <small>e.g John Smith</small>
                             </div>
                             <div class="form-group">
                                 <label for="emp_username">Username</label>
-                                <input type="text" class="form-control" id="emp_username">
+                                <input type="text" class="form-control" id="emp_username"
+                                    onchange="onchange_function(this.value, this.id)" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="emp_email">Email address</label>
-                                <input type="email" class="form-control" id="emp_email" aria-describedby="emailHelp">
+                                <input type="email" class="form-control" id="emp_email" aria-describedby="emailHelp"
+                                    onchange="onchange_function(this.value, this.id)" required>
                             </div>
                             <div class="form-group">
                                 <label for="emp_password">Password</label>
-                                <input type="text" class="form-control" id="emp_password">
+                                <input type="text" class="form-control" id="emp_password"
+                                    onchange="onchange_function(this.value, this.id)" required>
                                 <small>Password must contain 8 characters.</small>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="emp_role">Role</label>
-                                <input type="text" class="form-control" id="emp_role" aria-describedby="emp_role">
+                                <input type="text" class="form-control" id="emp_role" aria-describedby="emp_role"
+                                    onchange="onchange_function(this.value, this.id)" required>
                                 <small>e.g CRS, Lead Manager</small>
                             </div>
                             <div class="form-group">
                                 <label for="emp_timing">Timing</label>
-                                <input type="text" class="form-control" id="emp_timing">
+                                <input type="text" class="form-control" id="emp_timing"
+                                    onchange="onchange_function(this.value, this.id)" required>
                                 <small>e.g Part , Full Time</small>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="emp_salary">Salary</label>
-                                <input type="number" class="form-control" id="emp_salary" aria-describedby="emp_salary">
+                                <input type="number" class="form-control" id="emp_salary" aria-describedby="emp_salary"
+                                    onchange="onchange_function(this.value, this.id)" required>
                             </div>
                             <div class="form-group">
                                 <label for="emp_commission">Commission</label>
-                                <input type="text" class="form-control" id="emp_commission">
+                                <input type="number" class="form-control" id="emp_commission"
+                                    onchange="onchange_function(this.value, this.id)" required>
                                 <small>e.g 1% , 5%</small>
 
                             </div>
@@ -144,8 +128,23 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="emp_target">Target</label>
-                                <input type="text" class="form-control" id="emp_target" aria-describedby="emp_target">
+                                <input type="number" class="form-control" id="emp_target" aria-describedby="emp_target"
+                                    onchange="onchange_function(this.value, this.id)" required>
                                 <small>e.g 10, 15</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_compaign">Compaign</label>
+                                <select type="text" class="form-control" id="emp_compaign"
+                                    aria-describedby="emp_compaign" onchange="onchange_function(this.value, this.id)"
+                                    required>
+
+                                    <% for(const element of response.call_center_compaign_infos){ %>
+                                    <option value="<%= element.dataValues.compaign_name %>">
+                                        <%= element.dataValues.compaign_name %></option>
+                                    <% } %>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -160,6 +159,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 <!-- modal for the confirmation of the delete employees data -->
 
@@ -177,27 +179,43 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark " data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Confirm</button>
+                <button type="button" class="btn btn-danger" id="confirm" onclick="return true">Confirm</button>
             </div>
         </div>
     </div>
 </div>
-
-
 <!-- end of the confirmation modal -->
 
+
+
+<!-- printing of the server response of multiple arrays into the Js -->
+<!-- <script type="text/javascript">
+    var server_response = JSON.parse('%- JSON.stringify(response.call_cent_employees) %>');
+    server_response.forEach(element => {
+        console.log(element)
+    })
+</script> -->
+
+
+
 <script>
-    // $("#confirmation_modal").modal('show')
-
-
+    //function for the fade of the alert
+    function alert_Fade(name_of_alert) {
+        $(`#${name_of_alert}_alert`).fadeTo(2000, 500).slideUp(500, function () {
+            $(`#${name_of_alert}_alert`).slideUp(500);
+        });
+    }
+    //variables for the add tables td
     var table = document.getElementById("manage_Access_Table")
     var tableBody = document.getElementById("manageAccess_Body")
 
 
-    for (var i = 1; i < table.rows.length; i++) {
-        table.rows[i].querySelector('img').onclick = function () {
+
+    for (var i = 1; i < tableBody.rows.length; i++) {
+        tableBody.rows[i].querySelector('img').onclick = function () {
             $("#modal_edit_btn").show()
             $("#modal_save_btn").hide()
+            console.log(this.closest('tr').cells[0].innerHTML)
             document.getElementById('emp_fullname').value = this.closest('tr').cells[0].innerHTML
             document.getElementById('emp_username').value = this.closest('tr').cells[1].innerHTML
             document.getElementById('emp_email').value = this.closest('tr').cells[2].innerHTML
@@ -211,13 +229,7 @@
     }
 
 
-    for (var i = 1; i < table.rows.length; i++) {
-        table.rows[i].querySelector('button').onclick = function () {
-            document.getElementById("confirmation_modal").style.display = "none"
-            table.deleteRow(this.closest('tr').rowIndex)
 
-        };
-    }
 
     function add_Employee() {
         var newTr = document.createElement('tr'),
@@ -230,24 +242,37 @@
             newTd7 = document.createElement('td'),
             newTd8 = document.createElement('td'),
             newTd9 = document.createElement('td')
+        newTd10 = document.createElement('td')
+        newTd11 = document.createElement('td')
 
-        newTd1 = document.getElementById('emp_fullname').value
-        newTd2 = document.getElementById('emp_username').value
-        newTd3 = document.getElementById('emp_email').value
-        newTd4 = document.getElementById('emp_password').value
-        newTd5 = document.getElementById('emp_role').value
-        newTd6 = document.getElementById('emp_salary').value
-        newTd7 = document.getElementById('emp_timing').value
-        newTd8 = document.getElementById('emp_commission').value
-        newTd9 = document.getElementById('emp_target').value
+        newTd1.innerHTML = document.getElementById('emp_fullname').value
+        newTd2.innerHTML = document.getElementById('emp_username').value
+        newTd3.innerHTML = document.getElementById('emp_email').value
+        newTd4.innerHTML = document.getElementById('emp_role').value
+        newTd5.innerHTML = document.getElementById('emp_salary').value
+        newTd6.innerHTML = document.getElementById('emp_timing').value
+        newTd7.innerHTML = document.getElementById('emp_commission').value
+        newTd8.innerHTML = document.getElementById('emp_target').value
+        newTd9.innerHTML = document.getElementById('emp_compaign').value
+        newTd10.innerHTML = `<img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
+                data-target="#manage_did_access_modal">`
+        newTd11.innerHTML = `<button class="btn btn-danger" data-toggle="modal" data-target="#confirmation_modal">
+                Delete</button>`
 
-        newTr.append(newTd1)//, newTd2, newTd3, newTd4, newTd5, newTd6, newTd7, newTd8, newTd9)
+
+
+
+        newTr.append(newTd1, newTd3, newTd2, newTd4, newTd5, newTd6, newTd7, newTd8, newTd9, newTd10, newTd11)
 
         // newTr.append(emp_fullname, emp_username, emp_email, emp_password, emp_role, emp_salary, emp_timing, emp_commission, emp_target)
 
+        // document.getElementById('manage_did_access_modal').style.display = 'block'
+        $("#manage_did_access_modal").modal('hide')
         tableBody.append(newTr)
 
+
     }
+
 
     function emptyField() {
         $("#modal_edit_btn").hide()
@@ -265,7 +290,154 @@
 
 
 
+    var employee_id
 
+    function delete_Row_btn(emp_id) {
+
+        employee_id = emp_id;
+        // var confirmation = confirm("Want to delete the data?")
+
+        // if (confirmation)
+        //     console.log(emp_id)
+
+        // else
+        //     console.log("Ok")
+        // $.ajax({
+        //     url: '/delete_Employee_Data',
+        //     type: 'POST',
+        //     data: { emp_id },
+        //     error: ((error) => {
+        //         $('#ajaxResult_alert').addClass('alert alert-danger')
+        //         $('#ajaxResult_alert').html('Oops! Sorry There is issue !!')
+        //     }),
+        //     success:((ajaxResult)=>{
+
+        //     })
+        // })
+    }
+    $("#confirm").on('click', (() => {
+        console.log(employee_id)
+        $("#confirmation_modal").modal('hide')
+        deleteEmployee(employee_id)
+    }))
+
+    function deleteEmployee(employee_id) {
+        $.ajax({
+            url: '/delete_Employee_Data',
+            type: 'POST',
+            data: { employee_id },
+            error: ((error) => {
+                $('#ajaxResult_alert').addClass('alert alert-danger')
+                $('#ajaxResult_alert').html('Oops! Sorry There is issue !!')
+            }),
+            success: ((ajaxResult) => {
+
+            })
+        })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //validating that when the user is adding a new employee it should validate the 
+    // email is already taken or not 
+    var server_response = JSON.parse('<%- JSON.stringify(response.call_cent_employees) %>')
+
+    /**
+     * function that will validate the on change function 
+    // which will check that the user entered email exists in the database 
+    //then it won't allow the user to add the same email
+    */
+    function onchange_function(value, id) {
+        if (id === 'emp_email') {
+            var email_Found
+            server_response.forEach(element => {
+                if (element.emp_email === value) {
+                    email_Found = element.emp_email
+                }
+            })
+            if (email_Found) {
+                document.getElementById(id).style.borderColor = '#e26c6c'
+                $('#modal_alert').addClass('alert alert-danger')
+                $('#modal_alert').html('Email Already Registered')
+                $('#modal_save_btn').hide()
+                alert_Fade('modal')
+            }
+            else {
+                document.getElementById(id).style.borderColor = '#77e677'
+                $('#modal_save_btn').show()
+            }
+
+        }
+
+    }
+
+
+    /**
+     *  displaying the data according to the compaign selection
+    */
+
+    var onselect_response = JSON.parse('<%- JSON.stringify(response.call_cent_employees) %>'),
+        manageAccess_Table_Body = document.getElementById('manageAccess_Body')
+    function CompaignName_onchange_function(compaign_ID) {
+        /**
+         * the while loop is use to remove the previous td if there is any... 
+        */
+        while (manageAccess_Table_Body.rows.length > 0) {
+            manageAccess_Table_Body.deleteRow(0)
+        }
+
+        onselect_response.forEach(element => {
+            var newTr = document.createElement('tr')
+            if (element.compaign_id == compaign_ID) {
+                var newTd1 = document.createElement('td'),
+                    newTd2 = document.createElement('td'),
+                    newTd3 = document.createElement('td'),
+                    newTd4 = document.createElement('td'),
+                    newTd5 = document.createElement('td'),
+                    newTd6 = document.createElement('td'),
+                    newTd7 = document.createElement('td'),
+                    newTd8 = document.createElement('td'),
+                    newTd9 = document.createElement('td'),
+                    newTd10 = document.createElement('td')
+
+                newTd1.innerHTML = element.emp_fullName
+                newTd2.innerHTML = element.emp_email
+                newTd3.innerHTML = element.emp_username
+                newTd4.innerHTML = element.emp_role
+                newTd5.innerHTML = element.emp_salary
+                newTd6.innerHTML = element.emp_timing
+                newTd7.innerHTML = element.emp_commission
+                newTd8.innerHTML = element.emp_target
+                newTd9.innerHTML = `<img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
+                data-target="#manage_did_access_modal">`
+                newTd10.innerHTML = `<button class="btn btn-danger abccc" data-toggle="modal" data-target="#confirmation_modal" value="${element.emp_id}" onclick ="delete_Row_btn(this.value)">
+                Delete</button>`
+
+                newTr.append(newTd1, newTd3, newTd2, newTd4, newTd5, newTd6, newTd7, newTd8, newTd9, newTd10)
+            }
+            manageAccess_Table_Body.append(newTr)
+        })
+    }
 </script>
 
 

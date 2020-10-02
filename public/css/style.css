@@ -192,12 +192,12 @@
   display: table-cell;
 } */
 
-/* ----------------------Manage Access Tab ..... call_center_manage_DID_access.EJS------------------------------ */
+/* ----------------------Manage Access Tab ..... call_center_manage_DID_employees.EJS------------------------------ */
 
 #manageAccess_table {
   margin: 20px 0px 40px 0px;
   text-align: justify;
-  width: 100%;
+  width: 110%;
 }
 
 .textArea_ManageAccess {
@@ -205,13 +205,17 @@
   box-shadow: 3px 3px 10px gray;
 }
 
+#manage_Access_Table {
+  width: 100%;
+}
+
 .number_Of_Cells {
-  float: right;
-  width: 30%;
   text-align: center;
   padding: 20px;
   margin: 0px 0px 20px 0px;
   box-shadow: 3px 3px 10px gray;
+  float: right;
+  width: 30%;
   display: inline;
 }
 
@@ -236,12 +240,15 @@
   font-weight: 600;
 }
 
-#manage_did_access_modal_body small{
+#manage_did_access_modal_body small {
   font-size: small;
   font-style: italic;
   font-weight: 600;
 }
-
-
+#compaign_select_dropdown{
+  font-weight: 500;
+  width: 50%;
+  /* float: right; */
+}
 
 /* ---------------------------------------------------- */

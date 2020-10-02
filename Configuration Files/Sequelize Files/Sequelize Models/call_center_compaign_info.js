@@ -6,7 +6,7 @@ const { DataTypes, Model } = require('sequelize'),
 class call_center_compaign_info extends Model { }
 
 call_center_compaign_info.init({
-    campaign_id: {
+    compaign_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
@@ -15,15 +15,15 @@ call_center_compaign_info.init({
             max: 11
         }
     },
-    campaign_name: {
+    compaign_name: {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    campaign_country: {
+    compaign_country: {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    campaign_start_Date: {
+    compaign_start_Date: {
         type: DataTypes.TEXT,
         allowNull: false
     },
@@ -39,7 +39,7 @@ call_center_compaign_info.init({
     freezeTableName: true,
     sequelize,
     modelName: 'call_center_compaign_info',
-    tableName: 'call_center_campaign_info',
+    tableName: 'call_center_compaign_info',
     createdAt: false,
     updatedAt: false
 })

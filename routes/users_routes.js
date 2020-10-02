@@ -7,7 +7,9 @@ var express = require('express'),
   //requiring the user call center information model schema
   User_call_Center_Info = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_info'),
   User_Login_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/User_Login_Model'),
-  call_Center_Compaign_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_compaign_info')
+  call_Center_Compaign_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_compaign_info'),
+  call_Center_Employee_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_cent_employee')
+
 
 
 //user profile call center information fetched from the database of VOIP. 
@@ -28,6 +30,7 @@ router.get('/user_Profile', middleWares_Fucntions.not_logged_in, function (req, 
       return res[0]?.dataValues
       //console.log(res[0].call_center_compaign_info)
     })
+
 
   response.then((response) => {
     res.render('user_Profile', { response: response })
@@ -54,31 +57,78 @@ router.get('/call_center_did_access', middleWares_Fucntions.user_logged_In, func
 // Allow the employees about the did routes
 router.get('/call_center_manage_employee', middleWares_Fucntions.user_logged_In, function (req, res, next) {
 
-  res.render('call_center_manage_employee', { user_id: req.session.passport.user.user_id, number: 05 })
+
+  const response = User_call_Center_Info.findAll({
+    include: [{
+      model: call_Center_Compaign_Model,
+      required: true
+    }, {
+      model: call_Center_Employee_Model,
+      where: {
+        'emp_deleted': 0
+      },
+      required: true,
+    }], where: {
+      "user_id": req.session.passport.user.user_id
+    }
+  })
+    .then()
+    .then((res) => {
+      // console.log("Helo");
+      console.log(res[0]?.dataValues)
+      console.log(res[0]?.dataValues.call_center_compaign_infos[0]?.dataValues)
+      console.log(res[0]?.dataValues.call_cent_employees[0]?.dataValues)
+      return res[0]?.dataValues
+      //console.log(res[0].call_center_compaign_info)
+    })
+
+  response
+    .then((response) => {
+      res.render('call_center_manage_employee', { user_id: req.session.passport.user.user_id, response: response })
+    })
+
 })
 
 
 
 // User_call_Center_Info.findAll({
 //   include: [{
-//     model: User_Login_Model,
-//     required: true
-//   }], where: { "user_id": 2 }
-// })
-//   .then((res) => { console.log(res[0]?.dataValues) })
-
-
-
-// User_call_Center_Info.findAll({
-//   include: [{
-//     model:call_Center_Compaign_Model ,
-//     required: true
+//     model: call_Center_Compaign_Model,
+//     required: true,
+//     // attributes: ['call_cent_id', 'call_cent_Name', 'no_Of_Seat']
 //   }], where: { "user_id": 1 }
 // })
 //   .then()
 //   .then((res) => {
 //     // console.log("Helo");
-//     console.log(res[0].call_center_compaign_infos[0].dataValues.campaign_id)
+//     console.log(res[0]?.dataValues)
+//     return res[0]?.dataValues
+//     //console.log(res[0].call_center_compaign_info)
+//   })
+
+
+
+
+
+
+
+
+// User_call_Center_Info.findAll({
+//   include: [{
+//     model: call_Center_Compaign_Model,
+//     required: true
+//   }, {
+//     model: call_Center_Employee_Model,
+//     required: true,
+//   }], where: { "user_id": 1 }
+// })
+//   .then()
+//   .then((res) => {
+//     // console.log("Helo");
+//     console.log(res[0]?.dataValues)
+//     console.log(res[0]?.dataValues.call_center_compaign_infos[0]?.dataValues)
+//     console.log(res[0]?.dataValues.call_cent_employees[0]?.dataValues)
+//     return res[0]?.dataValues
 //     //console.log(res[0].call_center_compaign_info)
 //   })
 
@@ -99,35 +149,29 @@ router.get('/call_center_manage_employee', middleWares_Fucntions.user_logged_In,
 
 
 
-
-const a = {
-  user_call_center_request_id: 1,
-  callCenterName: 'Saad Call Center',
-  no_Of_Seat: 5,
-  nameofCompaing: 'Security System',
-  nameOfCountry: 'Pakistan',
-  inbound_outbound_select: 'In bound',
-  callback_Dialing_YES_checkBox: 1,
-  numberOf_Callback: 3,
-  user_id: 1,
-  User_Login: {
-    dataValues: {
-      user_id: 1,
-      user_full_name: 'Farooq Sohail',
-      user_username: 'saad14',
-      user_email: 'a@a',
-      user_contact_Number: '0345-5536125',
-      user_password: '$2b$10$gMIfavSiLxMgq7veWB57f.uWOUlGSZuVjhuUvxEl/r8tE0CI0zf06',
-      user_Type_user_type_id: 1,
-      user_added_Admin_user_added_Admin_id: 1,
-      user_first_time_login: true
-    }
-  }
-}
-
-// const aa = a?.User_Login?.dataValues?.user_email
-//   console.log(aa);
-
+// User_call_Center_Info.findAll({
+//   include: [{
+//     model: call_Center_Compaign_Model,
+//     required: true
+//   }, {
+//     model: call_Center_Employee_Model,
+//     where: {
+//       'emp_deleted': 1
+//     },
+//     required: true,
+//   }], where: {
+//     "user_id": 1
+//   }
+// })
+//   .then()
+//   .then((res) => {
+//     // console.log("Helo");
+//     // console.log(res[0]?.dataValues)
+//     // console.log(res[0]?.dataValues.call_center_compaign_infos[0]?.dataValues)
+//     console.log(res[0]?.dataValues.call_cent_employees)
+//     return res[0]?.dataValues
+//     //console.log(res[0].call_center_compaign_info)
+//   })
 
 
 

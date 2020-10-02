@@ -11,7 +11,7 @@ The second part of the VOIP
 
 4. Create a database with `call_center_voip_db`
 
-5. Import the `.sql` file from `SQL/call_center_voip_db.sql`
+5. Import the `.sql` file from `SQL/v_call_center.sql`
 
 6. Go to the terminal write `npm start`
 
