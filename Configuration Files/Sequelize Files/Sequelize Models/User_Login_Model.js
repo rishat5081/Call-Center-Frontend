@@ -59,7 +59,7 @@ User_Info.init({
 
 
 
-// one to many relationship 
+// one to one relationship 
 User_Info.hasOne(User_call_Center_Info, { foreignKey: 'user_id' })
 
 User_call_Center_Info.belongsTo(User_Info, { foreignKey: 'user_id', targetKey: "user_id" })

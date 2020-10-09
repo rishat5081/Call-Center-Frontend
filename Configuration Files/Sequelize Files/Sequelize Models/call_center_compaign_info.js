@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize'),
     call_center_info = require('./call_center_info'),
+   
     sequelize = require('../Sequelize Config')
 
 
@@ -27,6 +28,11 @@ call_center_compaign_info.init({
         type: DataTypes.TEXT,
         allowNull: false
     },
+    compaign_deleted: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
     call_cent_id: {
         type: DataTypes.INTEGER,
         references: {
@@ -47,6 +53,9 @@ call_center_compaign_info.init({
 call_center_info.hasMany(call_center_compaign_info, { foreignKey: 'call_cent_id' })
 
 call_center_compaign_info.belongsTo(call_center_info, { foreignKey: 'call_cent_id', targetKey: "call_cent_id" })
+
+
+
 
 
 

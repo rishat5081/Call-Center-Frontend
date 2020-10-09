@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize'),
-    sequelize = require('../Sequelize Config')
+    sequelize = require('../Sequelize Config'),
+    call_center_compaign = require('./call_center_compaign_info')
 
 class call_cent_sales extends Model { }
 
@@ -37,4 +38,10 @@ call_cent_sales.init({
     modelName: 'call_cent_sales',
     tableName: 'call_center_sales',
 })
+
+
+call_center_compaign.hasMany(call_cent_sales, { foreignKey: "compaign_id" })
+
+call_cent_sales.belongsTo(call_center_compaign, { foreignKey: "compaign_id", targetKey: "compaign_id" })
+
 module.exports = call_cent_sales

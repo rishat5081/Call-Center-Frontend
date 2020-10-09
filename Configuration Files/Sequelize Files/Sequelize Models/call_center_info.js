@@ -30,6 +30,11 @@ call_Center_Info.init({
         type: DataTypes.TEXT,
         allowNull: false
     },
+    call_Center_deleted: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
     callback_dialing: {
         type: DataTypes.TINYINT,
         allowNull: false,
@@ -66,7 +71,6 @@ call_Center_Info.init({
     createdAt: false,
     updatedAt: false
 })
-
 
 
 

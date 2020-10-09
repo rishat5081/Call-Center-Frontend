@@ -16,3 +16,9 @@ The second part of the VOIP
 6. Go to the terminal write `npm start`
 
 7. Open browser hit `localhost:22001`
+
+
+# Important Things to be done before starting `NPM START`
+
+1. Disable the `ONLY_FULL_GROUP_BY` follow this https://stackoverflow.com/a/36033983/10967697
+

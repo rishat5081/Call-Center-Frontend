@@ -51,6 +51,11 @@ call_cent_employee.init({
         allowNull: false,
         type: DataTypes.INTEGER
     },
+    emp_deleted: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
     call_cent_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -91,7 +96,7 @@ call_cent_employee.belongsTo(call_center_info, {
 
 call_center_compaign.hasMany(call_cent_employee, { foreignKey: 'compaign_id' })
 
-call_cent_employee.belongsTo(call_center_compaign, { foreignKey: 'compaign_id'})
+call_cent_employee.belongsTo(call_center_compaign, { foreignKey: 'compaign_id' })
 
 
 

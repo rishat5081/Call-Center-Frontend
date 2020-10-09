@@ -8,7 +8,9 @@ var express = require('express'),
   User_call_Center_Info = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_info'),
   User_Login_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/User_Login_Model'),
   call_Center_Compaign_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_compaign_info'),
-  call_Center_Employee_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_cent_employee')
+  call_Center_Employee_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_cent_employee'),
+  call_Center_Sales_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_cent_sales'),
+  sequelize = require('../Configuration Files/Sequelize Files/Sequelize Config')
 
 
 
@@ -48,7 +50,7 @@ router.get('/change_Password', middleWares_Fucntions.user_logged_In, function (r
 // Manage access of the DID numbers.....
 // Allow the employees about the did routes
 router.get('/call_center_did_access', middleWares_Fucntions.user_logged_In, function (req, res, next) {
-
+  console.log(req.session.passport.user)
   res.render('call_center_did_access', { user_id: req.session.passport.user.user_id, number: 05 })
 })
 
@@ -67,7 +69,7 @@ router.get('/call_center_manage_employee', middleWares_Fucntions.user_logged_In,
       where: {
         'emp_deleted': 0
       },
-      required: true,
+      required: false,
     }], where: {
       "user_id": req.session.passport.user.user_id
     }
@@ -88,6 +90,74 @@ router.get('/call_center_manage_employee', middleWares_Fucntions.user_logged_In,
     })
 
 })
+
+
+router.get('/call_center_manage_compaign', middleWares_Fucntions.user_logged_In, function (req, res, next) {
+
+
+  const response = call_Center_Compaign_Model.findAll({
+    include: [{
+      model: call_Center_Sales_Model,
+      attributes: [
+        [sequelize.fn('COUNT', sequelize.col('compaign_country')), "SALES_of_Compaign"]
+      ],
+      required: false
+    }],
+    group: ['call_center_compaign_info.compaign_id'],
+    where: {
+      'call_cent_id': 1
+    }
+  })
+    .then((response) => {
+     return response
+    })
+
+  response
+    .then((response) => {
+      console.log(response)
+      res.render('call_center_manage_compaign', { user_id: req.session.passport.user.user_id, response: response })
+    })
+
+})
+
+
+
+// call_Center_Compaign_Model.findAll({
+//   include: [{
+//     model: call_Center_Sales_Model,
+//     attributes: [
+//       [sequelize.fn('COUNT', sequelize.col('compaign_country')), "SALES_of_Compaign"]
+//     ],
+//     required: false
+//   }],
+//   group: ['call_center_compaign_info.compaign_id'],
+//   where: {
+//     'call_cent_id': 1
+//   }
+// })
+//   .then((respon) => {
+//     console.log(respon.length)
+//     respon.forEach(elemenet => {
+//       console.log(elemenet.dataValues.call_cent_sales[0].dataValues)
+//     })
+//   })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

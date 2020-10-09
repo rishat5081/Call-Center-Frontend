@@ -1,7 +1,8 @@
 const passport = require('passport'),
      bcrypt = require('bcrypt'),
      LocalStrategy = require('passport-local').Strategy,
-     User_login_model = require('../Sequelize Files/Sequelize Models/User_Login_Model')
+     User_login_model = require('../Sequelize Files/Sequelize Models/User_Login_Model'),
+     call_center_info_model = require('../Sequelize Files/Sequelize Models/call_center_info')
 
 
 // serialize user 
@@ -34,6 +35,10 @@ function authenticate_login(req, email, password, done) {
 
      //hiting the database for once only...
      const user_Data_Response = User_login_model.findAll({
+          include: [{
+               model: call_center_info_model,
+               required: false
+          }],
           where: {
                user_email: email
           }

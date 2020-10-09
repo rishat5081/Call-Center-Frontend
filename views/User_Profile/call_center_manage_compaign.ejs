@@ -1,0 +1,62 @@
+<% include Web_Sections/header.ejs %>
+
+
+<%- messages('Web_Sections/message.ejs',locals)  %>
+
+
+
+
+<div id="manageCompaign_div">
+    <div class="textArea_ManageAccess">
+        <table class="table" id="manage_compaign_Table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Country Name</th>
+                    <th scope="col">Starting Date</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody id="manageAccess_Body">
+
+
+
+            </tbody>
+        </table>
+        <img src=" /images/User_Profile_icons/add.png" id="add_row_icon" data-toggle="modal"
+            data-target="#manage_did_access_modal" onclick="emptyField()">
+    </div>
+</div>
+
+<% response.forEach(element =>{ %>
+<%= element.compaign_country %>
+<%element.call_cent_sales.forEach(elee =>{ %>
+<%= elee %>
+<%})  %>
+
+<%}) %>
+
+
+<script>
+    var response = JSON.parse('<%-JSON.stringify(response)%>')
+
+    response.forEach(element => {
+        console.log(element);
+        element.call_cent_sales.forEach(elee => {
+            console.log(elee.SALES_of_Compaign);
+        })
+        // console.log(element.call_cent_sales[0].SALES_of_Compaign)
+    })
+    // console.log(response.call_cent_id)
+</script>
+
+
+
+
+
+
+
+
+
+
+<% include Web_Sections/footer.ejs %>

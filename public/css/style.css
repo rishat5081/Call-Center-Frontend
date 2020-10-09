@@ -165,6 +165,18 @@
   font-weight: 600;
 }
 
+#modal_edit_btn{
+  background-color: #279CD8 !important;
+  color: #292929 !important;
+  font-weight: 600;
+}
+
+#modal_edit_btn:hover {
+  color: #279CD8 !important;
+  background-color: #292929 !important;
+  font-weight: 600;
+}
+
 #modal_close_btn:hover {
   background-color: #279CD8 !important;
   color: #292929 !important;
@@ -251,4 +263,18 @@
   /* float: right; */
 }
 
+
 /* ---------------------------------------------------- */
+
+#manage_compaign_Table {
+  width: 100%;
+}
+
+#manageCompaign_div {
+  margin: 20px 0px 40px 0px;
+  text-align: justify;
+  width: 100%;
+}
+
+
+
