@@ -410,7 +410,6 @@
                 alert_Fade('ajaxResult')
             }),
             success: ((ajaxResult) => {
-                console.log(ajaxResult);
                 $('#ajaxResult_alert').addClass('alert alert-success')
                 $('#ajaxResult_alert').html('Successfully! Employee Deleted.')
                 $('#manage_did_access_modal').modal('hide')

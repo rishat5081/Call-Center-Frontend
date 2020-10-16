@@ -1,5 +1,8 @@
 const { DataTypes, Model } = require('sequelize'),
-    sequelize = require('../Sequelize Config')
+    sequelize = require('../Sequelize Config'),
+    call_cent_employee = require('./call_cent_employee'),
+    call_Center_Info = require('./call_center_info'),
+    call_Center_Compaign = require('./call_center_compaign_info')
 
 class did_Number_Info_modal extends Model { }
 
@@ -21,17 +24,16 @@ did_Number_Info_modal.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: "",
+            model: "call_Center_Info",
             key: "call_cent_id"
         }
     },
-    emp_id: {
+    compaign_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references:
-        {
-            model: "",
-            key: "emp_id"
+        references: {
+            model: "call_center_compaign_info",
+            key: "compaign_id"
         }
     }
 },
@@ -44,4 +46,22 @@ did_Number_Info_modal.init({
         updatedAt: false
     })
 
-    module.exports = did_Number_Info_modal
+
+/**
+ * Creating one to many relationship
+ * One call center have many DID Numbers 
+ * Like there are many compaigns going on in one Call center
+ */
+
+call_Center_Info.hasMany(did_Number_Info_modal, { foreignKey: "call_cent_id" })
+did_Number_Info_modal.belongsTo(call_Center_Info, { targetKey: "call_cent_id", foreignKey: "call_cent_id" })
+
+/**
+ * Creating one to many relationship
+ * One compaign have did Number 
+ * Compaign can have many did numbers 
+ */
+call_Center_Compaign.hasMany(did_Number_Info_modal, { foreignKey: "compaign_id" })
+did_Number_Info_modal.belongsTo(call_Center_Compaign, { targetKey: "compaign_id", foreignKey: "compaign_id" })
+
+module.exports = did_Number_Info_modal

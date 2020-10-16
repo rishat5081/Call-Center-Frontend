@@ -1,7 +1,8 @@
 const { DataTypes, Model } = require('sequelize'),
     sequelize = require('../Sequelize Config'),
     call_center_info = require('./call_center_info'),
-    call_center_compaign = require('./call_center_compaign_info')
+    call_center_compaign = require('./call_center_compaign_info'),
+    did_Number_info_Modal = require('./did_Number_info')
 
 class call_cent_employee extends Model { }
 
@@ -56,6 +57,11 @@ call_cent_employee.init({
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
+    emp_isPaused: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
     call_cent_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -70,6 +76,14 @@ call_cent_employee.init({
         references: {
             model: "call_cent_compaign_info",
             key: "compaign_id"
+        }
+    },
+    did_Num_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: "did_Number_Info_modal",
+            key: "did_Num_id"
         }
     }
 }, {
@@ -99,5 +113,12 @@ call_center_compaign.hasMany(call_cent_employee, { foreignKey: 'compaign_id' })
 call_cent_employee.belongsTo(call_center_compaign, { foreignKey: 'compaign_id' })
 
 
+/**
+ * Creating One to One Relationship with the
+ * DID Number because one employee can only have access
+ * to one DID Number
+ */
+did_Number_info_Modal.hasOne(call_cent_employee, { foreignKey: "did_Num_id" })
+call_cent_employee.belongsTo(did_Number_info_Modal, { targetKey: "did_Num_id", foreignKey: "did_Num_id" })
 
 module.exports = call_cent_employee

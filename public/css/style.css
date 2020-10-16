@@ -165,7 +165,7 @@
   font-weight: 600;
 }
 
-#modal_edit_btn{
+#modal_edit_btn {
   background-color: #279CD8 !important;
   color: #292929 !important;
   font-weight: 600;
@@ -257,14 +257,14 @@
   font-style: italic;
   font-weight: 600;
 }
-#compaign_select_dropdown{
+
+#compaign_select_dropdown {
   font-weight: 500;
   width: 50%;
   /* float: right; */
 }
 
-
-/* ---------------------------------------------------- */
+/* ----------------------Manage Compaign.EJS------------------------------ */
 
 #manage_compaign_Table {
   width: 100%;
@@ -276,5 +276,23 @@
   width: 100%;
 }
 
+/* ----------------------Manage Access to Employee.EJS------------------------------ */
 
+#emp_compaign_select_dropdown {
+  width: 50%;
+}
 
+#did_Number_select {
+  visibility: hidden;
+}
+
+.selectDIV label {
+  font-weight: 600;
+}
+
+#manageAccess_DID_Body {
+  visibility: hidden;
+}
+#manageAccess_ofDID{
+width: 100%;
+}

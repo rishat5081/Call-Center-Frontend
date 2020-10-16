@@ -1,3 +1,5 @@
+const call_center_compaign_info = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_compaign_info')
+
 var express = require('express'),
   router = express.Router(),
   //requiring the middleware which is used to 
@@ -10,6 +12,7 @@ var express = require('express'),
   call_Center_Compaign_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_compaign_info'),
   call_Center_Employee_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_cent_employee'),
   call_Center_Sales_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/call_cent_sales'),
+  did_Number_Model = require('../Configuration Files/Sequelize Files/Sequelize Models/did_Number_info'),
   sequelize = require('../Configuration Files/Sequelize Files/Sequelize Config')
 
 
@@ -46,13 +49,6 @@ router.get('/change_Password', middleWares_Fucntions.user_logged_In, function (r
   res.render('change_Password', { user_id: req.session.passport.user.user_id })
 })
 
-
-// Manage access of the DID numbers.....
-// Allow the employees about the did routes
-router.get('/call_center_did_access', middleWares_Fucntions.user_logged_In, function (req, res, next) {
-  console.log(req.session.passport.user)
-  res.render('call_center_did_access', { user_id: req.session.passport.user.user_id, number: 05 })
-})
 
 
 // Manage access of the DID numbers.....
@@ -105,11 +101,11 @@ router.get('/call_center_manage_compaign', middleWares_Fucntions.user_logged_In,
     }],
     group: ['call_center_compaign_info.compaign_id'],
     where: {
-      'call_cent_id': 1
+      'call_cent_id': req.session.passport.user.call_Center_Info.call_cent_id
     }
   })
     .then((response) => {
-     return response
+      return response
     })
 
   response
@@ -119,6 +115,57 @@ router.get('/call_center_manage_compaign', middleWares_Fucntions.user_logged_In,
     })
 
 })
+
+
+
+
+
+
+// Manage access of the DID numbers.....
+// Allow the employees about the did routes
+router.get('/call_center_did_access', middleWares_Fucntions.user_logged_In, function (req, res, next) {
+
+  const db_Response = call_Center_Compaign_Model.findAll({
+    include: [{
+      model: did_Number_Model,
+      required: false,
+      where: {
+        call_cent_id: req.session.passport.user.call_Center_Info.call_cent_id
+      }
+    },
+    {
+      model: call_Center_Employee_Model,
+      attributes:['emp_email','emp_fullName','emp_username','emp_role','emp_timing','emp_isPaused','did_Num_id'],
+      required: false,
+      where: {
+        call_cent_id: req.session.passport.user.call_Center_Info.call_cent_id
+      }
+
+    }],
+    where: {
+      call_cent_id: req.session.passport.user.call_Center_Info.call_cent_id
+    }
+  })
+    .then()
+    .then((response) => {
+      return response
+    })
+    .catch((error) => {
+      return error
+    })
+
+  db_Response
+    .then((response) => {
+      res.render('call_center_did_access', { user_id: req.session.passport.user.user_id, response: response })
+    })
+
+})
+
+
+
+
+
+
 
 
 
@@ -138,7 +185,7 @@ router.get('/call_center_manage_compaign', middleWares_Fucntions.user_logged_In,
 //   .then((respon) => {
 //     console.log(respon.length)
 //     respon.forEach(elemenet => {
-//       console.log(elemenet.dataValues.call_cent_sales[0].dataValues)
+//       console.log(elemenet.dataValues)
 //     })
 //   })
 
@@ -158,23 +205,6 @@ router.get('/call_center_manage_compaign', middleWares_Fucntions.user_logged_In,
 
 
 
-
-
-
-// User_call_Center_Info.findAll({
-//   include: [{
-//     model: call_Center_Compaign_Model,
-//     required: true,
-//     // attributes: ['call_cent_id', 'call_cent_Name', 'no_Of_Seat']
-//   }], where: { "user_id": 1 }
-// })
-//   .then()
-//   .then((res) => {
-//     // console.log("Helo");
-//     console.log(res[0]?.dataValues)
-//     return res[0]?.dataValues
-//     //console.log(res[0].call_center_compaign_info)
-//   })
 
 
 

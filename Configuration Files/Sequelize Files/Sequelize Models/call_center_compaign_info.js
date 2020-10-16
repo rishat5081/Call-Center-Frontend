@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize'),
     call_center_info = require('./call_center_info'),
-   
+
     sequelize = require('../Sequelize Config')
 
 
@@ -25,6 +25,10 @@ call_center_compaign_info.init({
         allowNull: false
     },
     compaign_start_Date: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    compaign_type: {
         type: DataTypes.TEXT,
         allowNull: false
     },

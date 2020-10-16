@@ -1,80 +1,53 @@
 <% include Web_Sections/header.ejs %>
+<%- messages('Web_Sections/message.ejs',locals)  %>
+
+<div class="selectDIV">
+    <div class="row">
+        <div class="col-lg-6" id="compaign_select">
+            <label for="nameof_compaign">Compaign</label>
+            <select type="text" class="form-control" id="nameof_compaign" aria-describedby="nameof_compaign"
+                onchange="CompaignName_onchange_function(this.value)" required>
+                <option value="0">Select Compaign</option>
+                <% for(const element of response){ %>
+                <option value="<%= element.dataValues.compaign_id %>">
+                    <%= element.dataValues.compaign_name %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="col-lg-6 " id="did_Number_select">
+            <label for="did_Number">DID Number</label>
+            <select type="text" class="form-control" id="did_Number" aria-describedby="did_Number"
+                onchange="didNumbers_onchange_function(this.value)" required>
+                <option value="0">Select DID Number</option>
+
+            </select>
+        </div>
+    </div>
+</div>
+
+<h3 id="abc"></h3>
 
 
-<!-- <div class="number_Of_Cells">
-    <h5>Total Call Back Number<h5 id="total_number_Of_Callback"> : %=number%></h5>
-    </h5>
-</div> -->
-
-<div class="card" id="manageAccess_table">
+<div class="card" id="manageAccess_ofDID">
     <div class="textArea_ManageAccess">
-        <table class="table" id="manage_Access_Table">
+        <table class="table" id="manage_Access_Table_id">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Employee</th>
+                    <th scope="col">Employee Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Username</th>
-                    <th scope="col">Password</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Salary</th>
                     <th scope="col">Timing</th>
-                    <th scope="col">Commission</th>
-                    <th scope="col">Target</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">Current Status</th>
+                    <th scope="col">Access</th>
+                    <th scope="col">Pause</th>
 
                 </tr>
             </thead>
-            <tbody id="manageAccess_Body">
-                <tr>
-                    <th scope="row">Saad</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>Otto</td>
-                    <td>58</td>
-                    <td>3</td>
-                    <td>Otto</td>
-                    <td>Otto</td>
-                    <td>Otto</td>
-                    <td><img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
-                            data-target="#manage_did_access_modal"></td>
-
-                    <td> <button class="btn btn-danger"> Delete</button></td>
-                </tr>
-                <tr>
-                    <th scope="row">James</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>Thornton</td>
-                    <td>85</td>
-                    <td>2</td>
-                    <td>Thornton</td>
-                    <td>Thornton</td>
-                    <td>Thornton</td>
-                    <td><img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
-                            data-target="#manage_did_access_modal"></td>
-                    <td> <button class="btn btn-danger"> Delete</button></td>
-                </tr>
-                <tr>
-                    <th scope="row">Larry</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>the Bird</td>
-                    <td>53</td>
-                    <td>5</td>
-                    <td>the Bird</td>
-                    <td>the Bird</td>
-                    <td>the Bird</td>
-                    <td><img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
-                            data-target="#manage_did_access_modal"></td>
-                    <td> <button class="btn btn-danger"> Delete</button></td>
-                </tr>
+            <tbody id="manageAccess_DID_Body">
 
             </tbody>
-
         </table>
-        <img src="/images/User_Profile_icons/add.png" id="add_row_icon" data-toggle="modal"
-            data-target="#manage_did_access_modal" onclick="emptyField()">
     </div>
 </div>
 
@@ -158,60 +131,126 @@
     </div>
 </div>
 
-<!-- 
-<script>
-    alert($('#manageAccess_Body tr').length)
-</script> -->
-
 
 <script>
+    var response = JSON.parse('<%-JSON.stringify(response)%>')
+</script>
 
-    var table = document.getElementById("manage_Access_Table")
 
 
-    for (var i = 1; i < table.rows.length; i++) {
-        table.rows[i].querySelector('img').onclick = function () {
-            $("#modal_edit_btn").show()
-            $("#modal_save_btn").hide()
-            document.getElementById('emp_fullname').value = this.closest('tr').cells[0].innerHTML
-            document.getElementById('emp_username').value = this.closest('tr').cells[1].innerHTML
-            document.getElementById('emp_email').value = this.closest('tr').cells[2].innerHTML
-            document.getElementById('emp_password').value = this.closest('tr').cells[3].innerHTML
-            document.getElementById('emp_role').value = this.closest('tr').cells[4].innerHTML
-            document.getElementById('emp_salary').value = this.closest('tr').cells[5].innerHTML
-            document.getElementById('emp_timing').value = this.closest('tr').cells[6].innerHTML
-            document.getElementById('emp_commission').value = this.closest('tr').cells[7].innerHTML
-            document.getElementById('emp_target').value = this.closest('tr').cells[8].innerHTML
-        };
+
+
+
+<!-- this is the responsible for select of Compaign and DID number and also 
+for the table displaying of data -->
+
+
+<script>
+    //removing of the table tr if there is any
+
+    var did_select = document.getElementById('did_Number'),
+        tableName = document.getElementById('manage_Access_Table_id'),
+        table_Body_var = document.querySelector("#manage_Access_Table_id > tbody")
+    /**
+     * The function is onchange of the select of the compaign 
+     * this function will get the value of the option which is the compaign id
+     * and it will display the select DID option and 
+     * then it will went inside the response of the server and look for the compaign id
+     * it will then display the all DIDs which the compaign is currently using present in the DB...
+    */
+    function CompaignName_onchange_function(value) {
+        $('#did_Number option[value!="0"]').remove();
+        $("#manage_Access_Table_id").find("tr:not(:nth-child(1)):not(:nth-child(2))").remove();
+        if (value != 0) {
+            $('#did_Number_select').css('visibility', 'visible')
+            response.forEach(element => {
+                element.did_Number_Info_modals.forEach(el => {
+                    if (el.compaign_id == value) {
+                        var new_option = document.createElement('option')
+                        //inserting value and text to the option which will be used in the below function
+                        new_option.text = el.did_Num_number
+                        new_option.value = el.did_Num_id
+                        //adding the newly created option to the select DID tag...
+                        did_select.add(new_option)
+                    }
+                })
+            })
+        }
+        else {
+            $('#did_Number_select').css('visibility', 'hidden');
+            $('#manageAccess_DID_Body').css('visibility', 'hidden');
+        }
     }
 
 
-    for (var i = 1; i < table.rows.length; i++) {
-        table.rows[i].querySelector('button').onclick = function () {
-            console.log("asjkdbadiabsduiahsdauih")
-            console.log(this.closest('tr').cells[0].innerHTML)
-            console.log(this.closest('tr').cells[1].innerHTML)
-            console.log(this.closest('tr').cells[2].innerHTML)
-        };
-    }
-
-    function add_Employee() {
 
 
-    }
+    /**
+    * This is same as above 
+    * it will get the DID id from the option, that is inserted in the above function
+    * it will display the select DID option and 
+    * then it will went inside the response of the server and look for the compaign id
+    * it will then display the all DIDs which the compaign is currently using present in the DB...
+    */
 
-    function emptyField() {
-        $("#modal_edit_btn").hide()
-        $("#modal_save_btn").show()
-        document.getElementById('emp_fullname').value = null
-        document.getElementById('emp_username').value = null
-        document.getElementById('emp_email').value = null
-        document.getElementById('emp_password').value = null
-        document.getElementById('emp_role').value = null
-        document.getElementById('emp_salary').value = null
-        document.getElementById('emp_timing').value = null
-        document.getElementById('emp_commission').value = null
-        document.getElementById('emp_target').value = null
+
+    function didNumbers_onchange_function(value) {
+        if (value != 0) {
+
+            $('#manageAccess_DID_Body').css('visibility', 'visible')
+            response.forEach(element => {
+                element.call_cent_employees.forEach(el => {
+
+                    if (el.did_Num_id == value) {
+                        var newtrrrrr = document.createElement('tr'),
+                            newtd = document.createElement('td'),
+                            newtd1 = document.createElement('td'),
+                            newtd2 = document.createElement('td'),
+                            newtd3 = document.createElement('td'),
+                            newtd4 = document.createElement('td'),
+                            newtd5 = document.createElement('td'),
+                            newtd6 = document.createElement('td'),
+                            newtd7 = document.createElement('td')
+
+
+                        newtd.innerHTML = el.emp_fullName
+                        newtd1.innerHTML = el.emp_email
+                        newtd2.innerHTML = el.emp_username
+                        newtd3.innerHTML = el.emp_role
+                        newtd4.innerHTML = el.emp_timing
+                        /**
+                         * this will check if the employee in the compaign 
+                         * and with the same did number which alot to him 
+                         * and will check the status of the emp_isPaused === true
+                         * then it will add Pause button only 
+                         * and if it false then it will add Allow button
+                        */
+                        if (el.emp_isPaused) {
+                            newtd5.innerHTML = "Working"
+                            newtd5.style.color = "Green"
+                            newtd5.style.fontWeight = 600
+                            newtd7.innerHTML = `<button class="btn btn-danger" id="${el.emp_isPaused}" data-id="${el.emp_isPaused}" value="${el.emp_email}" onclick ="pause_btn_onclick(this.value,${el.emp_isPaused})">Pause</button>`
+                        }
+
+                        else {
+                            newtd5.innerHTML = "Pause"
+                            newtd5.style.color = "Red"
+                            newtd5.style.fontWeight = 600
+                            newtd6.innerHTML = `<button class="btn btn-success" id="${el.emp_isPaused}" data-id="${el.emp_isPaused}" value="${el.emp_email}" onclick ="allow_btn_onclick(this.value,${el.emp_isPaused})">Allow</button>`
+                        }
+
+
+
+                        newtrrrrr.append(newtd, newtd1, newtd2, newtd3, newtd4, newtd5, newtd6, newtd7)
+                        tableName.append(newtrrrrr)
+                    }
+                })
+            })
+        }
+        else {
+            $("#manage_Access_Table_id").find("tr:not(:nth-child(1)):not(:nth-child(2))").remove();
+            $('#manageAccess_DID_Body').css('visibility', 'hidden');
+        }
     }
 
 
@@ -221,6 +260,49 @@
 
 
 
+<script>
+    function pause_btn_onclick(emp_email, booleanValue) {
+        
+
+        console.log("Before", booleanValue)
+        booleanValue = !booleanValue
+        console.log("After", booleanValue)
+
+        // var aaaa = booleanValue ? false : true
+
+
+
+        // console.log("After", aaaa)
+    }
+    function allow_btn_onclick(emp_email, booleanValue) {
+
+
+        console.log("Before", booleanValue)
+        booleanValue = !booleanValue
+        console.log("After", booleanValue)
+
+
+        // var aaaa = booleanValue ? false : true
+
+
+
+        // console.log("After", aaaa)
+
+
+        // $.ajax({
+        //     url: '/toggle_employee_isPaused_status',
+        //     type: 'POST',
+        //     data: { emp_email, booleanValue },
+        //     error: ((error) => {
+        //         console.log(error)
+        //     }),
+        //     success: ((ajaxResult) => {
+        //         console.log(ajaxResult)
+        //     })
+        // })
+
+    }
+</script>
 
 
 
