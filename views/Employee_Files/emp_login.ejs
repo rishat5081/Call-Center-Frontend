@@ -1,0 +1,57 @@
+<% include Employee_Section/emp_header.ejs %>
+
+
+<title>Login</title>
+<div class="col-6">
+    <%- messages('Web_Sections/message.ejs',locals)  %>
+    <div class="card" id="call_Center_info_div">
+        <div class="textArea_userProfile">
+            <h2 class="mb-4 loginHeading">Login</h2>
+            <form action="/login_of_Employee" method="GET">
+                <div class="form-group">
+                    <label for="user_login_email">Email address</label>
+                    <input type="email" class="form-control" name="login_email" aria-describedby="emailHelp"
+                        placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login_password">Password</label>
+                    <input type="password" class="form-control" name="login_password" placeholder="Password" required>
+                    <img src="/images/show_password.png" width="20px" height="20px" onclick="show_password()"
+                        id="show_password_image">
+                </div>
+                <div class="Login_Button">
+                    <button type="submit" class="btn btn-dark">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 
+<button onclick="play()"> cleifask</button>
+
+<h1 id="asdas"></h1>
+
+<audio id="asdasdadasdasd" src="/Notification_Tunes/notification.ogg" type="audio/ogg""></audio>
+
+<script src="http://localhost:22001/socket.io/socket.io.js"></script>
+<script>
+    var socket = io()
+
+    var myadido = document.getElementById("asdasdadasdasd");
+
+    socket.on('Play', (data) => {
+        $('#asdas').html(data)
+        myadido.play();
+    })
+
+
+
+    function play() {
+        myadido.play();
+    }
+</script> -->
+
+
+
+<% include Web_Sections/footer.ejs %>

@@ -1,0 +1,278 @@
+<% include Web_Sections/header.ejs %>
+
+
+<%- messages('Web_Sections/message.ejs',locals)  %>
+
+<div id="ajaxResult_alert">
+
+</div>
+
+
+
+<div id="manageCompaign_div">
+    <div class="textArea_ManageAccess">
+        <table class="table" id="manage_compaign_Table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name of Compaign</th>
+                    <th scope="col">Country Name</th>
+                    <th scope="col">Compaign Type</th>
+                    <th scope="col">Starting Date</th>
+                    <th scope="col">Sales</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody id="manageCompaign_TB_Body">
+            </tbody>
+        </table>
+        <img src=" /images/User_Profile_icons/add.png" id="add_row_icon" data-toggle="modal"
+            data-target="#manage_did_access_modal" onclick="emptyModalField()">
+    </div>
+</div>
+
+
+
+
+<!-- Modal for adding and editing the data of the employees-->
+<div class="modal fade" id="manage_did_access_modal" tabindex="-1" role="dialog"
+    aria-labelledby="manage_did_access_modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Manage Compaign</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" id="manage_did_access_modal_body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="modal_alert">
+                        </div>
+                        <div class="form-group" id="comapign_id_div">
+                            <label for="comapign_id">Compaign ID</label>
+                            <input type="text" class="form-control" id="comapign_id" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="comapign_name">Compaign Name</label>
+                            <input type="text" class="form-control" id="comapign_name" required>
+                            <small>e.g Security Alarams, Health Insurance </small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="compaign_country">Compaign Country</label>
+                            <input type="text" class="form-control" id="compaign_country" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="compaign_type">Compaign Type</label>
+                            <input type="text" class="form-control" id="compaign_type" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="compaign_start_Date">Compaign Starting Date</label>
+                            <input type="date" class="form-control" id="compaign_start_Date" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark " data-dismiss="modal" id="modal_close_btn">Close</button>
+                <button type="button" class="btn btn-primary" id="modal_edit_btn"
+                    onclick="edit_Compaign_AJAX()">Edit</button>
+                <button type="button" class="btn btn-primary" id="modal_save_btn"
+                    onclick="add_Compaign_AJAX()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Inserting the data of the server into the table using Plain Js 
+Because the sales column is making problem in EJS 
+in the first script -->
+
+
+<script>
+    var response = JSON.parse('<%-JSON.stringify(response)%>'),
+        manage_compaign_Table = document.getElementById('manage_compaign_Table')
+
+    /**
+     * Inserting into the table the response of the Database
+     * Do not mess with it
+    */
+    response.forEach(element => {
+        var newtdd = document.createElement('td'),
+            newtd = document.createElement('td'),
+            newtd11 = document.createElement('td'),
+            newtd1 = document.createElement('td'),
+            newtd2 = document.createElement('td'),
+            newtd3 = document.createElement('td'),
+            newtd4 = document.createElement('td'),
+            newtd5 = document.createElement('td'),
+            newtr = document.createElement('tr')
+
+        newtdd.innerHTML = element.compaign_id
+        newtd.innerHTML = element.compaign_name
+        newtd11.innerHTML = element.compaign_type
+        newtd1.innerHTML = element.compaign_country
+        newtd2.innerHTML = element.compaign_start_Date
+        if (element.call_cent_sales[0])
+            newtd3.innerHTML = element.call_cent_sales[0].SALES_of_Compaign
+        else
+            newtd3.innerHTML = 0
+        newtd4.innerHTML = `<img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
+                data-target="#manage_did_access_modal">`
+        newtd5.innerHTML = `<button class="btn btn-danger" data-toggle="modal" data-target="#confirmation_modal">
+                Delete</button>`
+
+        newtr.append(newtdd, newtd, newtd1, newtd11, newtd2, newtd3, newtd4, newtd5)
+        manage_compaign_Table.append(newtr)
+    })
+    /**
+    * End of Inserting into the table the response of the Database
+   */
+
+</script>
+
+
+
+<script>
+    var table = document.getElementById('manage_compaign_Table')
+
+    //function for the fade of the alert
+    function alert_Fade(name_of_alert) {
+        $(`#${name_of_alert}_alert`).fadeTo(1500, 500).slideUp(500, function () {
+            $(`#${name_of_alert}_alert`).slideUp(500);
+        });
+    }
+
+    function refresh_Modal() {
+
+        $('#manage_did_access_modal').fadeIn(100)
+        $('#manage_did_access_modal').modal('hide')
+        setTimeout(function () {
+            $('#manageCompaign_div').fadeOut(3000, function () {
+                location.reload(true);
+            })
+        })
+    }
+
+    for (var i = 1; i < table.rows.length; i++) {
+        table.rows[i].querySelector('button').onclick = function () {
+            console.log(this.closest('tr').cells[0].innerHTML)
+            console.log(this.closest('tr').cells[1].innerHTML)
+            console.log(this.closest('tr').cells[2].innerHTML)
+        };
+    }
+
+
+    /**
+     * This for loop is responsible as the same above loop, 
+     * it will look for the img tag inside the table then 
+     * it will bring that row data as `this.closest('tr').cells[0].innerHTML`
+    */
+    for (var i = 1; i < table.rows.length; i++) {
+        table.rows[i].querySelector('img').onclick = function () {
+            $('#modal_save_btn').hide()
+            $('#modal_edit_btn').show()
+            $('#comapign_id_div').show()
+            $('#comapign_id').val(this.closest('tr').cells[0].innerHTML)
+            $('#comapign_name').val(this.closest('tr').cells[1].innerHTML)
+            $('#compaign_country').val(this.closest('tr').cells[2].innerHTML)
+            $('#compaign_type').val(this.closest('tr').cells[3].innerHTML)
+            $('#compaign_start_Date').val(this.closest('tr').cells[4].innerHTML)
+        };
+    }
+
+
+    function edit_Compaign_AJAX() {
+        $.ajax({
+            url: 'edit_Compaign_info_AJAX',
+            type: 'POST',
+            data: {
+                comapign_id: $('#comapign_id').val(),
+                compaign_name: $('#comapign_name').val(),
+                compaign_type: $('#compaign_type').val(),
+                compaign_country: $('#compaign_country').val(),
+                compaign_start_Date: $('#compaign_start_Date').val()
+            },
+            error: ((error) => {
+                $('#ajaxResult_alert').addClass('alert alert-danger')
+                $('#ajaxResult_alert').html('Oops! Sorry. There is an error')
+                alert_Fade('ajaxResult')
+                refresh_Modal()
+            }),
+            success: ((ajaxResult) => {
+                $('#ajaxResult_alert').addClass('alert alert-success')
+                $('#ajaxResult_alert').html('Successfully! Updated Compaign Details')
+                alert_Fade('ajaxResult')
+                refresh_Modal()
+            })
+        })
+    }
+
+    function check_Null_Inputs() {
+
+        if ($('#comapign_name').val() && $('#compaign_country').val() && $('#compaign_start_Date').val() && $('#compaign_type').val()) {
+            return true
+        }
+        else {
+            $('#modal_alert').addClass('alert alert-danger')
+            $('#modal_alert').html('All Fields are mandatory')
+            alert_Fade("modal")
+        }
+
+    }
+
+    function add_Compaign_AJAX() {
+
+        const response = check_Null_Inputs()
+
+        if (response) {
+            $.ajax({
+                url: 'add_new_Compaign_info_AJAX',
+                type: 'POST',
+                data: {
+                    compaign_name: $('#comapign_name').val(),
+                    compaign_type: $('#compaign_type').val(),
+                    compaign_country: $('#compaign_country').val(),
+                    compaign_start_Date: $('#compaign_start_Date').val()
+                },
+                error: ((error) => {
+                    $('#ajaxResult_alert').addClass('alert alert-danger')
+                    $('#ajaxResult_alert').html('Oops! Sorry. There is an error')
+                    alert_Fade('ajaxResult')
+                    refresh_Modal()
+                }),
+                success: ((ajaxResult) => {
+                    $('#ajaxResult_alert').addClass('alert alert-success')
+                    $('#ajaxResult_alert').html('Successfully! Updated Compaign Details')
+                    alert_Fade('ajaxResult')
+                    refresh_Modal()
+                })
+            })
+        }
+    }
+
+
+    function emptyModalField() {
+        $('#modal_save_btn').show()
+        $('#modal_edit_btn').hide()
+        $('#comapign_id_div').hide()
+        $('#comapign_name').val(null)
+        $('#compaign_country').val(null)
+        $('#compaign_start_Date').val(null)
+    }
+
+</script>
+
+
+
+
+
+
+
+
+<% include Web_Sections/footer.ejs %>

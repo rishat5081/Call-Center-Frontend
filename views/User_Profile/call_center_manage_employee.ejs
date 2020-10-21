@@ -21,7 +21,6 @@
 
 </div>
 
-
 <div id="manageAccess_table">
     <div class="textArea_ManageAccess">
         <table class="table" id="manage_Access_Table">
@@ -192,6 +191,7 @@
     //validating that when the user is adding a new employee it should validate the 
     // email is already taken or not 
     var onselect_response = JSON.parse('<%- JSON.stringify(response.call_cent_employees) %>')
+    console.log(onselect_response);
 
     //function for the fade of the alert
     function alert_Fade(name_of_alert) {
@@ -474,13 +474,16 @@
         /**
          * the while loop is use to remove the previous td if there is any... 
         */
+
+
+        console.log(compaign_ID);
         while (manageAccess_Table_Body.rows.length > 0) {
             manageAccess_Table_Body.deleteRow(0)
         }
-
         onselect_response.forEach(element => {
             var newTr = document.createElement('tr')
             if (element.compaign_id == compaign_ID) {
+              
                 var newTd1 = document.createElement('td'),
                     newTd2 = document.createElement('td'),
                     newTd3 = document.createElement('td'),
@@ -506,9 +509,8 @@
                                    onclick="getId(this,this.value)">Delete</button></td>`
 
                 newTr.append(newTd1, newTd3, newTd2, newTd4, newTd5, newTd6, newTd7, newTd8, newTd9, newTd10)
+                manageAccess_Table_Body.append(newTr)
             }
-            manageAccess_Table_Body.append(newTr)
-
         })
     }
 
@@ -521,7 +523,7 @@
 
 
 
-
+// 0803-0104778128
 
 
 

@@ -22,3 +22,4 @@ The second part of the VOIP
 
 1. Disable the `ONLY_FULL_GROUP_BY` follow this https://stackoverflow.com/a/36033983/10967697
 
+2. When using `socket.io` the app.listen will be changed to `server.listen`
