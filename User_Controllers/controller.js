@@ -303,24 +303,37 @@ module.exports = (app) => {
      * boolean value of the Employee_isPaused to the email
      */
 
-    app.post('/toggle_employee_isPaused_status', (req, res) => {
-      
+    app.post('/toggle_access_of_DID_for_Employees', (req, res) => {
 
-        var booleana = !req.body.booleana
-        console.log(booleana)
+        const dBResponse = call_Center_Employee_Model.update({
+            emp_isPaused: req.body.booleanValue
+        },
+            {
+                where: {
+                    emp_email: req.body.emp_email,
+                    // compaign_id: req.body.compaign_id,
+                    did_Num_id: req.body.did_Num_id
+                }
+            })
+            .then()
+            .then((response) => {
+                return response
+            })
+            .catch((error) => {
+                return error
+            })
 
-        // call_Center_Employee_Model.update({
-        //     emp_isPaused: 1
-        // },
-        //     {
-        //         where: {
-        //             emp_email: 'fullname_email@a'
-        //         }
-        //     })
-        //     .then((resss) => {
-        //         console.log(resss);
-            // })
-        res.send({ update: "Saad" })
+        dBResponse
+            .then((response) => {
+           
+                res.send({ result: "Updated", response })
+            })
+            .catch((error) => {
+                res.send({ result: "Error", error })
+            })
+
+
+
     })
 
 

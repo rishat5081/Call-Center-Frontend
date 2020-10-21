@@ -1,5 +1,3 @@
-const call_center_compaign_info = require('../Configuration Files/Sequelize Files/Sequelize Models/call_center_compaign_info')
-
 var express = require('express'),
   router = express.Router(),
   //requiring the middleware which is used to 

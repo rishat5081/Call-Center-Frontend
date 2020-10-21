@@ -25,8 +25,9 @@
     </div>
 </div>
 
-<h3 id="abc"></h3>
+<div id="response_alert">
 
+</div>
 
 <div class="card" id="manageAccess_ofDID">
     <div class="textArea_ManageAccess">
@@ -131,22 +132,35 @@
     </div>
 </div>
 
-
 <script>
     var response = JSON.parse('<%-JSON.stringify(response)%>')
 </script>
 
-
-
-
-
-
-<!-- this is the responsible for select of Compaign and DID number and also 
-for the table displaying of data -->
-
-
+<!-- <script type="text/javascript" src="/Js_files/manageAccess.js"></script> -->
+<!-- 
+<script src="http://localhost:22001/socket.io/socket.io.js"></script> -->
 <script>
-    //removing of the table tr if there is any
+
+    function alert_Fade(name_of_alert) {
+        $(`#${name_of_alert}_alert`).fadeTo(1500, 500).slideUp(500, function () {
+            $(`#${name_of_alert}_alert`).slideUp(500);
+        });
+    }
+
+    function refresh_Modal() {
+
+        $('#manage_did_access_modal').fadeIn(100)
+        $('#manage_did_access_modal').modal('hide')
+        setTimeout(function () {
+            $('#manageAccess_ofDID').fadeOut(3000, function () {
+                location.reload(true);
+            })
+        })
+    }
+
+    // <!-- this is the responsible for select of Compaign and DID number and also 
+    // for the table displaying of data -->
+
 
     var did_select = document.getElementById('did_Number'),
         tableName = document.getElementById('manage_Access_Table_id'),
@@ -160,6 +174,8 @@ for the table displaying of data -->
     */
     function CompaignName_onchange_function(value) {
         $('#did_Number option[value!="0"]').remove();
+        // deleting the tables rows
+        console.log(value);
         $("#manage_Access_Table_id").find("tr:not(:nth-child(1)):not(:nth-child(2))").remove();
         if (value != 0) {
             $('#did_Number_select').css('visibility', 'visible')
@@ -195,6 +211,7 @@ for the table displaying of data -->
 
 
     function didNumbers_onchange_function(value) {
+        $("#manage_Access_Table_id").find("tr:not(:nth-child(1)):not(:nth-child(2))").remove();
         if (value != 0) {
 
             $('#manageAccess_DID_Body').css('visibility', 'visible')
@@ -202,6 +219,7 @@ for the table displaying of data -->
                 element.call_cent_employees.forEach(el => {
 
                     if (el.did_Num_id == value) {
+
                         var newtrrrrr = document.createElement('tr'),
                             newtd = document.createElement('td'),
                             newtd1 = document.createElement('td'),
@@ -229,20 +247,18 @@ for the table displaying of data -->
                             newtd5.innerHTML = "Working"
                             newtd5.style.color = "Green"
                             newtd5.style.fontWeight = 600
-                            newtd7.innerHTML = `<button class="btn btn-danger" id="${el.emp_isPaused}" data-id="${el.emp_isPaused}" value="${el.emp_email}" onclick ="pause_btn_onclick(this.value,${el.emp_isPaused})">Pause</button>`
+                            newtd7.innerHTML = `<button class="btn btn-danger" id="${el.emp_isPaused}" value="${el.emp_email}" onclick ="allow_btn_onclick(this.value,${el.emp_isPaused})">Pause</button>`
                         }
 
                         else {
                             newtd5.innerHTML = "Pause"
                             newtd5.style.color = "Red"
                             newtd5.style.fontWeight = 600
-                            newtd6.innerHTML = `<button class="btn btn-success" id="${el.emp_isPaused}" data-id="${el.emp_isPaused}" value="${el.emp_email}" onclick ="allow_btn_onclick(this.value,${el.emp_isPaused})">Allow</button>`
+                            newtd6.innerHTML = `<button class="btn btn-success" id="${el.emp_isPaused}"  value="${el.emp_email}" onclick ="allow_btn_onclick(this.value,${el.emp_isPaused})">Allow</button>`
                         }
-
-
-
                         newtrrrrr.append(newtd, newtd1, newtd2, newtd3, newtd4, newtd5, newtd6, newtd7)
                         tableName.append(newtrrrrr)
+
                     }
                 })
             })
@@ -256,58 +272,39 @@ for the table displaying of data -->
 
 
 
-</script>
 
-
-
-<script>
-    function pause_btn_onclick(emp_email, booleanValue) {
-        
-
-        console.log("Before", booleanValue)
-        booleanValue = !booleanValue
-        console.log("After", booleanValue)
-
-        // var aaaa = booleanValue ? false : true
-
-
-
-        // console.log("After", aaaa)
-    }
     function allow_btn_onclick(emp_email, booleanValue) {
 
 
-        console.log("Before", booleanValue)
-        booleanValue = !booleanValue
-        console.log("After", booleanValue)
+        var compaign_id = $('#nameof_compaign').find(":selected").val(),
+            did_Num_id = $('#did_Number').find(":selected").val()
 
-
-        // var aaaa = booleanValue ? false : true
-
-
-
-        // console.log("After", aaaa)
-
-
-        // $.ajax({
-        //     url: '/toggle_employee_isPaused_status',
-        //     type: 'POST',
-        //     data: { emp_email, booleanValue },
-        //     error: ((error) => {
-        //         console.log(error)
-        //     }),
-        //     success: ((ajaxResult) => {
-        //         console.log(ajaxResult)
-        //     })
-        // })
+        $.ajax({
+            url: '/toggle_access_of_DID_for_Employees',
+            type: 'POST',
+            data: { emp_email, booleanValue: !booleanValue, compaign_id, did_Num_id },
+            error: ((error) => {
+                $('#response_alert').addClass('alert alert-danger')
+                $('#response_alert').html('Oops! Sorry. There is an error')
+                alert_Fade('response')
+                refresh_Modal()
+            }),
+            success: ((ajaxResult) => {
+                // start of the real time notification
+                //sending the real time notification to the employee to whome the access is given
+                // var socket = io()
+                // socket.emit("DID_Access_granted", { to: emp_email, status: booleanValue })
+                // end of the real time notification
+                $('#response_alert').addClass('alert alert-success')
+                $('#response_alert').html('Successfully! Access is Given')
+                alert_Fade('response')
+                refresh_Modal()
+            })
+        })
 
     }
+
 </script>
-
-
-
-
-
 
 
 

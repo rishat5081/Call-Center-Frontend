@@ -1,272 +1,542 @@
 <% include Web_Sections/header.ejs %>
 
 
+
 <%- messages('Web_Sections/message.ejs',locals)  %>
+<div class="col-lg-12" id="compaign_select_dropdown">
+    <div class="form-group">
+        <label for="emp_compaign">Compaign</label>
+        <select type="text" class="form-control" id="emp_compaign" aria-describedby="emp_compaign"
+            onchange="CompaignName_onchange_function(this.value)" required>
+            <option value="0">Select Compaign</option>
+            <% for(const element of response.call_center_compaign_infos){ %>
+            <option value="<%= element.dataValues.compaign_id %>">
+                <%= element.dataValues.compaign_name %></option>
+            <% } %>
+        </select>
+    </div>
+</div>
 
 <div id="ajaxResult_alert">
 
 </div>
 
 
-
-<div id="manageCompaign_div">
+<div id="manageAccess_table">
     <div class="textArea_ManageAccess">
-        <table class="table" id="manage_compaign_Table">
+        <table class="table" id="manage_Access_Table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name of Compaign</th>
-                    <th scope="col">Country Name</th>
-                    <th scope="col">Compaign Type</th>
-                    <th scope="col">Starting Date</th>
-                    <th scope="col">Sales</th>
+                    <th scope="col">Employee</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Timing</th>
+                    <th scope="col">Commission</th>
+                    <th scope="col">Target</th>
+
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
+
                 </tr>
             </thead>
-            <tbody id="manageCompaign_TB_Body">
+            <tbody id="manageAccess_Body">
+
+
             </tbody>
         </table>
-        <img src=" /images/User_Profile_icons/add.png" id="add_row_icon" data-toggle="modal"
-            data-target="#manage_did_access_modal" onclick="emptyModalField()">
+        <img src="/images/User_Profile_icons/add.png" id="add_row_icon" data-toggle="modal"
+            data-target="#manage_did_access_modal" onclick="emptyField()">
     </div>
 </div>
-
-
-
 
 <!-- Modal for adding and editing the data of the employees-->
 <div class="modal fade" id="manage_did_access_modal" tabindex="-1" role="dialog"
     aria-labelledby="manage_did_access_modal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Manage Compaign</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New Employee</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
             <div class="modal-body" id="manage_did_access_modal_body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div id="modal_alert">
-                        </div>
-                        <div class="form-group" id="comapign_id_div">
-                            <label for="comapign_id">Compaign ID</label>
-                            <input type="text" class="form-control" id="comapign_id" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="comapign_name">Compaign Name</label>
-                            <input type="text" class="form-control" id="comapign_name" required>
-                            <small>e.g Security Alarams, Health Insurance </small>
-                        </div>
+                <div id="modal_alert">
 
-                        <div class="form-group">
-                            <label for="compaign_country">Compaign Country</label>
-                            <input type="text" class="form-control" id="compaign_country" required>
+                </div>
+                <form>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_fullname">Full Name</label>
+                                <input type="text" class="form-control" id="emp_fullname"
+                                    onchange="onchange_function(this.value, this.id)" required>
+                                <small>e.g John Smith</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="emp_username">Username</label>
+                                <input type="text" class="form-control" id="emp_username"
+                                    onchange="onchange_function(this.value, this.id)" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="compaign_type">Compaign Type</label>
-                            <input type="text" class="form-control" id="compaign_type" required>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_email">Email address</label>
+                                <input type="email" class="form-control" id="emp_email" aria-describedby="emailHelp"
+                                    onchange="onchange_function(this.value, this.id)" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="emp_password">Password</label>
+                                <input type="text" class="form-control" id="emp_password"
+                                    onchange="onchange_function(this.value, this.id)" required>
+                                <small>Password must contain 8 characters.</small>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="compaign_start_Date">Compaign Starting Date</label>
-                            <input type="date" class="form-control" id="compaign_start_Date" required>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_role">Role</label>
+                                <input type="text" class="form-control" id="emp_role" aria-describedby="emp_role"
+                                    onchange="onchange_function(this.value, this.id)" required>
+                                <small>e.g CRS, Lead Manager</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="emp_timing">Timing</label>
+                                <input type="text" class="form-control" id="emp_timing"
+                                    onchange="onchange_function(this.value, this.id)" required>
+                                <small>e.g Part , Full Time</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_salary">Salary</label>
+                                <input type="number" class="form-control" id="emp_salary" aria-describedby="emp_salary"
+                                    onchange="onchange_function(this.value, this.id)" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="emp_commission">Commission</label>
+                                <input type="number" class="form-control" id="emp_commission"
+                                    onchange="onchange_function(this.value, this.id)" required>
+                                <small>e.g 1% , 5%</small>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_target">Target</label>
+                                <input type="number" class="form-control" id="emp_target" aria-describedby="emp_target"
+                                    onchange="onchange_function(this.value, this.id)" required>
+                                <small>e.g 10, 15</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="emp_compaign_modal">Compaign</label>
+                                <select type="text" class="form-control" id="emp_compaign_modal"
+                                    onchange="onchange_function(this.value, this.id)" required>
+
+                                    <% for(const element of response.call_center_compaign_infos){ %>
+                                    <option value="<%= element.dataValues.compaign_id %>"
+                                        id="<%= element.dataValues.compaign_name %>">
+                                        <%= element.dataValues.compaign_name %></option>
+                                    <% } %>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark " data-dismiss="modal" id="modal_close_btn">Close</button>
+
                 <button type="button" class="btn btn-primary" id="modal_edit_btn"
-                    onclick="edit_Compaign_AJAX()">Edit</button>
-                <button type="button" class="btn btn-primary" id="modal_save_btn"
-                    onclick="add_Compaign_AJAX()">Add</button>
+                    onclick="edit_Empployee_btn()">Edit</button>
+                <button type="button" class="btn btn-primary" id="modal_save_btn" onclick="add_Employee()">Add</button>
             </div>
         </div>
     </div>
 </div>
 
 
-<!-- Inserting the data of the server into the table using Plain Js 
-Because the sales column is making problem in EJS 
-in the first script -->
 
 
-<script>
-    var response = JSON.parse('<%-JSON.stringify(response)%>'),
-        manage_compaign_Table = document.getElementById('manage_compaign_Table')
+<!-- modal for the confirmation of the delete employees data -->
 
-    /**
-     * Inserting into the table the response of the Database
-     * Do not mess with it
-    */
-    response.forEach(element => {
-        var newtdd = document.createElement('td'),
-            newtd = document.createElement('td'),
-            newtd11 = document.createElement('td'),
-            newtd1 = document.createElement('td'),
-            newtd2 = document.createElement('td'),
-            newtd3 = document.createElement('td'),
-            newtd4 = document.createElement('td'),
-            newtd5 = document.createElement('td'),
-            newtr = document.createElement('tr')
+<div class="modal fade " id="confirmation_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="manage_did_access_modal_body">
+                <p>Are you sure to delete ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark " data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="confirm" onclick="return true">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of the confirmation modal -->
 
-        newtdd.innerHTML = element.compaign_id
-        newtd.innerHTML = element.compaign_name
-        newtd11.innerHTML = element.compaign_type
-        newtd1.innerHTML = element.compaign_country
-        newtd2.innerHTML = element.compaign_start_Date
-        if (element.call_cent_sales[0])
-            newtd3.innerHTML = element.call_cent_sales[0].SALES_of_Compaign
-        else
-            newtd3.innerHTML = 0
-        newtd4.innerHTML = `<img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
-                data-target="#manage_did_access_modal">`
-        newtd5.innerHTML = `<button class="btn btn-danger" data-toggle="modal" data-target="#confirmation_modal">
-                Delete</button>`
 
-        newtr.append(newtdd, newtd, newtd1, newtd11, newtd2, newtd3, newtd4, newtd5)
-        manage_compaign_Table.append(newtr)
-    })
-    /**
-    * End of Inserting into the table the response of the Database
-   */
-
-</script>
 
 
 
 <script>
-    var table = document.getElementById('manage_compaign_Table')
+    //validating that when the user is adding a new employee it should validate the 
+    // email is already taken or not 
+    var onselect_response = JSON.parse('<%- JSON.stringify(response.call_cent_employees) %>')
 
     //function for the fade of the alert
     function alert_Fade(name_of_alert) {
-        $(`#${name_of_alert}_alert`).fadeTo(1500, 500).slideUp(500, function () {
+        $(`#${name_of_alert}_alert`).fadeTo(2000, 500).slideUp(500, function () {
             $(`#${name_of_alert}_alert`).slideUp(500);
         });
     }
+    //variables for the add tables td
+    var table = document.getElementById("manage_Access_Table")
+    var tableBody = document.getElementById("manageAccess_Body")
 
-    function refresh_Modal() {
 
-        $('#manage_did_access_modal').fadeIn(100)
-        $('#manage_did_access_modal').modal('hide')
-        setTimeout(function () {
-            $('#manageCompaign_div').fadeOut(3000, function () {
-                location.reload(true);
+
+
+
+    function add_Employee() {
+        $('#modal_edit_btn').hide()
+        var newTr = document.createElement('tr'),
+            newTd1 = document.createElement('td'),
+            newTd2 = document.createElement('td'),
+            newTd3 = document.createElement('td'),
+            newTd4 = document.createElement('td'),
+            newTd5 = document.createElement('td'),
+            newTd6 = document.createElement('td'),
+            newTd7 = document.createElement('td'),
+            newTd8 = document.createElement('td'),
+            newTd9 = document.createElement('td'),
+            newTd10 = document.createElement('td')
+
+        newTd1.innerHTML = document.getElementById('emp_fullname').value
+        newTd2.innerHTML = document.getElementById('emp_username').value
+        newTd3.innerHTML = document.getElementById('emp_email').value
+        newTd4.innerHTML = document.getElementById('emp_role').value
+        newTd5.innerHTML = document.getElementById('emp_salary').value
+        newTd6.innerHTML = document.getElementById('emp_timing').value
+        newTd7.innerHTML = document.getElementById('emp_commission').value
+        newTd8.innerHTML = document.getElementById('emp_target').value
+        newTd9.innerHTML = `<img src="/images/User_Profile_icons/edit.png" data-toggle="modal"
+                data-target="#manage_did_access_modal">`
+        newTd10.innerHTML = `<button class="btn btn-danger" data-toggle="modal" data-target="#confirmation_modal">
+                Delete</button>`
+
+
+
+        newTr.append(newTd1, newTd3, newTd2, newTd4, newTd5, newTd6, newTd7, newTd8, newTd9, newTd10)
+        $("#manage_did_access_modal").modal('hide')
+        tableBody.append(newTr)
+
+        //calling AJAX to add the employee into the database
+        addEmployee_Into_DB_AJAX(document.getElementById('emp_fullname').value, document.getElementById('emp_email').value,
+            document.getElementById('emp_username').value, document.getElementById('emp_password').value,
+            document.getElementById('emp_role').value, document.getElementById('emp_salary').value,
+            document.getElementById('emp_timing').value, document.getElementById('emp_commission').value,
+            document.getElementById('emp_target').value, document.getElementById('emp_compaign_modal').value)
+    }
+
+
+    function emptyField() {
+        $("#modal_edit_btn").hide()
+        $("#modal_save_btn").show()
+        document.getElementById('emp_fullname').value = null
+        document.getElementById('emp_username').value = null
+        document.getElementById('emp_email').value = null
+        document.getElementById('emp_password').value = null
+        document.getElementById('emp_role').value = null
+        document.getElementById('emp_salary').value = null
+        document.getElementById('emp_timing').value = null
+        document.getElementById('emp_commission').value = null
+        document.getElementById('emp_target').value = null
+    }
+
+
+
+    var employee_id
+
+    //getting the employee id
+    function getId(element, value) {
+        employee_id = value
+    }
+
+
+    $("#confirm").on('click', (() => {
+        console.log(employee_id)
+        $("#confirmation_modal").modal('hide')
+        //calling ajax to update the status of delete employee
+        deleteEmployee(employee_id)
+    }))
+
+    function deleteEmployee(employee_id) {
+        $.ajax({
+            url: '/delete_Employee_Data',
+            type: 'POST',
+            data: { employee_id },
+            error: ((error) => {
+                $('#ajaxResult_alert').addClass('alert alert-danger')
+                $('#ajaxResult_alert').html('Oops! Sorry There is issue !!')
+                alert_Fade('ajaxResult')
+            }),
+            success: ((ajaxResult) => {
+                console.log(ajaxResult);
+                $('#ajaxResult_alert').addClass('alert alert-success')
+                $('#ajaxResult_alert').html('Successfully! Employee Deleted.')
+                alert_Fade('ajaxResult')
             })
+        })
+
+        $('#manage_Access_Table').fadeIn(1000);
+        setTimeout(function () {
+            $('#manage_Access_Table').fadeOut(2000, function () {
+                location.reload(true);
+            });
+        });
+
+    }
+
+    /**
+     * adding the employee into the DB
+    */
+
+    function addEmployee_Into_DB_AJAX(fullname, email, username, password, role, salary, timing, commission, target, compaign) {
+        console.log(fullname, email, username, password, role, salary, timing, commission, target, compaign)
+
+        $.ajax({
+            url: '/add_Employee_AJAX_call',
+            type: 'POST',
+            data: {
+                fullname, email, username, password, role, salary, timing, commission, target, compaign
+            },
+            error: ((error) => {
+                $('#ajaxResult_alert').addClass('alert alert-danger')
+                $('#ajaxResult_alert').html('Oops! Sorry There is issue !!')
+                alert_Fade('ajaxResult')
+            }),
+            success: ((ajaxResult) => {
+                console.log(ajaxResult);
+                $('#ajaxResult_alert').addClass('alert alert-success')
+                $('#ajaxResult_alert').html('Successfully! Employee Deleted.')
+                alert_Fade('ajaxResult')
+            })
+        })
+        $('#manage_Access_Table').fadeIn(1000);
+        setTimeout(function () {
+            $('#manage_Access_Table').fadeOut(2000, function () {
+                location.reload(true);
+            });
+        });
+
+
+    }
+
+    var edit_employee_id
+    function edit_functioin(value, id) {
+        edit_employee_id = id
+        emptyField()
+        $('#modal_save_btn').hide()
+        $('#modal_edit_btn').show()
+
+        onselect_response.forEach(element => {
+            if (element.emp_id == id) {
+                document.getElementById('emp_fullname').value = element.emp_fullName
+                document.getElementById('emp_username').value = element.emp_username
+                document.getElementById('emp_email').value = element.emp_email
+                document.getElementById('emp_password').value = element.emp_password
+                document.getElementById('emp_role').value = element.emp_role
+                document.getElementById('emp_salary').value = element.emp_salary
+                document.getElementById('emp_timing').value = element.emp_timing
+                document.getElementById('emp_commission').value = element.emp_commission
+                document.getElementById('emp_target').value = element.emp_target
+
+            }
         })
     }
 
-    for (var i = 1; i < table.rows.length; i++) {
-        table.rows[i].querySelector('button').onclick = function () {
-            console.log(this.closest('tr').cells[0].innerHTML)
-            console.log(this.closest('tr').cells[1].innerHTML)
-            console.log(this.closest('tr').cells[2].innerHTML)
-        };
+
+
+
+    // //getting rowIndex
+    // var table = document.getElementById('manage_Access_Table'),
+    //     getTBody = table.getElementsByTagName("tbody")[0];
+
+    // getTBody.onclick = function (e) {
+    //     // console.log(e);
+    //     console.log(e.target.parentNode.rowIndex)
+    //     console.log(e.target.value)
+    // };
+
+    function edit_Empployee_btn() {
+        console.log(edit_employee_id);
+
+        onselect_response.forEach(element => {
+            if (edit_employee_id == element.emp_id) {
+
+                console.log(document.getElementById('emp_fullname').value, document.getElementById('emp_email').value,
+                    document.getElementById('emp_username').value, document.getElementById('emp_password').value,
+                    document.getElementById('emp_role').value, document.getElementById('emp_salary').value,
+                    document.getElementById('emp_timing').value, document.getElementById('emp_commission').value,
+                    document.getElementById('emp_target').value, document.getElementById('emp_compaign_modal').value)
+            }
+        })
+
+
+        $.ajax({
+            url: '/updateEmployee_info',
+            type: 'POST',
+            data: {
+                edit_employee_id,
+                emp_fullname: document.getElementById('emp_fullname').value, emp_email: document.getElementById('emp_email').value,
+                emp_username: document.getElementById('emp_username').value, emp_password: document.getElementById('emp_password').value,
+                emp_role: document.getElementById('emp_role').value, emp_salary: document.getElementById('emp_salary').value,
+                emp_timing: document.getElementById('emp_timing').value, emp_commission: document.getElementById('emp_commission').value,
+                emp_target: document.getElementById('emp_target').value, emp_compaign_modal: document.getElementById('emp_compaign_modal').value
+            },
+            error: ((error) => {
+                $('#ajaxResult_alert').addClass('alert alert-danger')
+                $('#ajaxResult_alert').html('Oops! Sorry There is issue !!')
+                alert_Fade('ajaxResult')
+            }),
+            success: ((ajaxResult) => {
+                $('#ajaxResult_alert').addClass('alert alert-success')
+                $('#ajaxResult_alert').html('Successfully! Employee Deleted.')
+                $('#manage_did_access_modal').modal('hide')
+                alert_Fade('ajaxResult')
+            })
+        })
+        $('#manage_Access_Table').fadeIn(1000);
+        setTimeout(function () {
+            $('#manage_Access_Table').fadeOut(2000, function () {
+                location.reload(true);
+            });
+        });
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+    /**
+     * function that will validate the on change function 
+    // which will check that the user entered email exists in the database 
+    //then it won't allow the user to add the same email
+    */
+    function onchange_function(value, id) {
+        if (id === 'emp_email') {
+            var email_Found
+            onselect_response.forEach(element => {
+                if (element.emp_email === value) {
+                    email_Found = element.emp_email
+                }
+            })
+            if (email_Found) {
+                document.getElementById(id).style.borderColor = '#e26c6c'
+                $('#modal_alert').addClass('alert alert-danger')
+                $('#modal_alert').html('Email Already Registered')
+                $('#modal_save_btn').prop('disabled', true)
+                alert_Fade('modal')
+            }
+            else {
+                document.getElementById(id).style.borderColor = '#77e677'
+                $('#modal_save_btn').prop('disabled', false)
+
+            }
+
+        }
+
     }
 
 
     /**
-     * This for loop is responsible as the same above loop, 
-     * it will look for the img tag inside the table then 
-     * it will bring that row data as `this.closest('tr').cells[0].innerHTML`
+     *  displaying the data according to the compaign selection
     */
-    for (var i = 1; i < table.rows.length; i++) {
-        table.rows[i].querySelector('img').onclick = function () {
-            $('#modal_save_btn').hide()
-            $('#modal_edit_btn').show()
-            $('#comapign_id_div').show()
-            $('#comapign_id').val(this.closest('tr').cells[0].innerHTML)
-            $('#comapign_name').val(this.closest('tr').cells[1].innerHTML)
-            $('#compaign_country').val(this.closest('tr').cells[2].innerHTML)
-            $('#compaign_type').val(this.closest('tr').cells[3].innerHTML)
-            $('#compaign_start_Date').val(this.closest('tr').cells[4].innerHTML)
-        };
-    }
+    var manageAccess_Table_Body = document.getElementById('manageAccess_Body')
+    function CompaignName_onchange_function(compaign_ID) {
+        /**
+         * the while loop is use to remove the previous td if there is any... 
+        */
+        while (manageAccess_Table_Body.rows.length > 0) {
+            manageAccess_Table_Body.deleteRow(0)
+        }
 
+        onselect_response.forEach(element => {
+            var newTr = document.createElement('tr')
+            if (element.compaign_id == compaign_ID) {
+                var newTd1 = document.createElement('td'),
+                    newTd2 = document.createElement('td'),
+                    newTd3 = document.createElement('td'),
+                    newTd4 = document.createElement('td'),
+                    newTd5 = document.createElement('td'),
+                    newTd6 = document.createElement('td'),
+                    newTd7 = document.createElement('td'),
+                    newTd8 = document.createElement('td'),
+                    newTd9 = document.createElement('td'),
+                    newTd10 = document.createElement('td')
 
-    function edit_Compaign_AJAX() {
-        $.ajax({
-            url: 'edit_Compaign_info_AJAX',
-            type: 'POST',
-            data: {
-                comapign_id: $('#comapign_id').val(),
-                compaign_name: $('#comapign_name').val(),
-                compaign_type: $('#compaign_type').val(),
-                compaign_country: $('#compaign_country').val(),
-                compaign_start_Date: $('#compaign_start_Date').val()
-            },
-            error: ((error) => {
-                $('#ajaxResult_alert').addClass('alert alert-danger')
-                $('#ajaxResult_alert').html('Oops! Sorry. There is an error')
-                alert_Fade('ajaxResult')
-                refresh_Modal()
-            }),
-            success: ((ajaxResult) => {
-                $('#ajaxResult_alert').addClass('alert alert-success')
-                $('#ajaxResult_alert').html('Successfully! Updated Compaign Details')
-                alert_Fade('ajaxResult')
-                refresh_Modal()
-            })
+                newTd1.innerHTML = element.emp_fullName
+                newTd2.innerHTML = element.emp_username
+                newTd3.innerHTML = element.emp_email
+                newTd4.innerHTML = element.emp_role
+                newTd5.innerHTML = element.emp_salary
+                newTd6.innerHTML = element.emp_timing
+                newTd7.innerHTML = element.emp_commission
+                newTd8.innerHTML = element.emp_target
+                newTd9.innerHTML = `<img src="/images/User_Profile_icons/edit.png" data-toggle="modal" id="${element.emp_id}"
+                data-target="#manage_did_access_modal" onclick="edit_functioin(this,this.id)">`
+                newTd10.innerHTML = `<td><button class="btn btn-danger abccc" data-toggle="modal" data-target="#confirmation_modal" value="${element.emp_id}" 
+                                   onclick="getId(this,this.value)">Delete</button></td>`
+
+                newTr.append(newTd1, newTd3, newTd2, newTd4, newTd5, newTd6, newTd7, newTd8, newTd9, newTd10)
+            }
+            manageAccess_Table_Body.append(newTr)
+
         })
     }
 
-    function check_Null_Inputs() {
-
-        if ($('#comapign_name').val() && $('#compaign_country').val() && $('#compaign_start_Date').val() && $('#compaign_type').val()) {
-            return true
-        }
-        else {
-            $('#modal_alert').addClass('alert alert-danger')
-            $('#modal_alert').html('All Fields are mandatory')
-            alert_Fade("modal")
-        }
-
-    }
-
-    function add_Compaign_AJAX() {
-
-        const response = check_Null_Inputs()
-
-        if (response) {
-            $.ajax({
-                url: 'add_new_Compaign_info_AJAX',
-                type: 'POST',
-                data: {
-                    compaign_name: $('#comapign_name').val(),
-                    compaign_type: $('#compaign_type').val(),
-                    compaign_country: $('#compaign_country').val(),
-                    compaign_start_Date: $('#compaign_start_Date').val()
-                },
-                error: ((error) => {
-                    $('#ajaxResult_alert').addClass('alert alert-danger')
-                    $('#ajaxResult_alert').html('Oops! Sorry. There is an error')
-                    alert_Fade('ajaxResult')
-                    refresh_Modal()
-                }),
-                success: ((ajaxResult) => {
-                    $('#ajaxResult_alert').addClass('alert alert-success')
-                    $('#ajaxResult_alert').html('Successfully! Updated Compaign Details')
-                    alert_Fade('ajaxResult')
-                    refresh_Modal()
-                })
-            })
-        }
-    }
 
 
-    function emptyModalField() {
-        $('#modal_save_btn').show()
-        $('#modal_edit_btn').hide()
-        $('#comapign_id_div').hide()
-        $('#comapign_name').val(null)
-        $('#compaign_country').val(null)
-        $('#compaign_start_Date').val(null)
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
+
+
+
+
 
 
 
