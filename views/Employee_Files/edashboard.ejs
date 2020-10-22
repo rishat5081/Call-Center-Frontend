@@ -1,0 +1,19 @@
+<% include Employee_Section/emp_header.ejs %>
+<%- messages('Web_Sections/message.ejs',locals)  %>
+
+
+DashBoard
+views\Employee_Section
+
+<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title"
+    data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+<script>
+    var response = JSON.parse('<%-JSON.stringify(response)%>')
+    console.log(response)
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
+
+
+<% include Employee_Section/emp_footer.ejs %>

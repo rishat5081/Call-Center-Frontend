@@ -19,6 +19,7 @@ var express = require('express'),
 router.get('/user_Profile', middleWares_Fucntions.not_logged_in, function (req, res, next) {
   //getting user data which is logged in
   // getting the id from the session
+  // console.log(req.session)
 
   const response = User_call_Center_Info.findAll({
     include: [{

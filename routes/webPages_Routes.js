@@ -8,7 +8,6 @@ var user_logged_In = (req, res, next) => {
   //checking if the connected user IP address
   // console.log('The IP address of connected user is :: ', req.connection.remoteAddress)
   if (req.isAuthenticated()) {
-    //  console.log(req.session.passport.user)
     res.locals.user = req.session.passport.user
     next()
   }

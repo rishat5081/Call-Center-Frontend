@@ -62,6 +62,10 @@ call_cent_employee.init({
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
+    emp_profile_pic: {
+        allowNull: true,
+        type: DataTypes.TEXT
+    },
     call_cent_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

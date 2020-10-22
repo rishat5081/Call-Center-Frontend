@@ -7,18 +7,20 @@ var express = require('express'),
   bodyparser = require('body-parser'),
   webPages_Routes = require('./routes/webPages_Routes'),
   usersRouter = require('./routes/users_routes'),
+  employeeRoutes = require('.//routes/employee_routes'),
   { env } = require('process'),
   passport = require('passport'),
   server = require('http').createServer(app),
   io = require('socket.io').listen(server),
   flash = require('connect-flash'),
   createError = require('http-errors'),
-  passportJs_File = require('./Configuration Files/Passport Js/passport')
+  passportJs_File = require('./Configuration Files/Passport Js/passport'),
+  employee_passport = require('./Configuration Files/Passport Js/employee_passport')
 require('dotenv').config()
 
 // view engine setup
 app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views/Web_Pages'),
-path.join(__dirname, 'views/Web_Sections'),
+path.join(__dirname, 'views/Web_Sections'), path.join(__dirname, 'views/Employee_Files'),
 path.join(__dirname, 'views/User_Profile')])
 
 //setting ejs as the view engine...
@@ -38,15 +40,13 @@ app.set('view engine', 'ejs')
 app.use(cookieParser())
 
 app.use(bodyparser.json())
+
 app.use(session({
-  saveUninitialized: true,
+  saveUninitialized: false,
   secret: 'VOIP Call Center',
   // cookie: { secure: false },
   resave: true
 }))
-
-// app.use(express.session({ cookie: { maxAge: 60000 } }));
-
 
 
 app.use(passport.initialize())
@@ -68,7 +68,8 @@ app.use(webPages_Routes.router)
 // user profiles routes like profile,
 app.use(usersRouter)
 
-require('./Configuration Files/Sequelize Files/Sequelize Models/User_Login_Model')
+//setting the routes of the employees
+app.use('/emp', employeeRoutes)
 
 //getting user profile controller
 const user_controller = require('./User_Controllers/controller')
@@ -80,6 +81,17 @@ app.get('/login_HomePage', passportJs_File.authenticate('local-login',
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true,
+  })
+)
+
+
+//passport login function
+app.get('/login_of_Employee', employee_passport.authenticate('local-login-forEmployees',
+  {
+    successRedirect: '/emp/edashboard',
+    failureRedirect: '/emp/elogin',
+    failureFlash: true,
+    session: true
   })
 )
 
@@ -98,34 +110,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error')
 });
-
-
-// var sequlize  = require('sequelize')
-
-// var connection = new sequlize('voip','root','')
-
-
-// var Article = connection.define('article',{
-//   title:sequlize.STRING,
-//   body:sequlize.STRING
-// })
-
-// connection.sync().then(()=>{
-//   Article.create({
-
-//   })
-// })
-
-
-
-
-
-
-
-
-
-
-
 
 
 

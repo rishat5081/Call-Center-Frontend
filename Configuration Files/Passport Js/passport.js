@@ -2,7 +2,9 @@ const passport = require('passport'),
      bcrypt = require('bcrypt'),
      LocalStrategy = require('passport-local').Strategy,
      User_login_model = require('../Sequelize Files/Sequelize Models/User_Login_Model'),
-     call_center_info_model = require('../Sequelize Files/Sequelize Models/call_center_info')
+     call_center_info_model = require('../Sequelize Files/Sequelize Models/call_center_info'),
+     Employee_Modal = require('../Sequelize Files/Sequelize Models/call_cent_employee')
+
 
 
 // serialize user 
@@ -13,13 +15,28 @@ passport.serializeUser(function (user, done) {
 // getting the user data from the database ....
 // and passing the data into the session .... 
 passport.deserializeUser(function (id, done) {
-     User_login_model.findOne({ where: { user_email: id.user_email } })
-          .then((res) => {
-               done(null, res)
+     if (Object.keys(id)[0] === 'emp_id') {
+          Employee_Modal.findOne({
+               where: {
+                    emp_email: id.emp_email
+               }
           })
-          .catch((err) => {
-               done(null, false)
-          })
+               .then((response) => {
+                    done(null, response)
+               })
+               .catch((error) => {
+                    done(null, false)
+               })
+     }
+     else if (Object.keys(id)[0] === 'user_id') {
+          User_login_model.findOne({ where: { user_email: id.user_email } })
+               .then((res) => {
+                    done(null, res)
+               })
+               .catch((err) => {
+                    done(null, false)
+               })
+     }
 })
 
 
@@ -84,7 +101,14 @@ function validate_Password(user_loginForm_password, hashPassword) {
 
 
 
+// var jsondata = {
 
+//      'emp_id': 2,
+//      'emp_fullName': 'Atif Awan',
+//      'emp_username': 'atif1234',
+
+// }
+// console.log(Object.keys(jsondata)[0]);
 
 
 

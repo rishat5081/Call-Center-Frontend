@@ -191,7 +191,7 @@
     //validating that when the user is adding a new employee it should validate the 
     // email is already taken or not 
     var onselect_response = JSON.parse('<%- JSON.stringify(response.call_cent_employees) %>')
-    console.log(onselect_response);
+    // console.log(onselect_response);
 
     //function for the fade of the alert
     function alert_Fade(name_of_alert) {
@@ -274,7 +274,7 @@
 
 
     $("#confirm").on('click', (() => {
-        console.log(employee_id)
+        // console.log(employee_id)
         $("#confirmation_modal").modal('hide')
         //calling ajax to update the status of delete employee
         deleteEmployee(employee_id)
@@ -291,7 +291,7 @@
                 alert_Fade('ajaxResult')
             }),
             success: ((ajaxResult) => {
-                console.log(ajaxResult);
+                // console.log(ajaxResult);
                 $('#ajaxResult_alert').addClass('alert alert-success')
                 $('#ajaxResult_alert').html('Successfully! Employee Deleted.')
                 alert_Fade('ajaxResult')
@@ -312,7 +312,7 @@
     */
 
     function addEmployee_Into_DB_AJAX(fullname, email, username, password, role, salary, timing, commission, target, compaign) {
-        console.log(fullname, email, username, password, role, salary, timing, commission, target, compaign)
+        // console.log(fullname, email, username, password, role, salary, timing, commission, target, compaign)
 
         $.ajax({
             url: '/add_Employee_AJAX_call',
@@ -326,7 +326,7 @@
                 alert_Fade('ajaxResult')
             }),
             success: ((ajaxResult) => {
-                console.log(ajaxResult);
+                // console.log(ajaxResult);
                 $('#ajaxResult_alert').addClass('alert alert-success')
                 $('#ajaxResult_alert').html('Successfully! Employee Deleted.')
                 alert_Fade('ajaxResult')
@@ -368,32 +368,9 @@
 
 
 
-    // //getting rowIndex
-    // var table = document.getElementById('manage_Access_Table'),
-    //     getTBody = table.getElementsByTagName("tbody")[0];
-
-    // getTBody.onclick = function (e) {
-    //     // console.log(e);
-    //     console.log(e.target.parentNode.rowIndex)
-    //     console.log(e.target.value)
-    // };
 
     function edit_Empployee_btn() {
-        console.log(edit_employee_id);
-
-        onselect_response.forEach(element => {
-            if (edit_employee_id == element.emp_id) {
-
-                console.log(document.getElementById('emp_fullname').value, document.getElementById('emp_email').value,
-                    document.getElementById('emp_username').value, document.getElementById('emp_password').value,
-                    document.getElementById('emp_role').value, document.getElementById('emp_salary').value,
-                    document.getElementById('emp_timing').value, document.getElementById('emp_commission').value,
-                    document.getElementById('emp_target').value, document.getElementById('emp_compaign_modal').value)
-            }
-        })
-
-
-        $.ajax({
+           $.ajax({
             url: '/updateEmployee_info',
             type: 'POST',
             data: {
@@ -422,18 +399,7 @@
                 location.reload(true);
             });
         });
-
-
-
-
-
-
-
-
     }
-
-
-
 
     /**
      * function that will validate the on change function 
@@ -464,8 +430,6 @@
         }
 
     }
-
-
     /**
      *  displaying the data according to the compaign selection
     */
@@ -475,8 +439,6 @@
          * the while loop is use to remove the previous td if there is any... 
         */
 
-
-        console.log(compaign_ID);
         while (manageAccess_Table_Body.rows.length > 0) {
             manageAccess_Table_Body.deleteRow(0)
         }
@@ -513,38 +475,5 @@
             }
         })
     }
-
-
-
-
-
-
-
-
-
-
-// 0803-0104778128
-
-
-
-
-
-
-
-
-
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
 <% include Web_Sections/footer.ejs %>

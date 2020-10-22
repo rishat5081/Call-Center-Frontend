@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/css/Design.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <script type="text/javascript" src="/Javascript/jquery-3.5.1.js"></script>
-
 </head>
 
 <body>
@@ -17,15 +16,16 @@
         <nav id="sidebar">
             <div class="p-4 pt-5">
                 <a href="#" class="img logo rounded-circle mb-5"
-                    style="background-image: url(/images/user_Images/1.jpeg);"></a>
+                    style="background-image: url(<%=response.emp_profile_pic%>);"></a>
                 <ul class="list-unstyled components mb-5">
                     <li>
-                        <a href="/emp/home" data-toggle="collapse" aria-expanded="false" class="toggle">Home</a>
+                        <a href="/emp/ehome">Home</a>
                     </li>
+
                     <li>
-                        <a href="/emp/emp_dashboard" data-toggle="collapse" aria-expanded="false"
-                            class="toggle">DashBoard</a>
+                        <a href="/emp/edashboard">My Dashboard</a>
                     </li>
+
                 </ul>
             </div>
         </nav>
@@ -39,29 +39,30 @@
 
                 <div class="container-fluid">
 
-                    <!-- <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
                         <img src="/images/right_arrow.png" alt="" srcset="" width="20px" height="20px">
                         <span class="sr-only">Toggle Menu</span>
-                    </button> -->
+                    </button>
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <!-- Navigation bar for right side of the page -->
+                    <!-- < Navigation bar for right side of the page  -->
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <% if(user == 'not logged In'){ %>
                             <li class="nav-item">
-                                <a class="nav-link" href="/emp/emplogin">Login</a>
+                                <a class="nav-link" href="/emp/elogin">Login</a>
                             </li>
                             <% } %>
                             <% if(user != 'not logged In') {%>
                             <li class="nav-item">
-                                <a class="nav-link" href="/emp/jhsdfskfhbsdfhklsbdlfvfh">Log Out</a>
+                                <a class="nav-link" href="/emp/elogout">Log Out</a>
                             </li>
                             <% } %>
                         </ul>
                     </div>
                 </div>
             </nav>
+            <h2>asdldnasodbu</h2>
