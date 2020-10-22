@@ -64,10 +64,12 @@ router.get('/edashboard', user_logged_In, (req, res) => {
 })
 
 
-router.get('/ehome', not_logged_in, (req, res) => {
-    // console.log(req.session)
-    res.render('ehome')
+
+router.get('/empSales', user_logged_In, (req, res) => {
+    res.render('edashboard', { response: req.session.passport.user })
+
 })
+
 
 
 

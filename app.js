@@ -21,7 +21,7 @@ require('dotenv').config()
 // view engine setup
 app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views/Web_Pages'),
 path.join(__dirname, 'views/Web_Sections'), path.join(__dirname, 'views/Employee_Files'),
-path.join(__dirname, 'views/User_Profile')])
+path.join(__dirname, 'views/Employee_Section'), path.join(__dirname, 'views/User_Profile')])
 
 //setting ejs as the view engine...
 app.set('view engine', 'ejs')
