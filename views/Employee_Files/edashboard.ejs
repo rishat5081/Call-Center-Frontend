@@ -1,27 +1,98 @@
 <% include Employee_Section/emp_header.ejs %>
 <%- messages('Web_Sections/message.ejs',locals)  %>
+<title>Dashboard</title>
+
+<!-- navigation bars which will holds the user information like its name and role which is important -->
+<!-- As a link -->
 
 
-DashBoard
-views\Employee_Section
 
-<div id="contactList" class="col-lg-4">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Morbi leo risus</li>
-        <li class="list-group-item">Porta ac consectetur ac</li>
-        <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
+<!-- End of the Navigation Bar -->
+<div class="dashboardHeading">
+
+    <h3>Your Dashboard</h3>
+
 </div>
-<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title"
-    data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+
+
+
+<div class="row employeeInfo">
+    <div class="col-lg-6">
+        <div class="card-body infooo">
+            <h5>Name</h5>
+            <span class="navbar-brand"><%=response[0].call_cent_employee.emp_fullName%></span>
+        </div>
+        <div class="card-body infooo">
+            <h5>Username</h5>
+            <span class="navbar-brand"><%=response[0].call_cent_employee.emp_username%></span>
+        </div>
+        <div class="card-body infooo">
+            <h5>Role</h5>
+            <span class="navbar-brand"><%=response[0].call_cent_employee.emp_role%></span>
+        </div>
+        <div class="card-body infooo">
+            <h5>Total Sales</h5>
+            <span class="navbar-brand" id="Sales_Of_Employee"></span>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card-body infooo">
+            <h5>Email</h5>
+            <span class="navbar-brand"><%=response[0].call_cent_employee.emp_email%></span>
+        </div>
+        <div class="card-body infooo">
+            <h5>Salary</h5>
+            <span class="navbar-brand"><%=response[0].call_cent_employee.emp_salary%></span>
+        </div>
+        <div class="card-body infooo">
+            <h5>Commission</h5>
+            <span class="navbar-brand"> <%=response[0].call_cent_employee.emp_commission%>%</span>
+        </div>
+        <div class="card-body infooo">
+            <h5>Target</h5>
+            <span class="navbar-brand"> <%=response[0].call_cent_employee.emp_target%></span>
+        </div>
+    </div>
+</div>
+<hr>
+
+
+<div class="card">
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    content. This content is a little bit longer.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
+
     var response = JSON.parse('<%-JSON.stringify(response)%>')
-    console.log(response)
-    $(function () {
-        $('[data-toggle="popover"]').popover()
-    })
+
+
+    console.log(response);
+
+    if (response[0].Sales_Of_Employee < response[0].call_cent_employee.emp_target)
+        document.getElementById('Sales_Of_Employee').style.borderColor = '#dc3545'
+
+
+    $('#Sales_Of_Employee').html(response[0].Sales_Of_Employee)
 </script>
 
 

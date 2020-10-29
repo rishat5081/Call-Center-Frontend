@@ -113,7 +113,11 @@ app.use(function (err, req, res, next) {
 
 
 
+/**
+ * setting the sockets
+ */
+require('./RealTime Notification/sockets')(io)
 
 
 
-app.listen(process.env.Server_Port, () => console.log('Server Listen at', process.env.Server_Port))
+server.listen(process.env.Server_Port, () => console.log('Server Listen at', process.env.Server_Port))

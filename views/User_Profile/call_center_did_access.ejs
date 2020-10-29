@@ -137,9 +137,9 @@
 </script>
 
 
-<!-- <script src="http://localhost:22001/socket.io/socket.io.js"></script> -->
+<script src="http://localhost:22001/socket.io/socket.io.js"></script>
 <script>
-
+   var socket = io()
     function alert_Fade(name_of_alert) {
         $(`#${name_of_alert}_alert`).fadeTo(1500, 500).slideUp(500, function () {
             $(`#${name_of_alert}_alert`).slideUp(500);
@@ -291,8 +291,8 @@
             success: ((ajaxResult) => {
                 // start of the real time notification
                 //sending the real time notification to the employee to whome the access is given
-                // var socket = io()
-                // socket.emit("DID_Access_granted", { to: emp_email, status: booleanValue })
+             
+                socket.emit("DID_Access_granted", { to: emp_email, status: booleanValue })
                 // end of the real time notification
                 $('#response_alert').addClass('alert alert-success')
                 $('#response_alert').html('Successfully! Access is Given')

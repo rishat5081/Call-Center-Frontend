@@ -1,8 +1,76 @@
 <% include Employee_Section/emp_header.ejs %>
 <%- messages('Web_Sections/message.ejs',locals)  %>
 
+<div class="dashboardHeading">
+    <h3>Your Sales History</h3>
+</div>
 
-Saaaless
+<div class="row" id="salesDetails">
+    <table class="table table-bordered" id="salesTable">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Sale Status</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody id="salesTable_Body">
+
+        </tbody>
+    </table>
+
+</div>
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn btn-success" onclick="BTN_onClick('Success')">Success</button>
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn btn-dark" onclick="BTN_onClick('lead')">Lead</button>
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+        <button type="button" class="btn btn-warning" onclick="BTN_onClick('pending')">Pending</button>
+    </div>
+    <div class="btn-group" role="group" aria-label="Third group">
+        <button type="button" class="btn btn-danger" onclick="BTN_onClick('no sale')">No Sale</button>
+    </div>
+</div>
 
 
 
+<script>
+
+    var response = JSON.parse('<%-JSON.stringify(response)%>'),
+        salesTable_Body = document.getElementById('salesTable_Body'),
+        increment = 1
+
+    console.log(response)
+
+    for (const key of response) {
+        console.log(key)
+    }
+    function BTN_onClick(value) {
+        $('#salesTable tr:gt(0)').remove();
+        increment = 1;
+        for (const key of response) {
+            if (key.sale_status.toUpperCase() == value.toUpperCase()) {
+                var td = document.createElement('th'),
+                    tr = document.createElement('tr'),
+                    statusTD = document.createElement('td'),
+                    dateTD = document.createElement('td')
+
+                td.innerHTML = increment++;
+                statusTD.innerHTML = key.sale_status;
+                dateTD.innerHTML = key.sale_date;
+
+                tr.append(td, statusTD, dateTD)
+                salesTable_Body.append(tr)
+            }
+        }
+
+    }
+</script>
+
+
+
+<% include Employee_Section/emp_footer.ejs %>

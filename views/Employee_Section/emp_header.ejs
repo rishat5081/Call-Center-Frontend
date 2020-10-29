@@ -15,8 +15,11 @@
         <% if(user != 'not logged In') {%>
         <nav id="sidebar">
             <div class="p-4 pt-5">
-                <a href="#" class="img logo rounded-circle mb-5"
-                    style="background-image: url(<%=response.emp_profile_pic%>);"></a>
+                <% if(profilePic){ %>
+                <a class="img logo rounded-circle mb-5" style="background-image: url(<%=profilePic%>);"></a>
+                <% }else{ %>
+                <a class="img logo rounded-circle mb-5" style="background-image: url(/images/no-image.png);"></a>
+                <% } %>
                 <ul class="list-unstyled components mb-5">
                     <li>
                         <a href="/emp/edashboard">My Dashboard</a>
@@ -24,9 +27,13 @@
                     <li>
                         <a href="/emp/empSales">Sales</a>
                     </li>
+                    <li>
+                        <a href="/emp/makeCall">Make Call</a>
+                    </li>
                 </ul>
             </div>
         </nav>
+
         <% } %>
         <!-- Main logo of the Call center -->
         <img src="/images/logo.png" alt="Main Logo" id="mainLogo">
@@ -63,3 +70,43 @@
                     </div>
                 </div>
             </nav>
+
+            <script src="http://localhost:22001/socket.io/socket.io.js"></script>
+            <script>
+                var socket = io()
+                socket.on('DID_Access_granted', (data) => {
+
+                    console.log(data);
+                    if (data.status) {
+                        $('#modalImage').attr('src', '/employees/profile_pictures/1.jpg')
+                        $('#adminResponse').modal('show')
+                    }
+                    else {
+                        $('#modalImage').attr('src', '/images/logo.png')
+                        $('#adminResponse').modal('show')
+                    }
+                })
+            </script>
+
+
+            <div class="modal" tabindex="-1" id="adminResponse">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <img src="" class="rounded" alt="Status" id="modalImage">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>

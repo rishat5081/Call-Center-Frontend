@@ -1,0 +1,262 @@
+<% include Employee_Section/emp_header.ejs %>
+<%- messages('Web_Sections/message.ejs',locals)  %>
+
+<div class="makeCallHeading">
+    <h3>Make Call & Earn</h3>
+</div>
+<div class="col-lg-4" id="contactsOfCustomer">
+    <ul class="list-group list-group-flush ">
+        <li class="list-group-item"> Saad Sohail <a type="button" class="btn btn-success" id="SaadSohail"
+                onclick="callbtn(this.id)">Call</a> </li>
+        <li class="list-group-item"> Saad Sohail <a type="button" class="btn btn-success" id="SaaddsaSohail"
+                onclick="callbtn(this.id)">Call</a> </li>
+    </ul>
+</div>
+
+
+
+
+
+
+
+<div class="col-lg-8" id="contactInfo">
+    <div class="card">
+        <div class="timerCount card-header">
+            <h5 id="contactInfo_heading">Client Name </h5>
+
+            <div class="counter">
+                <span id="s_seconds"> 00</span>
+                <p>Second: </p>
+                <span id="s_minutes">00</span>
+                <p>Minute: </p>
+            </div>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <a class="btn btn-success" id="interestedBTN"
+                        onclick="interestedBTN_onclick(this.value)">Interested</a>
+                </div>
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <a class="btn btn-danger" id="notInterestedBTN" onclick="notInterestedBTN_onclick(this.value)">Not
+                        Interested</a>
+                </div>
+                <div class="btn-group mr-2" role="group" aria-label="Second group">
+                    <a class="btn btn-secondary" id="callbackBTN" onclick="callBackBTN_onclick()">Callback</a>
+                </div>
+                <div class="btn-group" role="group" aria-label="Third group">
+                    <a class="btn btn-warning" id="laterBTN" onclick="laterBTN_onclick()">Later</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+
+    var response = JSON.parse('<%-JSON.stringify(response)%>')
+    console.log(response)
+    
+    function callbtn(id) {
+        startStopwatch()
+        $('#contactInfo_heading').html(id)
+        $('#interestedBTN').val(id)
+        console.log($('#interestedBTN').val())
+    }
+    function interestedBTN_onclick(value) {
+        console.log(value);
+    }
+    function notInterestedBTN_onclick(value) {
+        stopStopwatch()
+        console.log($('#s_minutes').html())
+        console.log($('#s_seconds').html())
+        console.log(value);
+    }
+
+
+</script>
+
+
+
+<script>
+
+    let offset = 0,
+        paused = true;
+
+    render();
+
+    function startStopwatch(evt) {
+        if (paused) {
+            paused = false;
+            offset -= Date.now();
+            render();
+        }
+    }
+
+    function stopStopwatch(evt) {
+        if (!paused) {
+            paused = true;
+            offset += Date.now();
+        }
+    }
+
+    function resetStopwatch(evt) {
+        if (paused) {
+            offset = 0;
+            render();
+        } else {
+            offset = -Date.now();
+        }
+    }
+
+    function format(value, scale, modulo, padding) {
+        value = Math.floor(value / scale) % modulo;
+        return value.toString().padStart(padding, 0);
+    }
+
+    function render() {
+        var value = paused ? offset : Date.now() + offset;
+        document.querySelector('#s_seconds').textContent = format(value, 1000, 60, 2);
+        document.querySelector('#s_minutes').textContent = format(value, 60000, 60, 2);
+
+        if (!paused) {
+            requestAnimationFrame(render);
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <a id="cart-popover" class="btn" role="button" data-placement="right">
+
+    <button type="button" class="btn btn-dark">Dark</button>
+</a>
+
+<div class="popover_title" style="display: none">
+    <h6>Shopping Cart<span class="close-popover float-right text-danger "><i class="fas fa-times"></i></span></h6>
+</div>
+<div id="popover_content_wrapper" style="display: none">
+    <span id="cart_details"></span>
+
+    <div align="right">
+        <a href="#" class="btn btn-primary" id="check_out_cart">
+            <i class="fa fa-shopping-cart"></i> Check Out
+        </a>
+        <a href="#" class="btn btn-danger" id="clear_cart">
+            <i class="fa fa-trash"></i> Clear
+        </a>
+    </div>
+</div> -->
+
+
+
+
+
+<!-- <script>
+    $(document).ready(function () {
+        $('#cart-popover').popover({
+            html: true,
+            title: function () {
+                return $(' <h6>Shopping Cart<span class="close-popover float-right text-danger "><i class="fas fa-times"></i></span></h6>')
+            },
+            content: function () {
+                return $(` <span id="cart_details"></span>
+                           <div align="right">
+                               <a href="#" class="btn btn-primary" id="check_out_cart">
+                                   <i class="fa fa-shopping-cart"></i> Check Out
+                               </a>
+                               <a href="#" class="btn btn-danger" id="clear_cart">
+                                   <i class="fa fa-trash"></i> Clear
+                               </a>
+                           </div>`)
+            }
+
+        });
+
+    });
+
+    $(document).on('click', '.close-popover', function () {
+        $('#cart-popover').popover('hide');
+    });
+</script> -->
+
+<% include Employee_Section/emp_footer.ejs %>
