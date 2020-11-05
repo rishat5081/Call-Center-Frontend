@@ -379,22 +379,43 @@
 
 /* ------------------------------- Setting PopOver for the make call in employee makecall.ejs----------------------------------- */
 
-.popover {
-  width: 250px !important;
-  max-width: 250px !important;
-  height: 250px !important;
+#addContacts_BTN {
+  margin-bottom: 30px;
+  font-weight: 500;
 }
 
-#contactsOfCustomer {
-  overflow-y: auto;
+#addContacts_BTN h4 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+}
+
+.headingContactList {
+  padding: 15px;
+  box-shadow: 3px 3px 10px gray;
+  margin-right: 10px !important;
+}
+
+.headingContactList h4 {
   float: left;
-  max-height: 550px;
-  width: 350px;
+}
+
+.headingContactList button {
+  float: right;
+  padding: revert;
+  padding: 8px;
+  margin: 0px 0px 0px 60px;
+}
+
+.customerDetails {
+  box-shadow: 3px 3px 10px gray;
+  padding: 15px;
+  float: right;
 }
 
 #contactsOfCustomer a {
-  float: right;
+  float: left;
   background-color: #1a8731 !important;
+  border-bottom: 1px solid #292929 !important;
   border-color: #292929;
 }
 
@@ -407,6 +428,17 @@
 
 #contactInfo {
   float: right;
+  box-shadow: 2px 6px 10px grey;
+  padding: 10px;
+  opacity: 0.2;
+}
+
+#contactsOfCustomer {
+  overflow-y: auto;
+  float: left;
+  padding: 10px;
+  max-height: 550px;
+  box-shadow: 0px 2px 4px grey;
 }
 
 .timerCount {
@@ -421,11 +453,13 @@
   float: right;
   /* padding: 5px; */
 }
-.counter p{
+
+.counter p {
   float: right;
   font-weight: 500;
 }
-.counter span{
+
+.counter span {
   font-weight: 500;
   margin-left: 5px;
   margin-right: 5px;
@@ -436,8 +470,7 @@
   float: left;
 }
 
-/* .timerCount h5 {
-  float: left;
-  padding: 20px;
-  border-bottom: 1px solid #a39f9f;
-} */
+#heading_contactList {
+  padding: 25px;
+  margin-left: 0% !important;
+}

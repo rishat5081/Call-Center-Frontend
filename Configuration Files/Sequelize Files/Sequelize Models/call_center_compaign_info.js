@@ -66,3 +66,6 @@ call_center_compaign_info.belongsTo(call_center_info, { foreignKey: 'call_cent_i
 module.exports = call_center_compaign_info
 
 
+
+
+// SELECT * FROM `contacts_lists`WHERE contact_used_status = 0 LIMIT 4

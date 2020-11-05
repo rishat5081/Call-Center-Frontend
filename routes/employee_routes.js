@@ -2,7 +2,9 @@ var express = require('express'),
     router = express.Router(),
     employees_modal = require('../Configuration Files/Sequelize Files/Sequelize Models/call_cent_employee'),
     call_center_sales = require('../Configuration Files/Sequelize Files/Sequelize Models/call_cent_sales'),
-    callee_contact_data = require('../Configuration Files/Sequelize Files/Sequelize Models/callee_contact_data'),
+    login_logout_modal = require('../Configuration Files/Sequelize Files/Sequelize Models/login_logout'),
+    Contacts_lists = require('../Configuration Files/Sequelize Files/Sequelize Models/Contacts_lists'),
+    employee_calling_Contacts = require('../Configuration Files/Sequelize Files/Sequelize Models/employee_calling_Contacts'),
     sequelize = require('../Configuration Files/Sequelize Files/Sequelize Config')
 
 //permissions if the user is log in or not.
@@ -32,7 +34,7 @@ var not_logged_in = (req, res, next) => {
 }
 
 router.get('/elogin', not_logged_in, (req, res) => {
-    res.render('emp_login')
+    res.status(200).render('emp_login')
 })
 
 
@@ -70,15 +72,13 @@ router.get('/edashboard', user_logged_In, (req, res) => {
     dbResponse
         .then((response) => {
             console.log(response);
-            res.render('edashboard', { response, profilePic: req.session.passport.user.emp_profile_pic })
+            res.status(200).render('edashboard', { response, profilePic: req.session.passport.user.emp_profile_pic })
         })
         .catch((error) => {
-            res.render('edashboard', req.flash('danger', 'Sorry! Error in loading'))
+            res.status(500).render('edashboard', req.flash('danger', 'Sorry! Error in loading'))
         })
 
 })
-
-
 
 
 /**
@@ -106,26 +106,33 @@ router.get('/empSales', user_logged_In, (req, res) => {
     dbResponse
         .then((response) => {
             console.log(response);
-            res.render('empSales', { response, profilePic: req.session.passport.user.emp_profile_pic })
+            res.status(200).render('empSales', { response, profilePic: req.session.passport.user.emp_profile_pic })
         })
         .catch((error) => {
-            res.render('empSales', req.flash('danger', 'Sorry! Error in loading'))
+            res.status(500).render('empSales', req.flash('danger', 'Sorry! Error in loading'))
         })
     // res.render('empSales', { response: req.session.passport.user, profilePic: req.session.passport.user.emp_profile_pic })
 
 })
 
 
-
-
+/**
+ * it is the route that will be responsible 
+ * for the make call
+ */
 
 router.get('/makeCall', user_logged_In, (req, res) => {
-    console.log(req.session.passport.user)
 
-    const dbResponse = callee_contact_data.findAll({
+    const dbResponse = employee_calling_Contacts.findAll({
+        attributes: ["contact_ID"],
+        where: {
+            emp_id: req.session.passport.user.emp_id,
+            status: false
+        }
     })
         .then()
         .then((response) => {
+            console.log(response)
             return response
         })
         .catch((error) => {
@@ -135,11 +142,10 @@ router.get('/makeCall', user_logged_In, (req, res) => {
 
     dbResponse
         .then((response) => {
-            console.log(response);
-            res.render('makeCall', { response, profilePic: req.session.passport.user.emp_profile_pic })
+            res.status(200).render('makeCall', { response, profilePic: req.session.passport.user.emp_profile_pic })
         })
         .catch((error) => {
-            res.render('makeCall', req.flash('danger', 'Sorry! Error in loading'))
+            res.status(500).render('makeCall', req.flash('danger', 'Sorry! Error in loading'))
         })
     // res.render('empSales', { response: req.session.passport.user, profilePic: req.session.passport.user.emp_profile_pic })
 
@@ -149,39 +155,32 @@ router.get('/makeCall', user_logged_In, (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 router.get('/elogout', (req, res) => {
+    var d = new Date(),
+        curr_date = d.getDate(),
+        curr_month = d.getMonth() + 1,
+        curr_year = d.getFullYear(),
+        hours = d.getHours(),
+        minutes = d.getMinutes(),
+        seconds = d.getSeconds()
+
+    login_logout_modal.update({
+        logoutTime: hours + ":" + minutes + ":" + seconds,
+        activityStatus: true
+    }, {
+        where: {
+            emp_id: req.session.passport.user.emp_id,
+            activityDate: curr_date + "-" + curr_month + "-" + curr_year,
+            activityStatus: false
+        }
+    })
+        .then((dbResult) => {
+            if (dbResult)
+                console.log("Logout Activity Triggered")
+        })
+        .catch((error) => {
+            console.log("Logout Activity Error " + error)
+        })
     req.session.destroy()
     res.redirect('/emp/elogin')
 })
@@ -189,30 +188,3 @@ router.get('/elogout', (req, res) => {
 module.exports = router
 
 
-
-// call_center_sales.findAll({
-//     attributes: {
-//         include: [
-//             [sequelize.fn('COUNT', sequelize.col('sales_id')), "Sales_Of_Employee"]
-//         ]
-//     },
-//     where:
-//     {
-//         emp_id: 2,
-
-//     }
-// })
-//     .then()
-//     .then((response) => {
-//         console.log(response)
-//     })
-//     .catch((error) => {
-//         console.log(error)
-//     })
-
-    // 'sales_id',
-    // 'sale_status',
-    // 'sale_amount',
-    // 'sale_date',
-    // 'compaign_id',
-    // 'emp_id',

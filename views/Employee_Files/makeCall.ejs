@@ -4,13 +4,19 @@
 <div class="makeCallHeading">
     <h3>Make Call & Earn</h3>
 </div>
-<div class="col-lg-4" id="contactsOfCustomer">
-    <ul class="list-group list-group-flush ">
-        <li class="list-group-item"> Saad Sohail <a type="button" class="btn btn-success" id="SaadSohail"
-                onclick="callbtn(this.id)">Call</a> </li>
-        <li class="list-group-item"> Saad Sohail <a type="button" class="btn btn-success" id="SaaddsaSohail"
-                onclick="callbtn(this.id)">Call</a> </li>
-    </ul>
+
+<div class="col-lg-12 row" id="heading_contactList">
+    <div class="row headingContactList row">
+        <div class="col">
+            <h4>Contact List</h4>
+        </div>
+        <div>
+            <button onclick="addContacts_ajaxCall()" type="button" class="btn btn-dark">Add Contacts </button>
+        </div>
+    </div>
+    <div class="col customerDetails">
+        <h4>Customer Details</h4>
+    </div>
 </div>
 
 
@@ -19,10 +25,22 @@
 
 
 
-<div class="col-lg-8" id="contactInfo">
+<div class="col-lg-2" id="contactsOfCustomer">
+    <ul class="list-group list-group-flush " id="contactList_UL">
+        <% response.forEach((element,count) => { %>
+        <li class="list-group-item"><a type="button" class="btn btn-success" id="<%=element.contact_ID  %>"
+                onclick="callbtn(this.id)">Call</a> </li>
+        <% }) %>
+    </ul>
+</div>
+
+
+
+
+<div class="col-lg-9" id="contactInfo" >
     <div class="card">
         <div class="timerCount card-header">
-            <h5 id="contactInfo_heading">Client Name </h5>
+            <h5 id="contactInfo_heading"></h5>
 
             <div class="counter">
                 <span id="s_seconds"> 00</span>
@@ -62,8 +80,10 @@
 <script>
 
     var response = JSON.parse('<%-JSON.stringify(response)%>')
-    console.log(response)
-    
+
+    console.log(response);
+
+
     function callbtn(id) {
         startStopwatch()
         $('#contactInfo_heading').html(id)
@@ -71,6 +91,7 @@
         console.log($('#interestedBTN').val())
     }
     function interestedBTN_onclick(value) {
+        stopStopwatch()
         console.log(value);
     }
     function notInterestedBTN_onclick(value) {
@@ -78,6 +99,27 @@
         console.log($('#s_minutes').html())
         console.log($('#s_seconds').html())
         console.log(value);
+    }
+
+    function addContacts_ajaxCall() {
+        var contactList = document.getElementById('contactList_UL')
+        $.ajax({
+            url: '/addContacts_to_List',
+            type: 'GET',
+            success: ((result) => {
+                if (result.response.length > 0) {
+                    result.response.forEach(element => {
+                        var li = document.createElement('li')
+                        li.className = 'list-group-item'
+                        li.id = element.contact_ID
+                        li.innerHTML = `<a type="button" class="btn btn-success"
+                id="${element.contact_ID}" onclick="callbtn(this.id)">Call</a>`
+                        contactList.append(li)
+                    });
+
+                }
+            })
+        })
     }
 
 

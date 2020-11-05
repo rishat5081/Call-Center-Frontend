@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 22, 2020 at 11:49 AM
+-- Generation Time: Nov 05, 2020 at 12:10 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -41,29 +41,6 @@ CREATE TABLE `admin_info` (
 
 INSERT INTO `admin_info` (`admin_id`, `admin_username`, `admin_email`, `admin_password`, `admin_contact_Number`) VALUES
 (1, 'admin11', 'admin@gmail.com', 'saad1234', '0345-5536125');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `callee_contact_data`
---
-
-CREATE TABLE `callee_contact_data` (
-  `callee_id` int(11) NOT NULL,
-  `callee_name` text,
-  `callee_phoneNumber` text,
-  `callee_gender` text,
-  `callee_country` text,
-  `callee_status` text,
-  `emp_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `callee_contact_data`
---
-
-INSERT INTO `callee_contact_data` (`callee_id`, `callee_name`, `callee_phoneNumber`, `callee_gender`, `callee_country`, `callee_status`, `emp_id`) VALUES
-(1, 'John Wick', '+102200', 'Male', 'Canada', 'Not Interested', 1);
 
 -- --------------------------------------------------------
 
@@ -125,7 +102,7 @@ CREATE TABLE `call_center_employees` (
 
 INSERT INTO `call_center_employees` (`emp_id`, `emp_fullName`, `emp_username`, `emp_email`, `emp_password`, `emp_role`, `emp_timing`, `emp_salary`, `emp_commission`, `call_cent_id`, `emp_target`, `compaign_id`, `emp_deleted`, `did_Num_id`, `emp_isPaused`, `emp_profile_pic`) VALUES
 (1, 'Saad Ahmed', 'affan123', 'affan@gmail.com', '$2b$10$6XkzW7H0rXUQBS..JWdsFuM.2/i4cV0qCuNj73/PA40oZBXI21cTi', 'CSR', 'Evening', 1500, '5', 1, 15, 1, 0, 1, 1, ''),
-(2, 'Atif Awan', 'atif1234', 'affan@gmcom', '$2b$10$as0yIsoFN5UZ88Fki7fTJO5fjdPW/cnjF8ALYShRVO47BuoAvs6rW', 'CSR', 'Evening', 1500, '5', 1, 15, 1, 0, 1, 0, '  /employees/profile_pictures/1.JPG'),
+(2, 'Atif Awan', 'atif1234', 'affan@gmcom', '$2b$10$as0yIsoFN5UZ88Fki7fTJO5fjdPW/cnjF8ALYShRVO47BuoAvs6rW', 'CSR', 'Evening', 1500, '5', 1, 15, 1, 0, 1, 1, '/employees/profile_pictures/1.jpg'),
 (3, 'Asad Khan', 'asad123', 'asad@gmail.com', 'saad1234', 'RES', 'Evening', 1500, '5', 1, 15, 2, 0, 1, 0, ''),
 (4, 'Gujjar', 'gujjar1234', 'gujjar@gmail.com', 'saad1234', 'CSR', 'Evening', 1500, '5', 2, 15, 2, 0, 1, 0, ''),
 (5, 'Affan Ahmed', 'affan123', 'affan@gmail.com', 'saad1234', 'CSR', 'Evening', 1500, '5', 1, 15, 3, 0, 2, 0, ''),
@@ -186,14 +163,9 @@ CREATE TABLE `call_center_sales` (
 --
 
 INSERT INTO `call_center_sales` (`sales_id`, `emp_id`, `sale_status`, `sale_amount`, `sale_date`, `compaign_id`) VALUES
-(1, 1, 'Lead', 22, '22-08-2020', 1),
-(2, 1, 'Lead', 22, '22-08-2020', 3),
-(3, 7, 'Success', 22, '22-08-2020', 3),
-(4, 3, 'No Sale', 22, '22-08-2020', 2),
-(5, 1, 'Lead', 22, '22-08-2020', 1),
-(6, 1, 'Lead', 22, '22-08-2020', 2),
-(7, 7, 'Success', 22, '22-08-2020', 3),
-(8, 3, 'No Sale', 22, '22-08-2020', 2);
+(1, 2, 'Lead', 22, '22-08-2020', 1),
+(2, 2, 'Lead', 22, '01-08-1900', 3),
+(3, 2, 'Success', 22, '22-08-2020', 3);
 
 -- --------------------------------------------------------
 
@@ -220,6 +192,35 @@ CREATE TABLE `call_cent_user_info` (
 INSERT INTO `call_cent_user_info` (`user_id`, `user_full_name`, `user_username`, `user_email`, `user_password`, `user_first_login`, `user_contact_Number`, `admin_id`, `user_deleted`) VALUES
 (1, 'Saad Sohail', 'saad11', 'binfarooq@gmail.com', '$2b$10$as0yIsoFN5UZ88Fki7fTJO5fjdPW/cnjF8ALYShRVO47BuoAvs6rW', 0, '0345-5536125', 1, 0),
 (2, 'Farooq', 'saad11', 'farooq@aa', '$2b$10$as0yIsoFN5UZ88Fki7fTJO5fjdPW/cnjF8ALYShRVO47BuoAvs6rW', 0, '0345-5536125', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contacts_lists`
+--
+
+CREATE TABLE `contacts_lists` (
+  `contact_ID` int(11) NOT NULL,
+  `contact_Name` text NOT NULL,
+  `contact_Number` text NOT NULL,
+  `contact_Country` text NOT NULL,
+  `call_cent_id` int(11) NOT NULL,
+  `contact_used_status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `contacts_lists`
+--
+
+INSERT INTO `contacts_lists` (`contact_ID`, `contact_Name`, `contact_Number`, `contact_Country`, `call_cent_id`, `contact_used_status`) VALUES
+(1, 'Saad ', '0354', 'USA', 1, 0),
+(6, 'Sohail', '1001', 'UK', 1, 0),
+(17, 'Saad ', '0354', 'USA', 1, 0),
+(18, 'Sohail', '1001', 'UK', 1, 0),
+(19, 'Saad ', '0354', 'USA', 1, 0),
+(20, 'Sohail', '1001', 'UK', 1, 0),
+(21, 'Saad ', '0354', 'USA', 1, 0),
+(22, 'Sohail', '1001', 'UK', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -265,6 +266,66 @@ CREATE TABLE `employees_notification` (
 INSERT INTO `employees_notification` (`id`, `notification_text`, `notification_status`, `emp_id`, `call_cent_id`) VALUES
 (1, 'Access Allowed', 0, 1, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_calling_contacts`
+--
+
+CREATE TABLE `employee_calling_contacts` (
+  `emp_calling_id` int(11) NOT NULL,
+  `time` text NOT NULL,
+  `date` text NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `emp_id` int(11) NOT NULL,
+  `contact_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login/logout_activities`
+--
+
+CREATE TABLE `login/logout_activities` (
+  `login_logout_id` int(11) NOT NULL,
+  `loginTime` text NOT NULL,
+  `logoutTime` text,
+  `ipAddress` text NOT NULL,
+  `emp_id` int(11) NOT NULL,
+  `activityDate` text NOT NULL,
+  `activityStatus` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `login/logout_activities`
+--
+
+INSERT INTO `login/logout_activities` (`login_logout_id`, `loginTime`, `logoutTime`, `ipAddress`, `emp_id`, `activityDate`, `activityStatus`) VALUES
+(3, '12:10:54', '12:24:47', '::1', 2, '4-11-2020', 1),
+(4, '12:23:43', '12:24:47', '::1', 2, '4-11-2020', 1),
+(5, '12:24:41', '12:24:47', '::1', 2, '4-11-2020', 1),
+(6, '12:28:29', '12:28:37', '::1', 2, '4-11-2020', 1),
+(7, '14:35:27', NULL, '::1', 2, '4-11-2020', 0),
+(8, '14:36:34', NULL, '::1', 2, '4-11-2020', 0),
+(9, '16:34:58', NULL, '::1', 2, '4-11-2020', 0),
+(10, '17:0:24', NULL, '::1', 2, '4-11-2020', 0),
+(11, '11:56:37', NULL, '::ffff:127.0.0.1', 2, '5-11-2020', 0),
+(12, '11:58:9', NULL, '::ffff:127.0.0.1', 2, '5-11-2020', 0),
+(13, '11:59:15', NULL, '::1', 2, '5-11-2020', 0),
+(14, '12:3:36', NULL, '::1', 2, '5-11-2020', 0),
+(15, '12:4:2', NULL, '::1', 2, '5-11-2020', 0),
+(16, '12:11:6', NULL, '::1', 2, '5-11-2020', 0),
+(17, '14:7:32', NULL, '::1', 2, '5-11-2020', 0),
+(18, '14:8:7', NULL, '::1', 2, '5-11-2020', 0),
+(19, '14:8:24', NULL, '::1', 2, '5-11-2020', 0),
+(20, '14:10:10', NULL, '::1', 2, '5-11-2020', 0),
+(21, '14:13:47', NULL, '::1', 2, '5-11-2020', 0),
+(22, '14:32:17', NULL, '::1', 2, '5-11-2020', 0),
+(23, '14:33:28', NULL, '::1', 2, '5-11-2020', 0),
+(24, '14:45:28', NULL, '::1', 2, '5-11-2020', 0),
+(25, '14:51:15', NULL, '::1', 2, '5-11-2020', 0);
+
 --
 -- Indexes for dumped tables
 --
@@ -274,13 +335,6 @@ INSERT INTO `employees_notification` (`id`, `notification_text`, `notification_s
 --
 ALTER TABLE `admin_info`
   ADD PRIMARY KEY (`admin_id`);
-
---
--- Indexes for table `callee_contact_data`
---
-ALTER TABLE `callee_contact_data`
-  ADD PRIMARY KEY (`callee_id`),
-  ADD KEY `IXFK_callee_contact_data_call_center_employees` (`emp_id`);
 
 --
 -- Indexes for table `call_center_compaign_info`
@@ -321,6 +375,13 @@ ALTER TABLE `call_cent_user_info`
   ADD KEY `IXFK_call_cent_user_info_admin_info` (`admin_id`);
 
 --
+-- Indexes for table `contacts_lists`
+--
+ALTER TABLE `contacts_lists`
+  ADD PRIMARY KEY (`contact_ID`),
+  ADD KEY `call_cent_id` (`call_cent_id`);
+
+--
 -- Indexes for table `did_numbers_info`
 --
 ALTER TABLE `did_numbers_info`
@@ -337,6 +398,21 @@ ALTER TABLE `employees_notification`
   ADD KEY `call_cent_id` (`call_cent_id`);
 
 --
+-- Indexes for table `employee_calling_contacts`
+--
+ALTER TABLE `employee_calling_contacts`
+  ADD PRIMARY KEY (`emp_calling_id`),
+  ADD KEY `emp_id` (`emp_id`),
+  ADD KEY `contact_ID` (`contact_ID`);
+
+--
+-- Indexes for table `login/logout_activities`
+--
+ALTER TABLE `login/logout_activities`
+  ADD PRIMARY KEY (`login_logout_id`),
+  ADD KEY `emp_id` (`emp_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -345,12 +421,6 @@ ALTER TABLE `employees_notification`
 --
 ALTER TABLE `admin_info`
   MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `callee_contact_data`
---
-ALTER TABLE `callee_contact_data`
-  MODIFY `callee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `call_center_compaign_info`
@@ -374,13 +444,19 @@ ALTER TABLE `call_center_info`
 -- AUTO_INCREMENT for table `call_center_sales`
 --
 ALTER TABLE `call_center_sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `call_cent_user_info`
 --
 ALTER TABLE `call_cent_user_info`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `contacts_lists`
+--
+ALTER TABLE `contacts_lists`
+  MODIFY `contact_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `did_numbers_info`
@@ -395,14 +471,20 @@ ALTER TABLE `employees_notification`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `employee_calling_contacts`
 --
+ALTER TABLE `employee_calling_contacts`
+  MODIFY `emp_calling_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for table `callee_contact_data`
+-- AUTO_INCREMENT for table `login/logout_activities`
 --
-ALTER TABLE `callee_contact_data`
-  ADD CONSTRAINT `FK_callee_contact_data_call_center_employees` FOREIGN KEY (`emp_id`) REFERENCES `call_center_employees` (`emp_id`);
+ALTER TABLE `login/logout_activities`
+  MODIFY `login_logout_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- Constraints for dumped tables
+--
 
 --
 -- Constraints for table `call_center_compaign_info`
@@ -439,6 +521,12 @@ ALTER TABLE `call_cent_user_info`
   ADD CONSTRAINT `FK_call_cent_user_info_admin_info` FOREIGN KEY (`admin_id`) REFERENCES `admin_info` (`admin_id`);
 
 --
+-- Constraints for table `contacts_lists`
+--
+ALTER TABLE `contacts_lists`
+  ADD CONSTRAINT `contacts_lists_ibfk_1` FOREIGN KEY (`call_cent_id`) REFERENCES `call_center_info` (`call_cent_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `did_numbers_info`
 --
 ALTER TABLE `did_numbers_info`
@@ -451,6 +539,19 @@ ALTER TABLE `did_numbers_info`
 ALTER TABLE `employees_notification`
   ADD CONSTRAINT `employees_notification_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `call_center_employees` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `employees_notification_ibfk_2` FOREIGN KEY (`call_cent_id`) REFERENCES `call_center_info` (`call_cent_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `employee_calling_contacts`
+--
+ALTER TABLE `employee_calling_contacts`
+  ADD CONSTRAINT `employee_calling_contacts_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `call_center_employees` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `employee_calling_contacts_ibfk_2` FOREIGN KEY (`contact_ID`) REFERENCES `contacts_lists` (`contact_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `login/logout_activities`
+--
+ALTER TABLE `login/logout_activities`
+  ADD CONSTRAINT `login/logout_activities_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `call_center_employees` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
