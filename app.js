@@ -72,8 +72,10 @@ app.use(usersRouter)
 app.use('/emp', employeeRoutes)
 
 //getting user profile controller
-const user_controller = require('./User_Controllers/controller')
-user_controller(app)
+require('./User_Controllers/controller')(app)
+//employee controllers
+require('./employee Controllers/employeeController')(app)
+
 
 //passport login function
 app.get('/login_HomePage', passportJs_File.authenticate('local-login',

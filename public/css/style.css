@@ -438,7 +438,7 @@
   float: left;
   padding: 10px;
   max-height: 550px;
-  box-shadow: 0px 2px 4px grey;
+  /* box-shadow: 0px 2px 4px grey; */
 }
 
 .timerCount {

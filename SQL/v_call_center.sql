@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 05, 2020 at 12:10 PM
+-- Generation Time: Nov 20, 2020 at 11:45 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -213,14 +213,14 @@ CREATE TABLE `contacts_lists` (
 --
 
 INSERT INTO `contacts_lists` (`contact_ID`, `contact_Name`, `contact_Number`, `contact_Country`, `call_cent_id`, `contact_used_status`) VALUES
-(1, 'Saad ', '0354', 'USA', 1, 0),
-(6, 'Sohail', '1001', 'UK', 1, 0),
-(17, 'Saad ', '0354', 'USA', 1, 0),
-(18, 'Sohail', '1001', 'UK', 1, 0),
-(19, 'Saad ', '0354', 'USA', 1, 0),
-(20, 'Sohail', '1001', 'UK', 1, 0),
-(21, 'Saad ', '0354', 'USA', 1, 0),
-(22, 'Sohail', '1001', 'UK', 1, 0);
+(1, 'Saad ', '0354', 'USA', 1, 1),
+(6, 'Sohail', '1001', 'UK', 1, 1),
+(17, 'Saad ', '0354', 'USA', 1, 1),
+(18, 'Sohail', '1001', 'UK', 1, 1),
+(19, 'Saad ', '0354', 'USA', 1, 1),
+(20, 'Sohail', '1001', 'UK', 1, 1),
+(21, 'Saad ', '0354', 'USA', 1, 1),
+(22, 'Sohail', '1001', 'UK', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -278,8 +278,27 @@ CREATE TABLE `employee_calling_contacts` (
   `date` text NOT NULL,
   `status` tinyint(1) NOT NULL,
   `emp_id` int(11) NOT NULL,
-  `contact_ID` int(11) NOT NULL
+  `contact_ID` int(11) NOT NULL,
+  `callingStatus` text NOT NULL,
+  `callingTime` text NOT NULL,
+  `callingDate` text NOT NULL,
+  `callMinutes` text NOT NULL,
+  `callSeconds` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employee_calling_contacts`
+--
+
+INSERT INTO `employee_calling_contacts` (`emp_calling_id`, `time`, `date`, `status`, `emp_id`, `contact_ID`, `callingStatus`, `callingTime`, `callingDate`, `callMinutes`, `callSeconds`) VALUES
+(25, '11:18:29', '20-11-2020', 1, 2, 1, 'Not Interested', '16:41:57', '20-11-2020', '00', '05'),
+(26, '11:18:29', '20-11-2020', 0, 2, 6, 'Later', '15:46:47', '20-11-2020', '', ''),
+(27, '11:18:29', '20-11-2020', 0, 2, 17, 'CallBack', '15:56:9', '20-11-2020', '00', '11'),
+(28, '11:18:29', '20-11-2020', 0, 2, 18, 'null', 'null', 'null', '', ''),
+(29, '11:18:29', '20-11-2020', 0, 2, 20, 'null', 'null', 'null', '', ''),
+(30, '11:18:29', '20-11-2020', 0, 2, 19, 'null', 'null', 'null', '', ''),
+(31, '11:18:29', '20-11-2020', 1, 2, 21, 'Later', '16:42:20', '20-11-2020', '00', '13'),
+(32, '11:18:29', '20-11-2020', 0, 2, 22, 'null', 'null', 'null', '', '');
 
 -- --------------------------------------------------------
 
@@ -324,7 +343,25 @@ INSERT INTO `login/logout_activities` (`login_logout_id`, `loginTime`, `logoutTi
 (22, '14:32:17', NULL, '::1', 2, '5-11-2020', 0),
 (23, '14:33:28', NULL, '::1', 2, '5-11-2020', 0),
 (24, '14:45:28', NULL, '::1', 2, '5-11-2020', 0),
-(25, '14:51:15', NULL, '::1', 2, '5-11-2020', 0);
+(25, '14:51:15', NULL, '::1', 2, '5-11-2020', 0),
+(26, '11:50:33', NULL, '::1', 2, '19-11-2020', 0),
+(27, '12:46:23', NULL, '::1', 2, '19-11-2020', 0),
+(28, '14:7:27', NULL, '::1', 2, '19-11-2020', 0),
+(29, '14:38:39', NULL, '::1', 2, '19-11-2020', 0),
+(30, '14:47:53', NULL, '::1', 2, '19-11-2020', 0),
+(31, '14:48:18', NULL, '::1', 2, '19-11-2020', 0),
+(32, '17:27:3', NULL, '::1', 2, '19-11-2020', 0),
+(33, '17:29:52', NULL, '::1', 2, '19-11-2020', 0),
+(34, '17:32:26', NULL, '::1', 2, '19-11-2020', 0),
+(35, '11:18:9', NULL, '::1', 2, '20-11-2020', 0),
+(36, '11:53:18', NULL, '::1', 2, '20-11-2020', 0),
+(37, '12:1:14', NULL, '::1', 2, '20-11-2020', 0),
+(38, '14:52:50', NULL, '::1', 2, '20-11-2020', 0),
+(39, '14:53:23', NULL, '::ffff:127.0.0.1', 2, '20-11-2020', 0),
+(40, '14:53:57', NULL, '::1', 2, '20-11-2020', 0),
+(41, '14:54:33', NULL, '::1', 2, '20-11-2020', 0),
+(42, '15:55:53', NULL, '::ffff:127.0.0.1', 2, '20-11-2020', 0),
+(43, '16:41:11', NULL, '::ffff:127.0.0.1', 2, '20-11-2020', 0);
 
 --
 -- Indexes for dumped tables
@@ -474,13 +511,13 @@ ALTER TABLE `employees_notification`
 -- AUTO_INCREMENT for table `employee_calling_contacts`
 --
 ALTER TABLE `employee_calling_contacts`
-  MODIFY `emp_calling_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_calling_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `login/logout_activities`
 --
 ALTER TABLE `login/logout_activities`
-  MODIFY `login_logout_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `login_logout_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Constraints for dumped tables

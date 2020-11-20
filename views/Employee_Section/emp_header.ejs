@@ -15,8 +15,8 @@
         <% if(user != 'not logged In') {%>
         <nav id="sidebar">
             <div class="p-4 pt-5">
-                <% if(profilePic){ %>
-                <a class="img logo rounded-circle mb-5" style="background-image: url(<%=profilePic%>);"></a>
+                <% if(user.emp_profile_pic){ %>
+                <a class="img logo rounded-circle mb-5" style="background-image: url(<%=user.emp_profile_pic%>);"></a>
                 <% }else{ %>
                 <a class="img logo rounded-circle mb-5" style="background-image: url(/images/no-image.png);"></a>
                 <% } %>

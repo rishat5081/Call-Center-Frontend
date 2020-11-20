@@ -1,3 +1,5 @@
+const { response } = require('express')
+
 const empPassport = require('passport'),
     bcrypt = require('bcrypt'),
     LocalStrategy = require('passport-local').Strategy,
@@ -29,6 +31,7 @@ function authenticate_login(req, email, password, done) {
         })
         .then()
         .then((res) => {
+            console.log(res)
             return res
         })
         .catch((err) => {
@@ -36,8 +39,11 @@ function authenticate_login(req, email, password, done) {
         })
 
     user_Data_Response.then((response) => {
-        if (response.emp_deleted)
+        if (response == null)
             return done(null, false, req.flash('danger', 'Sorry! No user found'))
+
+        // if (response.emp_deleted == null)
+        //     return done(null, false, req.flash('danger', 'Sorry! No user found'))
         if (validate_Password(password, response.emp_password)) {
             var d = new Date(),
                 curr_date = d.getDate(),
@@ -47,9 +53,9 @@ function authenticate_login(req, email, password, done) {
                 minutes = d.getMinutes(),
                 seconds = d.getSeconds()
             /**
-             * Adding the activity of the login 
-             * which will store the login activity 
-             */
+               * Adding the activity of the login 
+               * which will store the login activity 
+               */
             login_logout_Modal.create({
                 loginTime: hours + ":" + minutes + ":" + seconds,
                 activityDate: curr_date + "-" + curr_month + "-" + curr_year,

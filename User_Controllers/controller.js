@@ -339,51 +339,6 @@ module.exports = (app) => {
 
 
 
-    app.get('/addContacts_to_List', (req, res) => {
-        var d = new Date(),
-            curr_date = d.getDate(),
-            curr_month = d.getMonth() + 1,
-            curr_year = d.getFullYear(),
-            hours = d.getHours(),
-            minutes = d.getMinutes(),
-            seconds = d.getSeconds()
-
-        const addContacts_toEmployee = async () => {
-            await contact_Lists_modal.findAll({
-                where: {
-                    contact_used_status: 0
-                },
-                limit: 10
-            })
-                .then((response) => {
-                    for (const iterator of response) {
-                        console.log(iterator.dataValues)
-                        contact_Lists_modal.update({
-                            contact_used_status: true
-                        }, {
-                            where: {
-                                contact_ID: iterator.dataValues.contact_ID
-                            }
-                        })
-                        employee_calling_Contacts.create({
-                            time: hours + ":" + minutes + ":" + seconds,
-                            date: curr_date + "-" + curr_month + "-" + curr_year,
-                            status: false,
-                            emp_id: req.session.passport.user.emp_id,
-                            contact_ID: iterator.dataValues.contact_ID
-                        })
-                    }
-                    res.status(200).send({ response })
-                })
-        }
-        addContacts_toEmployee()
-    })
-
-
-
-
-
-
 
 
 

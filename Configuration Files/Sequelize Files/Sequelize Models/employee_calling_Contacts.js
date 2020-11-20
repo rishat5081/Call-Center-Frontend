@@ -21,6 +21,31 @@ const { DataTypes, Model } = require('sequelize'),
             type: DataTypes.TEXT,
             allowNull: false
         },
+        callingStatus: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            defaultValue: "null"
+        },
+        callingTime: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            defaultValue: "null"
+        },
+        callingDate: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            defaultValue: "null"
+        },
+        callMinutes: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            defaultValue: "null"
+        },
+        callSeconds: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            defaultValue: "null"
+        },
         status: {
             allowNull: false,
             defaultValue: false,

@@ -20,6 +20,9 @@
 </div>
 
 
+<div id="responseofAjax">
+
+</div>
 
 
 
@@ -28,16 +31,17 @@
 <div class="col-lg-2" id="contactsOfCustomer">
     <ul class="list-group list-group-flush " id="contactList_UL">
         <% response.forEach((element,count) => { %>
-        <li class="list-group-item"><a type="button" class="btn btn-success" id="<%=element.contact_ID  %>"
-                onclick="callbtn(this.id)">Call</a> </li>
+        <li class="list-group-item" id="<%=element.contact_ID  %>"><button type="button" class="btn btn-success"
+                id="<%=element.contact_ID  %>" onclick="callbtn(this.id)">Call</button> </li>
         <% }) %>
     </ul>
 </div>
 
 
+<!-- this is a menu which will contain the customer response like interested, later or anything else -->
 
 
-<div class="col-lg-9" id="contactInfo" >
+<div class="col-lg-9" id="contactInfo">
     <div class="card">
         <div class="timerCount card-header">
             <h5 id="contactInfo_heading"></h5>
@@ -52,20 +56,22 @@
         <div class="card-body">
             <h5 class="card-title">Special title treatment</h5>
             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" id="customerComments">
                 <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <a class="btn btn-success" id="interestedBTN"
-                        onclick="interestedBTN_onclick(this.value)">Interested</a>
+                    <button class="btn btn-success" id="interestedBTN"
+                        onclick="interestedBTN_onclick(this.value)">Interested</button>
                 </div>
                 <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <a class="btn btn-danger" id="notInterestedBTN" onclick="notInterestedBTN_onclick(this.value)">Not
-                        Interested</a>
+                    <button class="btn btn-danger" id="notInterestedBTN"
+                        onclick="notInterestedBTN_onclick(this.value)">Not
+                        Interested</button>
                 </div>
                 <div class="btn-group mr-2" role="group" aria-label="Second group">
-                    <a class="btn btn-secondary" id="callbackBTN" onclick="callBackBTN_onclick()">Callback</a>
+                    <button class="btn btn-secondary" id="callbackBTN"
+                        onclick="callBackBTN_onclick(this.value)">Callback</button>
                 </div>
                 <div class="btn-group" role="group" aria-label="Third group">
-                    <a class="btn btn-warning" id="laterBTN" onclick="laterBTN_onclick()">Later</a>
+                    <button class="btn btn-warning" id="laterBTN" onclick="laterBTN_onclick(this.value)">Later</button>
                 </div>
             </div>
         </div>
@@ -73,33 +79,109 @@
 </div>
 
 
+<!-- this is the modal which will be responsible and it will display if there is no more contacts available in DB -->
 
-
-
+<!-- Modal -->
+<div class="modal fade " id="noMoreContacts" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Important Note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 id="noMoreContacts_Text"></h4>
+                <h6 id="contactAdmin"></h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 
     var response = JSON.parse('<%-JSON.stringify(response)%>')
+    var user = JSON.parse('<%-JSON.stringify(user)%>')
 
-    console.log(response);
+
+
+    //function for the fade of the alert
+    function alert_Fade(name_of_alert) {
+        $(`#${name_of_alert}`).fadeTo(2000, 500).slideUp(500, function () {
+            $(`#${name_of_alert}`).slideUp(500);
+        });
+    }
 
 
     function callbtn(id) {
+        $('.btn-group').children().prop('disabled', false);
         startStopwatch()
         $('#contactInfo_heading').html(id)
         $('#interestedBTN').val(id)
-        console.log($('#interestedBTN').val())
+        $('#notInterestedBTN').val(id)
+        $('#callbackBTN').val(id)
+        $('#laterBTN').val(id)
+        $('#contactInfo').fadeTo("slow", 1)
     }
+
+
     function interestedBTN_onclick(value) {
         stopStopwatch()
-        console.log(value);
+        statusUpdateonCall('Interested', value)
+    }
+
+    function laterBTN_onclick(value) {
+        stopStopwatch()
+        statusUpdateonCall('Later', value)
+
+    }
+    function callBackBTN_onclick(value) {
+        stopStopwatch()
+        statusUpdateonCall('CallBack', value)
+
     }
     function notInterestedBTN_onclick(value) {
         stopStopwatch()
-        console.log($('#s_minutes').html())
-        console.log($('#s_seconds').html())
-        console.log(value);
+        statusUpdateonCall('Not Interested', value)
+
     }
+
+
+
+    function statusUpdateonCall(status, contact_ID) {
+
+        $.ajax({
+            url: '/updateStatusof_Contact',
+            type: 'POST',
+            data: { status, contact_ID, minutes: $('#s_minutes').html(), seconds: $('#s_seconds').html() },
+            success: ((result) => {
+                console.log(result)
+                if (result.length > 0) {
+                    $('#responseofAjax').addClass('alert alert-success')
+                    $('#responseofAjax').html('Successfully! Status Updated.')
+                    alert_Fade('responseofAjax')
+                    $('.btn-group').children().prop('disabled', true);
+                    $('#' + contact_ID).remove()
+                    $('#contactInfo').fadeTo(1000, 0.2)
+                    resetStopwatch()
+                }
+                else {
+                    $('#responseofAjax').addClass('alert alert-danger')
+                    $('#responseofAjax').html('Error! Status not Updated.')
+                    alert_Fade('responseofAjax')
+                }
+
+            })
+        })
+
+
+    }
+
 
     function addContacts_ajaxCall() {
         var contactList = document.getElementById('contactList_UL')
@@ -107,20 +189,27 @@
             url: '/addContacts_to_List',
             type: 'GET',
             success: ((result) => {
-                if (result.response.length > 0) {
+                if (result.status) {
+                    $('#noMoreContacts_Text').html(result.status)
+                    $('#contactAdmin').html('Contact Your Admin')
+                    $('#noMoreContacts').modal('show')
+                }
+                else if (result.response.length > 0) {
                     result.response.forEach(element => {
                         var li = document.createElement('li')
                         li.className = 'list-group-item'
                         li.id = element.contact_ID
-                        li.innerHTML = `<a type="button" class="btn btn-success"
-                id="${element.contact_ID}" onclick="callbtn(this.id)">Call</a>`
+                        li.innerHTML = `<button type="button" class="btn btn-success"
+                id="${element.contact_ID}" onclick="callbtn(this.id)">Call</button>`
                         contactList.append(li)
                     });
+                    //$('#contactInfo').fadeTo("slow", 1)
 
                 }
             })
         })
     }
+
 
 
 </script>
@@ -224,34 +313,10 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- <a id="cart-popover" class="btn" role="button" data-placement="right">
 
     <button type="button" class="btn btn-dark">Dark</button>
-</a>
+</button>
 
 <div class="popover_title" style="display: none">
     <h6>Shopping Cart<span class="close-popover float-right text-danger "><i class="fas fa-times"></i></span></h6>
@@ -262,10 +327,10 @@
     <div align="right">
         <a href="#" class="btn btn-primary" id="check_out_cart">
             <i class="fa fa-shopping-cart"></i> Check Out
-        </a>
+        </button>
         <a href="#" class="btn btn-danger" id="clear_cart">
             <i class="fa fa-trash"></i> Clear
-        </a>
+        </button>
     </div>
 </div> -->
 
@@ -285,10 +350,10 @@
                            <div align="right">
                                <a href="#" class="btn btn-primary" id="check_out_cart">
                                    <i class="fa fa-shopping-cart"></i> Check Out
-                               </a>
+                               </button>
                                <a href="#" class="btn btn-danger" id="clear_cart">
                                    <i class="fa fa-trash"></i> Clear
-                               </a>
+                               </button>
                            </div>`)
             }
 
