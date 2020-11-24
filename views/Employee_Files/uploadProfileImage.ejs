@@ -1,0 +1,95 @@
+<% include Employee_Section/emp_header.ejs %>
+
+
+<div class="col-lg-12 uploadProfilePic_Heading">
+    <h3>Upload Profile Picture</h3>
+</div>
+
+<%- messages('Web_Sections/message.ejs',locals)  %>
+<div class="previewImage">
+    <img src="#" id="previewImage" width="250px" height="250px" hidden>
+</div>
+<div class="uploadImage">
+    <form action="/userProfilePicture" method="post" enctype="multipart/form-data" id="dasdasdas">
+        <div class="uploadBorder">
+            <div class="file-upload">
+                <input class="file-upload__input" type="file" name="profileImageName" id="myFile" multiple>
+                <button class="file-upload__button" type="button">Choose File(s)</button>
+                <span class="file-upload__label"></span>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-success" id="submitBTN"> Upload </button>
+    </form>
+</div>
+
+
+
+<script>
+    Array.prototype.forEach.call(
+        document.querySelectorAll(".file-upload__button"),
+        function (button) {
+            const hiddenInput = button.parentElement.querySelector(
+                ".file-upload__input"
+            );
+            const label = button.parentElement.querySelector(".file-upload__label");
+            const defaultLabelText = "No file(s) selected";
+
+            // Set default text for label
+            label.textContent = defaultLabelText;
+            label.title = defaultLabelText;
+
+            button.addEventListener("click", function () {
+                hiddenInput.click();
+            });
+
+            hiddenInput.addEventListener("change", function () {
+                const filenameList = Array.prototype.map.call(hiddenInput.files, function (
+                    file
+                ) {
+                    return file.name;
+                });
+
+                label.textContent = filenameList.join(", ") || defaultLabelText;
+                label.title = label.textContent;
+            });
+        }
+    );
+
+</script>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            $('#previewImage').prop('hidden', false)
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#previewImage').attr('src', e.target.result)
+                $('#previewImage').hide();
+                $('#previewImage').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#myFile").change(function () {
+        readURL(this);
+    });
+</script>
+
+
+<script>
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<% include Employee_Section/emp_footer.ejs %>

@@ -72,7 +72,7 @@ router.get('/edashboard', user_logged_In, (req, res) => {
     dbResponse
         .then((response) => {
             console.log(response);
-            res.status(200).render('edashboard', { response, profilePic: req.session.passport.user.emp_profile_pic })
+            res.status(200).render('edashboard', { response })
         })
         .catch((error) => {
             res.status(500).render('edashboard', req.flash('danger', 'Sorry! Error in loading'))
@@ -106,12 +106,12 @@ router.get('/empSales', user_logged_In, (req, res) => {
     dbResponse
         .then((response) => {
             console.log(response);
-            res.status(200).render('empSales', { response, profilePic: req.session.passport.user.emp_profile_pic })
+            res.status(200).render('empSales', { response })
         })
         .catch((error) => {
             res.status(500).render('empSales', req.flash('danger', 'Sorry! Error in loading'))
         })
-    // res.render('empSales', { response: req.session.passport.user, profilePic: req.session.passport.user.emp_profile_pic })
+    // res.render('empSales', { response: req.session.passport.user  })
 
 })
 
@@ -142,12 +142,27 @@ router.get('/makeCall', user_logged_In, (req, res) => {
 
     dbResponse
         .then((response) => {
-            res.status(200).render('makeCall', { response, profilePic: req.session.passport.user.emp_profile_pic })
+            res.status(200).render('makeCall', { response })
         })
         .catch((error) => {
             res.status(500).render('makeCall', req.flash('danger', 'Sorry! Error in loading'))
         })
-    // res.render('empSales', { response: req.session.passport.user, profilePic: req.session.passport.user.emp_profile_pic })
+    // res.render('empSales', { response: req.session.passport.user  })
+
+})
+
+/**
+ * it is the route that will be responsible 
+ * upload profile image of the employee 
+ * it will allow the employee to change its profile image
+ */
+
+router.get('/uploadProfileImage', user_logged_In, (req, res) => {
+
+
+
+    res.status(200).render('uploadProfileImage')
+
 
 })
 

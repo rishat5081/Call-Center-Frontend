@@ -59,8 +59,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-//require('./Configuration Files/Sequelize Files/Sequelize Config')
-// require('./Configuration Files/My Sql/mysql')
+
 
 // web pages routes and rendering the pages of the web pages like home, about , contact
 app.use(webPages_Routes.router)
@@ -70,6 +69,8 @@ app.use(usersRouter)
 
 //setting the routes of the employees
 app.use('/emp', employeeRoutes)
+
+//app.use(expreseFile_Upload())
 
 //getting user profile controller
 require('./User_Controllers/controller')(app)
@@ -121,5 +122,6 @@ app.use(function (err, req, res, next) {
 require('./RealTime Notification/sockets')(io)
 
 
-
 server.listen(process.env.Server_Port, () => console.log('Server Listen at', process.env.Server_Port))
+
+

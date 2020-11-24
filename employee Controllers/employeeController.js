@@ -8,11 +8,14 @@ const User_Login = require('../Configuration Files/Sequelize Files/Sequelize Mod
     contact_Lists_modal = require('../Configuration Files/Sequelize Files/Sequelize Models/Contacts_lists'),
     employee_calling_Contacts = require('../Configuration Files/Sequelize Files/Sequelize Models/employee_calling_Contacts'),
     bcrypt = require('bcrypt'),
-    salt_For_Bycrypt = 10
+    upload = require('express-fileupload'),
+    salt_For_Bycrypt = 10,
+    middleWare = require('../routes/webPages_Routes')
+
 
 require('dotenv').config()
 module.exports = (app) => {
-
+    app.use(upload())
 
     app.get('/addContacts_to_List', (req, res) => {
         var d = new Date(),
@@ -103,6 +106,38 @@ module.exports = (app) => {
 
 
 
+
+    app.post('/userProfilePicture', middleWare.not_logged_in, (req, res) => {
+        let sampleFile = req.files.profileImageName
+
+        let splitName = sampleFile.name.split('.')
+        let newNameofImage = Date.now() + req.session.passport.user.emp_email + '.' + splitName[1]
+        sampleFile.mv(`./public/employees/profile_pictures/` + newNameofImage, function (err) {
+            if (err) {
+                req.flash('danger', "Sorry ! Profile Picture could not uploaded.")
+                res.status(500).render('uploadProfileImage')
+            } else {
+
+
+                call_Center_Employee_Model.update({ emp_profile_pic: `/employees/profile_pictures/` + newNameofImage }, {
+                    where: {
+                        emp_id: req.session.passport.user.emp_id,
+                        emp_email: req.session.passport.user.emp_email
+                    }
+                }).then((response) => {
+                    if (response) {
+                        req.session.passport.user.emp_profile_pic = `/employees/profile_pictures/` + newNameofImage
+                        req.flash('success', "Congrats ! Profile Picture Uploaded.")
+                        res.status(200).render('uploadProfileImage', { user: req.session.passport.user })
+                    }
+                })
+                    .catch((error) => {
+                        req.flash('danger', "Sorry ! Profile Picture could not uploaded.")
+                        res.status(500).render('uploadProfileImage')
+                    })
+            }
+        })
+    })
 
 
 
