@@ -158,12 +158,8 @@ router.get('/makeCall', user_logged_In, (req, res) => {
  */
 
 router.get('/uploadProfileImage', user_logged_In, (req, res) => {
-
-
-
+    console.log(req.session.passport.user)
     res.status(200).render('uploadProfileImage')
-
-
 })
 
 

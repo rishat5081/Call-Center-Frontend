@@ -10,6 +10,7 @@ const User_Login = require('../Configuration Files/Sequelize Files/Sequelize Mod
     bcrypt = require('bcrypt'),
     upload = require('express-fileupload'),
     salt_For_Bycrypt = 10,
+    fs = require('fs'),
     middleWare = require('../routes/webPages_Routes')
 
 
@@ -107,37 +108,61 @@ module.exports = (app) => {
 
 
 
-    app.post('/userProfilePicture', middleWare.not_logged_in, (req, res) => {
+    app.post('/userProfilePicture', (req, res) => {
         let sampleFile = req.files.profileImageName
 
         let splitName = sampleFile.name.split('.')
+        fs.unlink('./public' + req.session.passport.user.emp_profile_pic, ((respons) => {
+            if (respons)
+                console.log(respons)
+            else
+                console.log("Deleted");
+        }))
         let newNameofImage = Date.now() + req.session.passport.user.emp_email + '.' + splitName[1]
         sampleFile.mv(`./public/employees/profile_pictures/` + newNameofImage, function (err) {
             if (err) {
                 req.flash('danger', "Sorry ! Profile Picture could not uploaded.")
-                res.status(500).render('uploadProfileImage')
+                res.status(500).render('/emp/uploadProfileImage')
             } else {
-
-
-                call_Center_Employee_Model.update({ emp_profile_pic: `/employees/profile_pictures/` + newNameofImage }, {
-                    where: {
-                        emp_id: req.session.passport.user.emp_id,
-                        emp_email: req.session.passport.user.emp_email
-                    }
-                }).then((response) => {
-                    if (response) {
-                        req.session.passport.user.emp_profile_pic = `/employees/profile_pictures/` + newNameofImage
-                        req.flash('success', "Congrats ! Profile Picture Uploaded.")
-                        res.status(200).render('uploadProfileImage', { user: req.session.passport.user })
-                    }
-                })
-                    .catch((error) => {
-                        req.flash('danger', "Sorry ! Profile Picture could not uploaded.")
-                        res.status(500).render('uploadProfileImage')
-                    })
+                updateDatabase_ProfilePic()
+                return true
             }
         })
+
+
+        // if (movePictureResponse)
+        //     console.log("asdjkbaskjdvash")
+        //  
+        /**
+         * using async await to handle to 
+         * update the profile pic path.
+         */
+
+        const updateDatabase_ProfilePic = async () => {
+            await call_Center_Employee_Model.update({ emp_profile_pic: `/employees/profile_pictures/` + newNameofImage }, {
+                where: {
+                    emp_id: req.session.passport.user.emp_id,
+                    emp_email: req.session.passport.user.emp_email
+                }
+            }).then((response) => {
+                if (response) {
+                    req.session.passport.user.emp_profile_pic = `/employees/profile_pictures/` + newNameofImage
+                    req.flash('success', "Congrats ! Profile Picture Uploaded.")
+
+                    res.status(200).redirect('/emp/uploadProfileImage')
+                }
+            })
+                .catch((error) => {
+                    req.flash('danger', "Sorry ! Profile Picture could not uploaded.")
+                    res.status(500).render('/emp/uploadProfileImage')
+                })
+        }
+
+
     })
+
+
+
 
 
 

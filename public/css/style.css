@@ -390,7 +390,7 @@
 }
 
 .headingContactList {
-  padding: 15px;
+  padding: 20px;
   box-shadow: 3px 3px 10px gray;
   margin-right: 10px !important;
 }
@@ -402,8 +402,16 @@
 .headingContactList button {
   float: right;
   padding: revert;
-  padding: 8px;
+  color: #279CD8;
+  padding: 6px;
   margin: 0px 0px 0px 60px;
+  font-weight: 600;
+}
+
+.headingContactList button:hover {
+  background-color: #279CD8;
+  border: 1px solid #279CD8;
+  color: #292929;
 }
 
 .customerDetails {
@@ -564,7 +572,9 @@
 
 .uploadBorder {
   width: 50%;
-  border: 5px dotted #2786ac;
+  border-bottom: 3px solid #2786ac;
+  transition: all 2s;
+  transform: scale(1);
 }
 
 .previewImage {
@@ -582,7 +592,7 @@
 }
 
 .uploadBorder:hover {
-  background-color: #73b9d4;
+  background-color: #e1ebef;
   transition: all 2s;
   /* transform: scale(1.1); */
 }
