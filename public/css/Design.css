@@ -1,66 +1,4 @@
-body {
-  font-family: "Poppins", Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.8;
-  font-weight: normal;
-  /* background: #fafafa; */
-  color: gray;
-}
 
-a {
-  -webkit-transition: .3s all ease;
-  -o-transition: .3s all ease;
-  transition: .3s all ease;
-  color: #f8b739;
-}
-
-a:hover, a:focus {
-  text-decoration: none !important;
-  outline: none !important;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-button {
-  -webkit-transition: .3s all ease;
-  -o-transition: .3s all ease;
-  transition: .3s all ease;
-}
-
-button:hover, button:focus {
-  text-decoration: none !important;
-  outline: none !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-}
-
-h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
-  line-height: 1.5;
-  font-weight: 400;
-  font-family: "Poppins", Arial, sans-serif;
-  color: #000;
-}
-
-.ftco-section {
-  padding: 7em 0;
-}
-
-.ftco-no-pt {
-  padding-top: 0;
-}
-
-.ftco-no-pb {
-  padding-bottom: 0;
-}
-
-.heading-section {
-  font-size: 28px;
-  color: #000;
-}
-
-.heading-section small {
-  font-size: 18px;
-}
 
 .img {
   background-size: cover;
@@ -99,17 +37,10 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 }
 
 #sidebar {
-  min-width: 300px;
-  max-width: 300px;
+  min-width: 250px;
+  max-width: 250px;
   background: #2a2b2c;
   color: #fff;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
-#sidebar.active {
-  margin-left: -300px;
 }
 
 #sidebar .logo {
@@ -193,23 +124,4 @@ a[data-toggle="collapse"] {
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
-}
-
-.btn.btn-primary {
-  background: #279cd8;
-  border-color: #279cd8;
-}
-
-.btn.btn-primary:hover, .btn.btn-primary:focus {
-  background: #292929 !important;
-  border-color: #292929 !important;
-}
-
-.btn.btn-primary:focus::after {
-  background: #279cd8;
-  border-color: #279cd8;
-}
-
-.footer p {
-  color: rgba(255, 255, 255, 0.5);
 }

@@ -81,6 +81,9 @@
         </div>
     </div>
 </div>
+
+
+
 <script>
 
     var response = JSON.parse('<%-JSON.stringify(response)%>')
@@ -94,6 +97,12 @@
 
     $('#Sales_Of_Employee').html(response[0].Sales_Of_Employee)
 </script>
+
+
+<!-- Do not touch these two ending div tags  -->
+<!-- they are from the footer.ejs file ending tags -->
+</div>
+</div>
 
 
 <% include Employee_Section/emp_footer.ejs %>
