@@ -1,27 +1,28 @@
 var express = require('express'),
-  app = express(),
-  path = require('path'),
-  session = require('express-session'),
-  cookieParser = require('cookie-parser'),
-  logger = require('morgan'),
-  bodyparser = require('body-parser'),
-  webPages_Routes = require('./routes/webPages_Routes'),
-  usersRouter = require('./routes/users_routes'),
-  employeeRoutes = require('.//routes/employee_routes'),
-  { env } = require('process'),
-  passport = require('passport'),
-  server = require('http').createServer(app),
-  io = require('socket.io').listen(server),
-  flash = require('connect-flash'),
-  createError = require('http-errors'),
-  passportJs_File = require('./Configuration Files/Passport Js/passport'),
-  employee_passport = require('./Configuration Files/Passport Js/employee_passport')
+    app = express(),
+    path = require('path'),
+    session = require('express-session'),
+    cookieParser = require('cookie-parser'),
+    logger = require('morgan'),
+    bodyparser = require('body-parser'),
+    webPages_Routes = require('./routes/webPages_Routes'),
+    usersRouter = require('./routes/users_routes'),
+    employeeRoutes = require('.//routes/employee_routes'),
+    { env } = require('process'),
+    passport = require('passport'),
+    server = require('http').createServer(app),
+    io = require('socket.io').listen(server),
+    flash = require('connect-flash'),
+    createError = require('http-errors'),
+    passportJs_File = require('./Configuration Files/Passport Js/passport'),
+    employee_passport = require('./Configuration Files/Passport Js/employee_passport')
 require('dotenv').config()
 
 // view engine setup
 app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views/Web_Pages'),
-path.join(__dirname, 'views/Web_Sections'), path.join(__dirname, 'views/Employee_Files'),
-path.join(__dirname, 'views/Employee_Section'), path.join(__dirname, 'views/User_Profile')])
+    path.join(__dirname, 'views/Web_Sections'), path.join(__dirname, 'views/Employee_Files'),
+    path.join(__dirname, 'views/Employee_Section'), path.join(__dirname, 'views/User_Profile')
+])
 
 //setting ejs as the view engine...
 app.set('view engine', 'ejs')
@@ -42,10 +43,10 @@ app.use(cookieParser())
 app.use(bodyparser.json())
 
 app.use(session({
-  saveUninitialized: false,
-  secret: 'VOIP Call Center',
-  // cookie: { secure: false },
-  resave: true
+    saveUninitialized: false,
+    secret: 'VOIP Call Center',
+    // cookie: { secure: false },
+    resave: true
 }))
 
 
@@ -54,9 +55,9 @@ app.use(passport.session())
 
 
 app.use(flash())
-app.use(function (req, res, next) {
-  res.locals.messages = require('express-messages')(req, res);
-  next();
+app.use(function(req, res, next) {
+    res.locals.messages = require('express-messages')(req, res);
+    next();
 });
 
 
@@ -74,44 +75,40 @@ app.use('/emp', employeeRoutes)
 
 //getting user profile controller
 require('./User_Controllers/controller')(app)
-//employee controllers
+    //employee controllers
 require('./employee Controllers/employeeController')(app)
 
 
 //passport login function
-app.get('/login_HomePage', passportJs_File.authenticate('local-login',
-  {
+app.get('/login_HomePage', passportJs_File.authenticate('local-login', {
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true,
-  })
-)
+}))
 
 
 //passport login function
-app.get('/login_of_Employee', employee_passport.authenticate('local-login-forEmployees',
-  {
+app.get('/login_of_Employee', employee_passport.authenticate('local-login-forEmployees', {
     successRedirect: '/emp/edashboard',
     failureRedirect: '/emp/elogin',
     failureFlash: true,
     session: true
-  })
-)
+}))
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+app.use(function(req, res, next) {
+    next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error')
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error')
 });
 
 
@@ -123,5 +120,3 @@ require('./RealTime Notification/sockets')(io)
 
 
 server.listen(process.env.Server_Port, () => console.log('Server Listen at', process.env.Server_Port))
-
-
