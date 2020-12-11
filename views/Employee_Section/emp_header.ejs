@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="wrapper fixed d-flex align-items-stretch ">
+    <div class="wrapper fixed d-flex align-items-stretch">
         <% if(user != 'not logged In') {%>
         <nav id="sidebar">
             <div class="p-4 pt-5">
@@ -33,28 +33,56 @@
                     <li>
                         <a href="/emp/uploadProfileImage">Upload Profile Image</a>
                     </li>
-                    <% if(user == 'not logged In'){ %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/emp/elogin">Login</a>
-                    </li>
-                    <% } %>
-                    <% if(user != 'not logged In') {%>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/emp/elogout">Log Out</a>
-                    </li>
-                    <% } %>
+
                 </ul>
+            </div>
+        </nav>
+        <% } %>
+
+        <% if( makeCallStatus){ %>
+
+        <nav id="sidebar" class="buttons_of_avatar position-absolute px-auto">
+            <div class="p-4 pt-5 buttons_of_Avatar">
+
+                <% avatar.forEach(element => {%>
+                <%=element.avatarCategory_name %>:
+                <div class="container px-auto col-md-12  success-btns ">
+                    <% element.avatar_button_modals.forEach(elements => {%>
+                    <button type="button" class="btn btn-warning"
+                        onclick="speakTEXT(this.innerHTML)"><%=elements.btn_text %></button>
+                    <% }); %>
+                </div>
+                <% }); %>
             </div>
         </nav>
 
         <% } %>
+
+
         <!-- Main logo of the Call center -->
         <img src="/images/logo.png" alt="Main Logo" id="mainLogo">
 
         <div id="content" class="p-4 p-md-5 col-lg-7">
 
-            <nav class="navbar  navbar-light p-3 text-center m-2 mb-4">
-                <h3>Make Call & Earn</h3>
+            <nav class="navbar navbar-expand-md navbar-light">
+
+                <div class="container-fluid">
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <% if(user == 'not logged In'){ %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/emp/elogin">Login</a>
+                            </li>
+                            <% } %>
+                            <% if(user != 'not logged In') {%>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/emp/elogout">Log Out</a>
+                            </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
             </nav>
 
             <script src="http://localhost:22001/socket.io/socket.io.js"></script>

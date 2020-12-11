@@ -1,6 +1,5 @@
 <% include Employee_Section/emp_header.ejs %>
 <%- messages('Web_Sections/message.ejs',locals)  %>
-
 <div class="mt-5">
 
     <div class="row px-5 mt-4 mb-5 mx-auto" id="heading_contactList">
@@ -17,14 +16,50 @@
         </div>
     </div>
 
+    <!-- these are two buttons which are responsible for the voice of the call  -->
+
+    <div class=" col-md-6 float-left px-auto mx-auto mt-4 mb-5">
+        <h4 class="h4 font-weight-lighter font-weight-normal">Select The Voice</h4>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-success active mr-2">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> Male Voice
+            </label>
+
+            <label class="btn btn-danger">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Female Voice
+            </label>
+        </div>
+    </div>
+
+    <!-- Buttons which will be used in the script tags 
+            to hold donw the voice and it will be used as 
+            per the text that pause, stop and resume the voice -->
+
+    <div class=" col-md-6 float-right  px-auto mx-auto mt-4 mb-5">
+        <h4 class="h4 font-weight-lighter font-weight-normal">Options During Call</h4>
+        <div class="btn-group btn px-2 mx-2">
+            <button type="button" id="option1" id="resume_BTN" class="btn btn-success mr-2"> Resume</button>
+            <button type="button" id="option1" id="pause_BTN" class="btn btn-warning mr-2"> Pause</button>
+            <button type="button" id="option1" id="stop_BTN" class="btn btn-danger"> Stop</button>
+        </div>
+    </div>
+
 
 
     <div id="responseofAjax">
 
     </div>
 
-    <div class="col-lg-12  px-auto mt-3">
 
+
+    <div class="col-lg-12 mt-5  px-auto mt-3">
+
+        <div class="container">
+            <h4 class="btn-group-vertical px-3 mb-3">
+                Customer Contacts
+                <small class="text-muted">Click the Button to Call</small>
+            </h4>
+        </div>
         <!-- start of call buttons -->
         <div class="float-left px-auto mx-auto col-md-2" id="contactsOfCustomer">
             <ul class="list-group list-group-flush mx-auto px-auto col-md-2 float-left " id="contactList_UL">
@@ -111,7 +146,8 @@
 
 
 
-<div class="bg-dark mt-5 float-left mx-auto px-auto border border-danger" >
+<!-- 
+<div class="bg-dark mt-5 float-left mx-auto px-auto border border-danger">
     <div class="card">
         <div class="timerCount card-header">
             <h5 id="contactInfo_heading"></h5>
@@ -147,9 +183,71 @@
         </div>
     </div>
 </div>
+ -->
+
+
+<script>
+    var resq = JSON.parse('<%-JSON.stringify(avatar)%>'),
+        sythesisVar = window.speechSynthesis,
+        voices = []
+    // getting the voices from the API Mozilla MDN
+    const getVoices = () => {
+        voices = sythesisVar.getVoices()
+    }
+
+    // The voices will be added when the onvoicechanged is triggered !!!! 
+    //then the voices will be added
+    getVoices();
+    if (sythesisVar.onvoiceschanged !== undefined)
+        sythesisVar.onvoiceschanged = getVoices
+
+    const SpeakText = (value) => {
+        if (sythesisVar.speaking) {
+            console.error("Already Speaking")
+            return
+        }
+        if (value !== '') {
+            const speakTEXT_Utterance = new SpeechSynthesisUtterance(value)
+
+            speakTEXT_Utterance.onend = e => {
+                console.log("Done Speaking")
+            }
+
+            speakTEXT_Utterance.onerror = e => {
+                console.error('There is something wrong' + e.error)
+            }
+
+            const maleVoice = 'Microsoft David Desktop - English(United States)',
+                femaleVoice = 'Microsoft Zira Desktop - English (United States)'
+
+            voices.forEach(element => {
+                if (element.name === femaleVoice) {
+                    console.log(element)
+                    speakTEXT_Utterance.voice = element
+
+                }
+            })
+
+
+            sythesisVar.speak(speakTEXT_Utterance)
+        }
+    }
+
+
+    function speakTEXT(value) {
+        console.log(value)
+        SpeakText(value)
+
+
+    }
 
 
 
+
+
+
+
+</script>
 
 
 

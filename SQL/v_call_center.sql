@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 27, 2020 at 10:56 AM
+-- Generation Time: Dec 11, 2020 at 11:19 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -41,6 +41,52 @@ CREATE TABLE `admin_info` (
 
 INSERT INTO `admin_info` (`admin_id`, `admin_username`, `admin_email`, `admin_password`, `admin_contact_Number`) VALUES
 (1, 'admin11', 'admin@gmail.com', 'saad1234', '0345-5536125');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `avatarbuttons`
+--
+
+CREATE TABLE `avatarbuttons` (
+  `avatar_btn_id` int(11) NOT NULL,
+  `btn_text` text NOT NULL,
+  `deletedStatus` tinyint(1) NOT NULL,
+  `avatar_category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `avatarbuttons`
+--
+
+INSERT INTO `avatarbuttons` (`avatar_btn_id`, `btn_text`, `deletedStatus`, `avatar_category_id`) VALUES
+(1, 'hello, how are you?', 0, 1),
+(2, 'hello, how are you?', 0, 2),
+(3, 'I am fine ', 0, 1),
+(4, 'Whats up?', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `avatarcategory`
+--
+
+CREATE TABLE `avatarcategory` (
+  `avatar_category_id` int(11) NOT NULL,
+  `avatarCategory_name` text NOT NULL,
+  `deletedStatus` tinyint(1) NOT NULL,
+  `compaign_id` int(11) NOT NULL,
+  `created_on` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `avatarcategory`
+--
+
+INSERT INTO `avatarcategory` (`avatar_category_id`, `avatarCategory_name`, `deletedStatus`, `compaign_id`, `created_on`) VALUES
+(1, 'Greeting', 0, 1, ''),
+(2, 'Not Greeting', 0, 2, ''),
+(3, 'New World', 0, 1, '');
 
 -- --------------------------------------------------------
 
@@ -294,8 +340,8 @@ INSERT INTO `employee_calling_contacts` (`emp_calling_id`, `time`, `date`, `stat
 (25, '11:18:29', '20-11-2020', 1, 2, 1, 'Not Interested', '16:41:57', '20-11-2020', '00', '05'),
 (26, '11:18:29', '20-11-2020', 1, 2, 6, 'CallBack', '15:11:17', '27-11-2020', '00', '05'),
 (27, '11:18:29', '20-11-2020', 1, 2, 17, 'Later', '15:11:26', '27-11-2020', '00', '01'),
-(28, '11:18:29', '20-11-2020', 0, 2, 18, 'null', 'null', 'null', '', ''),
-(29, '11:18:29', '20-11-2020', 0, 2, 20, 'null', 'null', 'null', '', ''),
+(28, '11:18:29', '20-11-2020', 1, 2, 18, 'Not Interested', '17:37:27', '10-12-2020', '00', '19'),
+(29, '11:18:29', '20-11-2020', 1, 2, 20, 'Not Interested', '17:37:56', '10-12-2020', '00', '20'),
 (30, '11:18:29', '20-11-2020', 0, 2, 19, 'null', 'null', 'null', '', ''),
 (31, '11:18:29', '20-11-2020', 1, 2, 21, 'Later', '16:42:20', '20-11-2020', '00', '13'),
 (32, '11:18:29', '20-11-2020', 0, 2, 22, 'null', 'null', 'null', '', '');
@@ -451,7 +497,25 @@ INSERT INTO `login/logout_activities` (`login_logout_id`, `loginTime`, `logoutTi
 (130, '15:13:35', NULL, '::1', 2, '26-11-2020', 0),
 (131, '15:14:51', NULL, '::1', 2, '26-11-2020', 0),
 (132, '15:16:36', NULL, '::1', 2, '26-11-2020', 0),
-(133, '15:17:19', NULL, '::ffff:127.0.0.1', 2, '26-11-2020', 0);
+(133, '15:17:19', NULL, '::ffff:127.0.0.1', 2, '26-11-2020', 0),
+(134, '12:25:53', NULL, '::1', 2, '4-12-2020', 0),
+(135, '12:27:8', NULL, '::1', 2, '4-12-2020', 0),
+(136, '12:27:57', NULL, '::1', 2, '4-12-2020', 0),
+(137, '11:1:1', '14:28:24', '::1', 2, '8-12-2020', 1),
+(138, '12:18:27', '14:28:24', '::1', 2, '8-12-2020', 1),
+(139, '12:19:39', '14:28:24', '::1', 2, '8-12-2020', 1),
+(140, '14:30:6', NULL, '::1', 2, '8-12-2020', 0),
+(141, '14:33:2', NULL, '::1', 2, '8-12-2020', 0),
+(142, '14:37:6', NULL, '::1', 2, '8-12-2020', 0),
+(143, '14:37:22', NULL, '::ffff:127.0.0.1', 2, '8-12-2020', 0),
+(144, '14:38:16', NULL, '::ffff:127.0.0.1', 2, '8-12-2020', 0),
+(145, '12:3:35', NULL, '::ffff:127.0.0.1', 2, '9-12-2020', 0),
+(146, '12:5:1', NULL, '::1', 2, '9-12-2020', 0),
+(147, '12:6:2', NULL, '::ffff:127.0.0.1', 2, '9-12-2020', 0),
+(148, '12:7:39', NULL, '::1', 2, '9-12-2020', 0),
+(149, '12:9:7', NULL, '::1', 2, '9-12-2020', 0),
+(150, '17:36:51', '17:48:30', '::1', 2, '10-12-2020', 1),
+(151, '14:13:59', NULL, '::1', 2, '11-12-2020', 0);
 
 --
 -- Indexes for dumped tables
@@ -462,6 +526,20 @@ INSERT INTO `login/logout_activities` (`login_logout_id`, `loginTime`, `logoutTi
 --
 ALTER TABLE `admin_info`
   ADD PRIMARY KEY (`admin_id`);
+
+--
+-- Indexes for table `avatarbuttons`
+--
+ALTER TABLE `avatarbuttons`
+  ADD PRIMARY KEY (`avatar_btn_id`),
+  ADD KEY `avatar_category_id` (`avatar_category_id`);
+
+--
+-- Indexes for table `avatarcategory`
+--
+ALTER TABLE `avatarcategory`
+  ADD PRIMARY KEY (`avatar_category_id`),
+  ADD KEY `compaign_id` (`compaign_id`);
 
 --
 -- Indexes for table `call_center_compaign_info`
@@ -550,6 +628,18 @@ ALTER TABLE `admin_info`
   MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `avatarbuttons`
+--
+ALTER TABLE `avatarbuttons`
+  MODIFY `avatar_btn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `avatarcategory`
+--
+ALTER TABLE `avatarcategory`
+  MODIFY `avatar_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `call_center_compaign_info`
 --
 ALTER TABLE `call_center_compaign_info`
@@ -607,11 +697,23 @@ ALTER TABLE `employee_calling_contacts`
 -- AUTO_INCREMENT for table `login/logout_activities`
 --
 ALTER TABLE `login/logout_activities`
-  MODIFY `login_logout_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `login_logout_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `avatarbuttons`
+--
+ALTER TABLE `avatarbuttons`
+  ADD CONSTRAINT `avatarbuttons_ibfk_1` FOREIGN KEY (`avatar_category_id`) REFERENCES `avatarcategory` (`avatar_category_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `avatarcategory`
+--
+ALTER TABLE `avatarcategory`
+  ADD CONSTRAINT `avatarcategory_ibfk_1` FOREIGN KEY (`compaign_id`) REFERENCES `call_center_compaign_info` (`compaign_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `call_center_compaign_info`

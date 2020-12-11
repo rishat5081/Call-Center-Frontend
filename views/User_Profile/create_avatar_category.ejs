@@ -1,0 +1,212 @@
+<% include Web_Sections/header.ejs %>
+<%- messages('Web_Sections/message.ejs',locals)  %>
+
+<div class="col-lg-10 col-md-10 text-center px-auto mx-auto mb-5 mt-5 px-5 border-bottom border-primary">
+    <h1 class="display-4">Create Your Avatar Category</h1>
+</div>
+
+<div class="container-fluid  mx-auto px-auto col-md-12 col-lg-12">
+
+    <div class="row">
+        <div class="col-md-6 col-lg-6 px-auto mx-auto float-left">
+            <select class="form-control mt-3" id="compaign_name" onchange="comapignName_select(this.value)">
+                <option class="form-group" value="0">Select Your Compaign:</option>
+                <% response.forEach(element => {%>
+                <option value="<%=element.compaign_name%>"><%=element.compaign_name%>
+                </option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="col-md-6 col-lg-6 px-auto mx-auto float-right mt-3 ">
+            <blockquote class="blockquote float-right mr-2">
+                <p class="mb-0 mr-2"> Add Category
+                    <button type="button" class="btn btn-outline-success btn-sm float-right ml-2" data-toggle="modal"
+                        data-target="#add_edit_modal">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill"
+                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                        </svg>
+                    </button>
+                </p>
+
+            </blockquote>
+
+        </div>
+
+
+
+        <!-- <div class="col-md-6 col-lg-6 px-auto mx-auto float-right">
+            Add Category
+
+            <button type="button" class="btn btn-outline-success btn-sm float-right" data-toggle="modal"
+                data-target="#exampleModal">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                </svg>
+            </button>
+        </div> -->
+    </div>
+
+    <!-- Modal for edit and add category-->
+    <div class="modal fade " id="add_edit_modal" tabindex="-1" aria-labelledby="Add Edit Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="date" class="form-control" id="exampleInputPassword1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <table class="table mt-4">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Sr.No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Created On</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody id="table_Body">
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+
+                <td><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                        data-target="#add_edit_modal">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square"
+                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
+                            </path>
+                            <path fill-rule="evenodd"
+                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
+                            </path>
+                        </svg>
+                    </button>
+                </td>
+                <td><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                        data-target="#add_edit_modal">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash2-fill" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M2.037 3.225l1.684 10.104A2 2 0 0 0 5.694 15h4.612a2 2 0 0 0 1.973-1.671l1.684-10.104C13.627 4.224 11.085 5 8 5c-3.086 0-5.627-.776-5.963-1.775z" />
+                            <path fill-rule="evenodd"
+                                d="M12.9 3c-.18-.14-.497-.307-.974-.466C10.967 2.214 9.58 2 8 2s-2.968.215-3.926.534c-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466zM8 5c3.314 0 6-.895 6-2s-2.686-2-6-2-6 .895-6 2 2.686 2 6 2z" />
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+
+                <td><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                        data-target="#add_edit_modal">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square"
+                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
+                            </path>
+                            <path fill-rule="evenodd"
+                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
+                            </path>
+                        </svg>
+                    </button>
+                </td>
+                <td><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                        data-target="#add_edit_modal">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash2-fill" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M2.037 3.225l1.684 10.104A2 2 0 0 0 5.694 15h4.612a2 2 0 0 0 1.973-1.671l1.684-10.104C13.627 4.224 11.085 5 8 5c-3.086 0-5.627-.776-5.963-1.775z" />
+                            <path fill-rule="evenodd"
+                                d="M12.9 3c-.18-.14-.497-.307-.974-.466C10.967 2.214 9.58 2 8 2s-2.968.215-3.926.534c-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466zM8 5c3.314 0 6-.895 6-2s-2.686-2-6-2-6 .895-6 2 2.686 2 6 2z" />
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+
+                <td><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                        data-target="#add_edit_modal">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square"
+                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
+                            </path>
+                            <path fill-rule="evenodd"
+                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
+                            </path>
+                        </svg>
+                    </button>
+                </td>
+                <td><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                        data-target="#exampleModal">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash2-fill" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M2.037 3.225l1.684 10.104A2 2 0 0 0 5.694 15h4.612a2 2 0 0 0 1.973-1.671l1.684-10.104C13.627 4.224 11.085 5 8 5c-3.086 0-5.627-.776-5.963-1.775z" />
+                            <path fill-rule="evenodd"
+                                d="M12.9 3c-.18-.14-.497-.307-.974-.466C10.967 2.214 9.58 2 8 2s-2.968.215-3.926.534c-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466zM8 5c3.314 0 6-.895 6-2s-2.686-2-6-2-6 .895-6 2 2.686 2 6 2z" />
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+</div>
+
+<script>
+    var respp = JSON.parse('<%-JSON.stringify(response)%>')
+
+    console.log(respp)
+    function comapignName_select(value) {
+        var optionSelected = document.getElementById('compaign_name').value
+        console.log(value)
+    }
+
+
+
+    // function addRows_toTableBody() {
+    //     var
+    // }
+</script>
+
+
+
+
+
+
+<% include Web_Sections/footer.ejs %>

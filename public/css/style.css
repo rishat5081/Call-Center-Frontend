@@ -7,7 +7,6 @@
     height: 70px;
 }
 
-
 /* 
 **************************************** footer.EJS file  ***************************************** */
 
@@ -16,7 +15,6 @@
     padding: 100px;
     background-color: #292929;
 }
-
 
 /* 
 **************************************** login.EJS file  ***************************************** */
@@ -67,7 +65,6 @@
     text-align: center;
 }
 
-
 /* 
 **************************************** Home Page .EJS file  ***************************************** */
 
@@ -87,7 +84,6 @@
     margin: 0px 0px 40px 0px;
 }
 
-
 /* 
 **************************************** Sign Up Page .EJS file  ***************************************** */
 
@@ -99,7 +95,6 @@
     width: 20%;
     float: right;
 }
-
 
 /* 
 **************************************** User Profile Page .EJS file  ***************************************** */
@@ -145,7 +140,6 @@
 .image_edit {
     width: 50%;
 }
-
 
 /* -------------------------Modal to edit the input fields--------------------------- */
 
@@ -197,9 +191,7 @@
     border: 1px solid transparent;
 }
 
-
 /* side by side div css */
-
 
 /* .one {
   display: table;
@@ -211,7 +203,6 @@
 .second h6 {
   display: table-cell;
 } */
-
 
 /* ----------------------Manage Access Tab ..... call_center_manage_DID_employees.EJS------------------------------ */
 
@@ -273,7 +264,6 @@
     /* float: right; */
 }
 
-
 /* ----------------------Manage Compaign.EJS------------------------------ */
 
 #manage_compaign_Table {
@@ -285,7 +275,6 @@
     text-align: justify;
     width: 100%;
 }
-
 
 /* ----------------------Manage Access to Employee.EJS------------------------------ */
 
@@ -309,7 +298,6 @@
     width: 100%;
     margin: 15px 0px 0px 0px;
 }
-
 
 /* ------------------------------------ Employees Dashboard -------------------------------  */
 
@@ -354,7 +342,6 @@
     margin: 30px 0px 0px 0px;
 }
 
-
 /* ------------------------------ Sales Details ------------------------------- */
 
 #salesDetails {
@@ -375,7 +362,6 @@
     width: 10px;
 }
 
-
 /* Track */
 
 ::-webkit-scrollbar-track {
@@ -384,14 +370,12 @@
     border-width: 100px;
 }
 
-
 /* Handle */
 
 ::-webkit-scrollbar-thumb {
     background: rgb(83, 83, 83);
     border-radius: 10px;
 }
-
 
 /* ------------------------------- Setting PopOver for the make call in employee makecall.ejs----------------------------------- */
 
@@ -454,7 +438,7 @@
     float: right;
     box-shadow: 2px 6px 10px grey;
     padding: 10px;
-    /* opacity: 0.2; */
+    opacity: 0.2;
 }
 
 #contactsOfCustomer {
@@ -498,7 +482,6 @@
     /* padding: 25px; */
     /* margin-left: 0% !important; */
 }
-
 
 /* --------------------------- Upload Profile picture File -------------------------------------- */
 
@@ -612,4 +595,20 @@
     background-color: #e1ebef;
     transition: all 2s;
     /* transform: scale(1.1); */
+}
+
+.buttons_of_avatar {
+    right: 0 !important;
+    height: 100%;
+    max-width: 24% !important;
+    width: 50%;
+}
+
+
+.success-btns button {
+    /* padding: 5px; */
+    margin: 5px;
+}
+.buttons_of_Avatar{
+    background-color: #2a2b2c;
 }

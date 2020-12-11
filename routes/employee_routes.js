@@ -4,6 +4,8 @@ var express = require('express'),
     call_center_sales = require('../Configuration Files/Sequelize Files/Sequelize Models/call_cent_sales'),
     login_logout_modal = require('../Configuration Files/Sequelize Files/Sequelize Models/login_logout'),
     Contacts_lists = require('../Configuration Files/Sequelize Files/Sequelize Models/Contacts_lists'),
+    avatarCategory = require('../Configuration Files/Sequelize Files/Sequelize Models/avatarCategory'),
+    avatarButton = require('../Configuration Files/Sequelize Files/Sequelize Models/avatarButton'),
     employee_calling_Contacts = require('../Configuration Files/Sequelize Files/Sequelize Models/employee_calling_Contacts'),
     sequelize = require('../Configuration Files/Sequelize Files/Sequelize Config')
 
@@ -15,8 +17,7 @@ var user_logged_In = (req, res, next) => {
         // console.log(req.session.passport.user)
         res.locals.user = req.session.passport.user
         next()
-    }
-    else
+    } else
         res.redirect('/emp/elogin')
 }
 
@@ -26,15 +27,16 @@ var not_logged_in = (req, res, next) => {
         // console.log(req.session.passport.user)
         res.locals.user = req.session.passport.user
         next()
-    }
-    else {
+    } else {
         res.locals.user = 'not logged In'
         next()
     }
 }
 
 router.get('/elogin', not_logged_in, (req, res) => {
-    res.status(200).render('emp_login')
+    res.status(200).render('emp_login', {
+        makeCallStatus: 0
+    })
 })
 
 
@@ -46,20 +48,23 @@ router.get('/edashboard', user_logged_In, (req, res) => {
 
     const dbResponse = call_center_sales.findAll({
 
-        attributes: { include: [[sequelize.fn('COUNT', sequelize.col('sales_id')), 'Sales_Of_Employee']] },
-        include: {
-            model: employees_modal,
-            where: {
-                emp_id: req.session.passport.user.emp_id
+            attributes: {
+                include: [
+                    [sequelize.fn('COUNT', sequelize.col('sales_id')), 'Sales_Of_Employee']
+                ]
             },
-            required: false
-        },
-        where:
-        {
-            emp_id: req.session.passport.user.emp_id,
+            include: {
+                model: employees_modal,
+                where: {
+                    emp_id: req.session.passport.user.emp_id
+                },
+                required: false
+            },
+            where: {
+                emp_id: req.session.passport.user.emp_id,
 
-        }
-    })
+            }
+        })
         .then()
         .then((response) => {
             return response
@@ -72,7 +77,10 @@ router.get('/edashboard', user_logged_In, (req, res) => {
     dbResponse
         .then((response) => {
             console.log(response);
-            res.status(200).render('edashboard', { response })
+            res.status(200).render('edashboard', {
+                response,
+                makeCallStatus: 0
+            })
         })
         .catch((error) => {
             res.status(500).render('edashboard', req.flash('danger', 'Sorry! Error in loading'))
@@ -88,12 +96,11 @@ router.get('/edashboard', user_logged_In, (req, res) => {
 router.get('/empSales', user_logged_In, (req, res) => {
 
     const dbResponse = call_center_sales.findAll({
-        // attributes: { include: [[sequelize.fn('COUNT', sequelize.col('sales_id')), 'Sales_Of_Employee']] },
-        where:
-        {
-            emp_id: req.session.passport.user.emp_id,
-        }
-    })
+            // attributes: { include: [[sequelize.fn('COUNT', sequelize.col('sales_id')), 'Sales_Of_Employee']] },
+            where: {
+                emp_id: req.session.passport.user.emp_id,
+            }
+        })
         .then()
         .then((response) => {
             return response
@@ -106,7 +113,10 @@ router.get('/empSales', user_logged_In, (req, res) => {
     dbResponse
         .then((response) => {
             console.log(response);
-            res.status(200).render('empSales', { response })
+            res.status(200).render('empSales', {
+                response,
+                makeCallStatus: 0
+            })
         })
         .catch((error) => {
             res.status(500).render('empSales', req.flash('danger', 'Sorry! Error in loading'))
@@ -119,17 +129,19 @@ router.get('/empSales', user_logged_In, (req, res) => {
 /**
  * it is the route that will be responsible 
  * for the make call
+ * it will also bring the avatar buttons 
+ * 
  */
 
 router.get('/makeCall', user_logged_In, (req, res) => {
 
     const dbResponse = employee_calling_Contacts.findAll({
-        attributes: ["contact_ID"],
-        where: {
-            emp_id: req.session.passport.user.emp_id,
-            status: false
-        }
-    })
+            attributes: ["contact_ID"],
+            where: {
+                emp_id: req.session.passport.user.emp_id,
+                status: false
+            }
+        })
         .then()
         .then((response) => {
             console.log(response)
@@ -139,10 +151,37 @@ router.get('/makeCall', user_logged_In, (req, res) => {
             return error
         })
 
-
+    /**
+     * here it is checking the call buttons for the contacts which are remaining
+     * and also in the promise it is waiting for the avatar buttons
+     */
     dbResponse
         .then((response) => {
-            res.status(200).render('makeCall', { response })
+            const avatarResponse = avatarCategory.findAll({
+                    include: {
+                        model: avatarButton,
+                    },
+                    where: {
+                        compaign_id: req.session.passport.user.compaign_id
+                    }
+                })
+                .then(avatarDB => {
+                    return avatarDB
+                }).catch(error => {
+                    res.status(500).render('makeCall', req.flash('danger', 'Sorry! Error in loading Avatar !'))
+                })
+
+            avatarResponse.then((avatar) => {
+                    res.status(200).render('makeCall', {
+                        response,
+                        avatar,
+                        makeCallStatus: 1
+                    })
+                })
+                .catch((error) => {
+                    res.status(500).render('makeCall', req.flash('danger', 'Sorry! Error in loading Avatar !'))
+                })
+
         })
         .catch((error) => {
             res.status(500).render('makeCall', req.flash('danger', 'Sorry! Error in loading'))
@@ -159,7 +198,9 @@ router.get('/makeCall', user_logged_In, (req, res) => {
 
 router.get('/uploadProfileImage', user_logged_In, (req, res) => {
     console.log(req.session.passport.user)
-    res.status(200).render('uploadProfileImage')
+    res.status(200).render('uploadProfileImage', {
+        makeCallStatus: 0
+    })
 })
 
 
@@ -176,15 +217,15 @@ router.get('/elogout', (req, res) => {
         seconds = d.getSeconds()
 
     login_logout_modal.update({
-        logoutTime: hours + ":" + minutes + ":" + seconds,
-        activityStatus: true
-    }, {
-        where: {
-            emp_id: req.session.passport.user.emp_id,
-            activityDate: curr_date + "-" + curr_month + "-" + curr_year,
-            activityStatus: false
-        }
-    })
+            logoutTime: hours + ":" + minutes + ":" + seconds,
+            activityStatus: true
+        }, {
+            where: {
+                emp_id: req.session.passport.user.emp_id,
+                activityDate: curr_date + "-" + curr_month + "-" + curr_year,
+                activityStatus: false
+            }
+        })
         .then((dbResult) => {
             if (dbResult)
                 console.log("Logout Activity Triggered")
@@ -199,3 +240,21 @@ router.get('/elogout', (req, res) => {
 module.exports = router
 
 
+
+
+
+
+
+
+// avatarCategory.findAll({
+//     include: {
+//         model: avatarButton,
+//         // where:{
+//         //     avatar_category_id : avatarCategory.id
+//         // }
+//     },
+//     where: {
+//         compaign_id: 1
+//     }
+//     }).then(dasdas => console.log(dasdas[0].dataValues.avatar_button_modals))
+// // }).then(dasdas => console.log(dasdas))
